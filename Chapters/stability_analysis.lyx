@@ -1,0 +1,1736 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+theorems-bytype
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Stability Analysis
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Stability-Analysis"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The stability analysis of this control algorithm can be divided into two
+ parts: rotational and translational.
+ Lyapunov functions 
+\begin_inset Formula $V_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{2}$
+\end_inset
+
+ are designed to prove the stability of the translational and rotational
+ dynamics, respectively.
+ The stability of the overall system is then proven by using 
+\begin_inset Formula $V=V_{1}+V_{2}$
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Shevitz1994"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Stability Analysis of the Rotational Dynamics
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:attitude controller"
+
+\end_inset
+
+The controller designed in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:moment control input"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) can ensure 
+\begin_inset Formula $e_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $e_{\Omega}$
+\end_inset
+
+ achieve exponential stability and 
+\begin_inset Formula $\Psi\left(R\left(t\right),R_{d}\left(t\right)\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\psi_{2}$
+\end_inset
+
+ defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Psi"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:psi2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) satisfy 
+\begin_inset Formula 
+\begin{align}
+\Psi\left(R\left(t\right),R_{d}\left(t\right)\right) & \leq\psi_{2}<2\label{eq:psi_2 upper bound}
+\end{align}
+
+\end_inset
+
+provided that the following conditions are satisfied 
+\begin_inset Formula 
+\begin{equation}
+\Psi\left(R\left(0\right),R_{d}\left(0\right)\right)<2\label{eq:Psi<2}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align}
+\left\Vert e_{\Omega}\left(0\right)\right\Vert ^{2} & <\frac{2}{\lambda_{\max}\left(J\right)}k_{R}\left(2-\Psi\left(R\left(0\right),R_{d}\left(0\right)\right)\right).\label{eq:e_omega=0}\\
+C_{2} & <\min\Bigl\{\frac{k_{\Omega}}{\lambda_{\max}\left(J\right)},\frac{4k_{\Omega}k_{R}}{k_{\Omega}^{2}+4k_{R}\lambda_{\max}\left(J\right)},\sqrt{\frac{k_{R}\lambda_{\min}\left(J\right)}{\lambda_{\max}\left(J\right)^{2}}}\Bigr\},\label{eq:C2}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $C_{2}$
+\end_inset
+
+ is a positive constant.
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $V_{2}$
+\end_inset
+
+ be defined as
+\begin_inset Formula 
+\begin{align}
+V_{2}= & \frac{1}{2}e_{\Omega}\cdot Je_{\Omega}+k_{R}\Psi(R,R_{d})+JC_{2}e_{R}\cdot e_{\Omega}+\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J},\label{eq:V2}
+\end{align}
+
+\end_inset
+
+which can be lower and upper bounded by 
+\begin_inset Formula 
+\begin{align}
+z_{2}^{T}M_{21}z_{2} & +\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J}\leq V_{2}\leq z_{2}^{T}M_{22}z_{2}+\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J},\label{eq:V2 bound}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $z_{2}\triangleq\left[\begin{array}{cc}
+\left\Vert e_{R}\right\Vert , & \left\Vert e_{\Omega}\right\Vert \end{array}\right]^{T}$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align}
+M_{21} & =\frac{1}{2}\left[\begin{array}{cc}
+k_{R} & -C_{2}\lambda_{\max}\left(J\right)\\
+-C_{2}\lambda_{\max}\left(J\right) & \lambda_{\min}\left(J\right)
+\end{array}\right],\label{eq:M21}\\
+M_{22} & =\frac{1}{2}\left[\begin{array}{cc}
+\frac{2k_{R}}{2-\psi_{2}} & C_{2}\lambda_{\max}\left(J\right)\\
+C_{2}\lambda_{\max}\left(J\right) & \lambda_{\max}\left(J\right)
+\end{array}\right],\label{eq:M22}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $\psi_{2}\in\mathbb{R}$
+\end_inset
+
+ is defined as
+\begin_inset Formula 
+\begin{equation}
+\psi_{2}=\frac{1}{k_{R}}\left[\frac{1}{2}e_{\Omega}\left(0\right)\cdot Je_{\Omega}\left(0\right)+k_{R}\Psi(R\left(0\right),R_{d}\left(0\right))\right].\label{eq:psi2}
+\end{equation}
+
+\end_inset
+
+Taking the time derivative of 
+\begin_inset Formula $V_{2}$
+\end_inset
+
+ yields 
+\begin_inset Formula 
+\begin{align}
+\dot{V_{2}}= & e_{\Omega}\cdot J\dot{e}_{\Omega}-\frac{1}{2}k_{R}\text{tr}[-\hat{\Omega}_{d}R_{d}^{T}R+R_{d}^{T}R\hat{\Omega}]\nonumber \\
+ & +JC_{2}\dot{e}_{R}\cdot e_{\Omega}+JC_{2}\dot{e}_{\Omega}\cdot e_{R}\nonumber \\
+ & +\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\dot{\tilde{\theta}}_{J}\nonumber \\
+= & e_{\Omega}\cdot J\dot{e}_{\Omega}-\frac{1}{2}k_{R}\text{tr}[R_{d}^{T}R\hat{e}_{\Omega}]\nonumber \\
+ & +JC_{2}\dot{e}_{R}\cdot e_{\Omega}+JC_{2}\dot{e}_{\Omega}\cdot e_{R}\nonumber \\
+ & +\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\dot{\tilde{\theta}}_{J}.\label{eq:V2_dot}
+\end{align}
+
+\end_inset
+
+The second and fifth terms of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:V2_dot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) can be written as 
+\begin_inset Formula 
+\begin{align}
+\text{tr}[R_{d}^{T}R\hat{e}_{\Omega}] & =\frac{1}{2}\text{tr}[R_{d}^{T}R\hat{e}_{\Omega}-\hat{e}_{\Omega}R^{T}R_{d}]\nonumber \\
+ & =\frac{1}{2}\text{tr}[\hat{e}_{\Omega}(R_{d}^{T}R-R^{T}R_{d})]=\text{tr}[\hat{e}_{\Omega}\hat{e}_{R}]\nonumber \\
+ & =-2e_{R}e_{\Omega}.\label{eq:2nd_of_V2_dot}\\
+\dot{\tilde{\theta}}_{J} & =-\dot{\hat{\theta}}_{J}.\label{eq:fifth_of_V2_dot}
+\end{align}
+
+\end_inset
+
+Based on (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:eR_dot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Je_Omega_dot_new"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:2nd_of_V2_dot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:fifth_of_V2_dot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:V2_dot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) can be written as  
+\begin_inset Formula 
+\begin{align}
+\dot{V_{2}}= & (e_{\Omega}+C_{2}e_{R})\cdot(-k_{R}e_{R}-k_{\Omega}e_{\Omega}+Y_{J}\tilde{\theta}_{J})+k_{R}e_{\Omega}\cdot e_{R}\nonumber \\
+ & +JC_{2}C(R_{d}^{T}R)e_{\Omega}\cdot e_{\Omega}-\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\dot{\hat{\theta}}_{J}.\label{eq:V2_dot_2}
+\end{align}
+
+\end_inset
+
+Since 
+\begin_inset Formula $C(R_{d}^{T}R)$
+\end_inset
+
+ defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:C_RdR"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) can be bounded as 
+\begin_inset Formula $\left\Vert C(R_{d}^{T}R)\right\Vert \leq1$
+\end_inset
+
+, substituting the equivalent ICL-based update law in Proposition 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "prop2:-defined-in"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ into (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:V2_dot_2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) yields 
+\begin_inset Formula 
+\begin{align}
+\dot{V_{2}}\leq & -z_{2}^{T}W_{2}z_{2}-k_{J}^{cl}\tilde{\theta}_{J}^{T}\mathcal{G}_{J}\tilde{\theta}_{J},\label{eq:V2_dot_4}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $W_{2}$
+\end_inset
+
+ is defined as
+\begin_inset Formula 
+\begin{equation}
+W_{2}=\left[\begin{array}{cc}
+C_{2}k_{R} & -\frac{C_{2}k_{\Omega}}{2}\\
+-\frac{C_{2}k_{\Omega}}{2} & k_{\Omega}-C_{2}\lambda_{\max}(J)
+\end{array}\right].\label{eq:W2}
+\end{equation}
+
+\end_inset
+
+To facilitate the subsequent analysis, the analysis is divided into two
+ steps.
+ 
+\end_layout
+
+\begin_layout Proof
+Step 1: to prove (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:psi_2 upper bound"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Supposing that 
+\begin_inset Formula $C_{2}=0$
+\end_inset
+
+, 
+\begin_inset Formula $e_{R}$
+\end_inset
+
+ will drop from (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:V2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:V2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:V2_dot_4"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) can be rewritten as
+\begin_inset Formula 
+\begin{align*}
+V_{2}\mid_{C_{2}=0} & =\frac{1}{2}e_{\Omega}\cdot Je_{\Omega}+k_{R}\Psi(R,R_{d})+\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J},\\
+\dot{V_{2}}\mid_{C_{2}=0} & \leq-k_{\Omega}\left\Vert e_{\Omega}\right\Vert ^{2}-k_{J}^{cl}\tilde{\theta}_{J}^{T}\mathcal{G}_{J}\tilde{\theta}_{J},
+\end{align*}
+
+\end_inset
+
+which implies that 
+\begin_inset Formula $V_{2}\mid_{C_{2}=0}$
+\end_inset
+
+ is nonincreasing.
+ Therefore, given the initial conditions (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Psi<2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:e_omega=0"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), the attitude error function can be bounded as 
+\begin_inset Formula 
+\begin{align}
+k_{R}\Psi\left(R\left(t\right),R_{d}\left(t\right)\right)+\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J} & \leq V_{2}\mid_{C_{2}=0}\left(t\right)\leq\nonumber \\
+V_{2}\mid_{C_{2}=0}\left(0\right)<2k_{R}+\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J},\label{eq:attitude error bound}
+\end{align}
+
+\end_inset
+
+which guarantees that
+\begin_inset Formula 
+\[
+\Psi\left(R\left(t\right),R_{d}\left(t\right)\right)\leq\psi_{2}<2,
+\]
+
+\end_inset
+
+which proves (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:psi_2 upper bound"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and ensures the element 
+\begin_inset Formula $\frac{2k_{R}}{2-\psi_{2}}$
+\end_inset
+
+ defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:M22"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) is positive.
+ Therefore, 
+\begin_inset Formula $R\left(t\right)$
+\end_inset
+
+ always lies in the sublevel set 
+\begin_inset Formula $L_{2}\triangleq\left\{ R\in\text{SO}(3)\mid\Psi\left(R,R_{d}\right)<2\right\} $
+\end_inset
+
+.
+ Within sublevel set 
+\begin_inset Formula $L_{2}$
+\end_inset
+
+, the attitude error function is positive definite: 
+\begin_inset Formula 
+\[
+\frac{1}{2}\left\Vert e_{R}\right\Vert ^{2}\leq\Psi\leq\frac{1}{2-\psi_{2}}\left\Vert e_{R}\right\Vert ^{2}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Step 2: To prove 
+\begin_inset Formula $e_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $e_{\Omega}$
+\end_inset
+
+ achieve exponential stability, the matrices 
+\begin_inset Formula $M_{21},$
+\end_inset
+
+ 
+\begin_inset Formula $M_{22},$
+\end_inset
+
+ and 
+\begin_inset Formula $W_{2}$
+\end_inset
+
+ defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:M21"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:M22"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:W2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) are positive definite by selecting 
+\begin_inset Formula $C_{2}$
+\end_inset
+
+ to satisfy (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:C2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Since 
+\begin_inset Formula $V_{2}$
+\end_inset
+
+ is positive definite and 
+\begin_inset Formula $\dot{V}_{2}$
+\end_inset
+
+ is negative definite based on (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:V2 bound"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:W2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), Theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:attitude controller"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is proven.
+\end_layout
+
+\begin_layout Remark
+Although 
+\begin_inset Formula $J$
+\end_inset
+
+ in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:C2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) is unknown, its maximal and minimal eigenvalues can be obtained from best
+ guesses.
+ 
+\end_layout
+
+\begin_layout Subsection
+Stability Analysis of the Translational Dynamics
+\end_layout
+
+\begin_layout Standard
+To facilitate the subsequent analysis, the following proposition id developed.
+\end_layout
+
+\begin_layout Proposition
+\begin_inset CommandInset label
+LatexCommand label
+name "prop:psi1"
+
+\end_inset
+
+
+\begin_inset Formula $\psi_{1}$
+\end_inset
+
+ defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:psi1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) satisfies
+\begin_inset Formula 
+\begin{equation}
+\Psi\left(R\left(t\right),R_{d}\left(t\right)\right)\leq\psi_{1}<1.\label{eq:psi_1 upper bound}
+\end{equation}
+
+\end_inset
+
+provided that the initial conditions are satisfied
+\begin_inset Formula 
+\begin{equation}
+\Psi\left(R\left(0\right),R_{d}\left(0\right)\right)<1,\label{eq:Psi<1}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left\Vert e_{\Omega}\left(0\right)\right\Vert ^{2}<\frac{2}{\lambda_{\max}\left(J\right)}k_{R}\left(\psi_{1}-\Psi\left(R\left(0\right),R_{d}\left(0\right)\right)\right),\label{eq:e_omega}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\psi_{1}$
+\end_inset
+
+ is defined as
+\begin_inset Formula 
+\begin{equation}
+\psi_{1}=\frac{1}{k_{R}}\left[\frac{1}{2}e_{\Omega}\left(0\right)\cdot Je_{\Omega}\left(0\right)+k_{R}\Psi(R\left(0\right),R_{d}\left(0\right))\right].\label{eq:psi1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Given the initial conditions (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Psi<1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:e_omega"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:attitude error bound"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) can be written as
+\begin_inset Formula 
+\begin{align*}
+ & k_{R}\Psi\left(R\left(t\right),R_{d}\left(t\right)\right)+\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J}\leq V_{2}\mid_{C_{2}=0}\left(t\right)\\
+ & \leq V_{2}\mid_{C_{2}=0}\left(0\right)<k_{R}\psi_{1}+\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J},
+\end{align*}
+
+\end_inset
+
+which guarantees (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:psi_1 upper bound"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+In the translational dynamics, Lyapunov function 
+\begin_inset Formula $V_{1}$
+\end_inset
+
+ containing the position and velocity errors is defined as
+\begin_inset Formula 
+\begin{equation}
+V_{1}=\frac{1}{2}k_{x}e_{x}^{T}e_{x}+\frac{1}{2}me_{v}^{T}e_{v}+C_{1}me_{x}\cdot e_{v}+\frac{1}{2}\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\tilde{\theta}_{m},\label{eq:V1}
+\end{equation}
+
+\end_inset
+
+which can be lower and upper bounded by
+\begin_inset Formula 
+\begin{align*}
+z_{1}^{T}M_{11}z_{1} & +\frac{1}{2}\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\tilde{\theta}_{m}\leq V_{1}\\
+ & \leq z_{1}^{T}M_{12}z_{1}+\frac{1}{2}\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\tilde{\theta}_{m},
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula $z_{1}=\left[\begin{array}{cc}
+\left\Vert e_{x}\right\Vert , & \left\Vert e_{v}\right\Vert \end{array}\right]^{T},$
+\end_inset
+
+ and 
+\begin_inset Formula $M_{11}$
+\end_inset
+
+ and 
+\begin_inset Formula $M_{12}$
+\end_inset
+
+ are defined as 
+\begin_inset Formula 
+\begin{align*}
+M_{11} & =\frac{1}{2}\left[\begin{array}{cc}
+k_{x} & -C_{1}m\\
+-C_{1}m & m
+\end{array}\right],\\
+M_{12} & =\frac{1}{2}\left[\begin{array}{cc}
+k_{x} & C_{1}m\\
+C_{1}m & m
+\end{array}\right],
+\end{align*}
+
+\end_inset
+
+and 
+\begin_inset Formula $C_{1}$
+\end_inset
+
+ is a positive constant described in the subsequent analysis.
+ Taking the time derivative of 
+\begin_inset Formula $V_{1}$
+\end_inset
+
+ and substituting the closed-loop dynamics defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:mev_dot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) yields
+\begin_inset Formula 
+\begin{align}
+\dot{V}_{1}= & k_{x}e_{x}\cdot\dot{e}_{x}+e_{v}\cdot m\dot{e}_{v}+C_{1}m\dot{e}_{x}\cdot e_{v}+C_{1}e_{x}\cdot m\dot{e}_{v}\nonumber \\
+ & +\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\dot{\tilde{\theta}}_{m}\nonumber \\
+= & k_{x}e_{x}\cdot e_{v}+mC_{1}\left\Vert e_{v}\right\Vert ^{2}+\left(e_{v}+C_{1}e_{x}\right)\cdot m\dot{e}_{v}-\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\dot{\hat{\theta}}_{m}\nonumber \\
+= & k_{x}e_{x}\cdot e_{v}+mC_{1}\left\Vert e_{v}\right\Vert ^{2}-\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\dot{\hat{\theta}}_{m}\nonumber \\
+ & +\left(e_{v}+C_{1}e_{x}\right)\cdot\left(-k_{x}e_{x}-k_{v}e_{v}+Y_{m}\tilde{\theta}_{m}-X\right).\label{eq:V1_dot}
+\end{align}
+
+\end_inset
+
+Substituting the update law of 
+\begin_inset Formula $\hat{\theta}_{m}$
+\end_inset
+
+ in Proposition 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "prop1:-defined"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ into (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:V1_dot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) yields
+\begin_inset Formula 
+\begin{align}
+\dot{V}_{1}= & -k_{x}C_{1}\left\Vert e_{x}\right\Vert ^{2}-\left(k_{v}-mC_{1}\right)\left\Vert e_{v}\right\Vert ^{2}-k_{v}C_{1}e_{x}\cdot e_{v}\nonumber \\
+ & +\left(e_{v}+C_{1}e_{x}\right)^{T}\left(Y_{m}\tilde{\theta}_{m}\right)-\tilde{\theta}_{m}^{T}Y_{m}^{T}\left(e_{v}+C_{1}e_{x}\right)\nonumber \\
+ & -\left(e_{v}+C_{1}e_{x}\right)\cdot X-k_{m}^{cl}\tilde{\theta}_{m}^{T}\mathcal{G}_{m}\tilde{\theta}_{m}\nonumber \\
+= & -k_{x}C_{1}\left\Vert e_{x}\right\Vert ^{2}-\left(k_{v}-mC_{1}\right)\left\Vert e_{v}\right\Vert ^{2}-k_{v}C_{1}e_{x}\cdot e_{v}\nonumber \\
+ & -\left(e_{v}+C_{1}e_{x}\right)\cdot X-k_{m}^{cl}\tilde{\theta}_{m}^{T}\mathcal{G}_{m}\tilde{\theta}_{m}.\label{eq:V1_dot_1}
+\end{align}
+
+\end_inset
+
+The upper bound of 
+\begin_inset Formula $X$
+\end_inset
+
+ can be obtained from the force control input (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:force control input"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:f_vec"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), and the desired attitude (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:b3d"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:B"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Rewriting (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:force control input"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) as 
+\begin_inset Formula $\ensuremath{f=\vec{f}\cdot Re_{3}=\left(\left\Vert \vec{f}\right\Vert R_{d}e_{3}\right)\cdot Re_{3}}$
+\end_inset
+
+ with (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:b3d"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), 
+\begin_inset Formula $X$
+\end_inset
+
+ becomes upper bounded as follows: 
+\begin_inset Formula 
+\begin{align}
+X & =\frac{f}{e_{3}^{T}R_{d}^{T}Re_{3}}\left[\left(e_{3}^{T}R_{d}^{T}Re_{3}\right)Re_{3}-R_{d}e_{3}\right]\nonumber \\
+ & \leq\frac{\left\Vert \vec{f}\right\Vert e_{3}^{T}R_{d}^{T}Re_{3}}{e_{3}^{T}R_{d}^{T}Re_{3}}\left\Vert \left(e_{3}^{T}R_{d}^{T}Re_{3}\right)Re_{3}-R_{d}e_{3}\right\Vert ,\nonumber \\
+ & \leq\left\Vert \vec{f}\right\Vert \left\Vert \left(e_{3}^{T}R_{d}^{T}Re_{3}\right)Re_{3}-R_{d}e_{3}\right\Vert \label{eq:X}
+\end{align}
+
+\end_inset
+
+where the last term 
+\begin_inset Formula $\left\Vert \left(e_{3}^{T}R_{d}^{T}Re_{3}\right)Re_{3}-R_{d}e_{3}\right\Vert $
+\end_inset
+
+ represents the sine of the angle between 
+\begin_inset Formula $Re_{3}$
+\end_inset
+
+ and 
+\begin_inset Formula $R_{d}e_{3}$
+\end_inset
+
+, and 
+\begin_inset Formula $\left\Vert e_{R}\right\Vert $
+\end_inset
+
+ represents the sine of the eigenaxis rotation angle between 
+\begin_inset Formula $R_{d}$
+\end_inset
+
+ and 
+\begin_inset Formula $R$
+\end_inset
+
+: 
+\begin_inset Formula 
+\begin{align}
+\left\Vert \left(e_{3}^{T}R_{d}^{T}Re_{3}\right)Re_{3}-R_{d}e_{3}\right\Vert  & \leq\left\Vert e_{R}\right\Vert \label{eq:Rd R upper bound}\\
+ & =\sqrt{\Psi\left(2-\Psi\right)}\nonumber \\
+ & \leq\alpha,\nonumber 
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $\alpha\triangleq\sqrt{\psi_{1}\left(2-\psi_{1}\right)}<1$
+\end_inset
+
+ based on Proposition 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "prop:psi1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Therefore, based on (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:force control input"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Rd R upper bound"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:X"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) can be upper bounded by 
+\begin_inset Formula 
+\begin{align}
+\left\Vert X\right\Vert \leq & \left(k_{x}\left\Vert e_{x}\right\Vert +k_{v}\left\Vert e_{v}\right\Vert +B\right)\left\Vert e_{R}\right\Vert .\label{eq:X norm}
+\end{align}
+
+\end_inset
+
+Substituting (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:X norm"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) into (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:V1_dot_1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) yields
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\dot{V}_{1}\leq & -k_{x}C_{1}\left\Vert e_{x}\right\Vert ^{2}-\left(k_{v}-mC_{1}\right)\left\Vert e_{v}\right\Vert ^{2}-k_{v}C_{1}e_{x}\cdot e_{v}\nonumber \\
+ & +\left(\left\Vert e_{v}\right\Vert +C_{1}\left\Vert e_{x}\right\Vert \right)\left(k_{x}\left\Vert e_{x}\right\Vert +k_{v}\left\Vert e_{v}\right\Vert +B\right)\left\Vert e_{R}\right\Vert \nonumber \\
+ & -k_{m}^{cl}\tilde{\theta}_{m}^{T}\mathcal{G}_{m}\tilde{\theta}_{m}\nonumber \\
+\leq & -k_{x}C_{1}\left\Vert e_{x}\right\Vert ^{2}-\left(k_{v}-mC_{1}\right)\left\Vert e_{v}\right\Vert ^{2}-k_{v}C_{1}e_{x}\cdot e_{v}\nonumber \\
+ & +k_{x}\left\Vert e_{R}\right\Vert \left\Vert e_{x}\right\Vert \left\Vert e_{v}\right\Vert +k_{v}\left\Vert e_{R}\right\Vert \left\Vert e_{v}\right\Vert ^{2}+B\left\Vert e_{R}\right\Vert \left\Vert e_{v}\right\Vert \nonumber \\
+ & +k_{x}C_{1}\left\Vert e_{R}\right\Vert \left\Vert e_{x}\right\Vert ^{2}+k_{v}C_{1}\left\Vert e_{R}\right\Vert \left\Vert e_{x}\right\Vert \left\Vert e_{v}\right\Vert \nonumber \\
+ & +C_{1}B\left\Vert e_{R}\right\Vert \left\Vert e_{x}\right\Vert -k_{m}^{cl}\tilde{\theta}_{m}^{T}\mathcal{G}_{m}\tilde{\theta}_{m}\nonumber \\
+\leq & -\left[k_{x}C_{1}\left(1-\alpha\right)\right]\left\Vert e_{x}\right\Vert ^{2}-\left[k_{v}\left(1-\alpha\right)-C_{1}m\right]\left\Vert e_{v}\right\Vert ^{2}\nonumber \\
+ & +C_{1}k_{v}\left(1+\alpha\right)\left\Vert e_{x}\right\Vert \left\Vert e_{v}\right\Vert \nonumber \\
+ & +\left\Vert e_{R}\right\Vert \left\{ k_{x}\left\Vert e_{x}\right\Vert \left\Vert e_{v}\right\Vert +B\left\Vert e_{v}\right\Vert +C_{1}B\left\Vert e_{x}\right\Vert \right\} \nonumber \\
+ & -k_{m}^{cl}\tilde{\theta}_{m}^{T}\mathcal{G}_{m}\tilde{\theta}_{m}.\label{eq:V1_dot_2}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proposition
+\begin_inset CommandInset label
+LatexCommand label
+name "prop:ev_max"
+
+\end_inset
+
+The following inequality is true:
+\begin_inset Formula 
+\begin{equation}
+\left\Vert e_{v}\left(t\right)\right\Vert \leq\max\left\{ \left\Vert e_{v}\left(0\right)\right\Vert ,\frac{B}{k_{v}\left(1-\alpha\right)}\right\} \triangleq e_{v_{\max}}.\label{eq:ev_uub}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Supposing that 
+\begin_inset Formula $C_{1}=k_{x}=0,$
+\end_inset
+
+ 
+\begin_inset Formula $e_{x}$
+\end_inset
+
+ can drop from (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:V1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), and based on it being known that 
+\begin_inset Formula $\left\Vert e_{R}\right\Vert \leq1$
+\end_inset
+
+, (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:V1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:V1_dot_2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) can be rewritten as 
+\begin_inset Formula 
+\begin{align}
+V_{1}\mid_{C_{1}=k_{x}=0}= & \frac{1}{2}m\left\Vert e_{v}\right\Vert ^{2}+\frac{1}{2}\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\tilde{\theta}_{m}\label{eq:V1_redefine}\\
+\dot{V}_{1}\mid_{C_{1}=k_{x}=0}\leq & -k_{v}\left(1-\alpha\right)\left\Vert e_{v}\right\Vert ^{2}+B\left\Vert e_{v}\right\Vert \nonumber \\
+\leq & -\frac{k_{v}}{2}\left(1-\alpha\right)\left\Vert e_{v}\right\Vert ^{2}\nonumber \\
+ & -\frac{k_{v}}{2}\left(1-\alpha\right)\left\Vert e_{v}\right\Vert ^{2}+B\left\Vert e_{v}\right\Vert \nonumber \\
+\leq & -\frac{k_{v}}{2}\left(1-\alpha\right)\left\Vert e_{v}\right\Vert ^{2}+\frac{B^{2}}{2k_{v}\left(1-\alpha\right)},\label{eq:V1_dot_4}
+\end{align}
+
+\end_inset
+
+where the negative term 
+\begin_inset Formula $-k_{m}^{cl}\tilde{\theta}_{m}^{T}\mathcal{G}_{m}\tilde{\theta}_{m}$
+\end_inset
+
+ was dropped from (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:V1_dot_2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:V1_redefine"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:V1_dot_4"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) imply that 
+\begin_inset Formula $\left\Vert e_{v}\right\Vert $
+\end_inset
+
+ is bounded as (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:ev_uub"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+Based on (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "prop:ev_max"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and Proposition 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "prop:ev_max"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:V1_dot_2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) can be bounded as 
+\begin_inset Formula 
+\begin{equation}
+\dot{V}_{1}\leq-z_{1}^{T}W_{1}z_{1}+z_{1}^{T}W_{12}z_{2}-k_{m}^{cl}\tilde{\theta}_{m}^{T}\mathcal{G}_{m}\tilde{\theta}_{m},\label{eq:v1_dot_3}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $W_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $W_{12}$
+\end_inset
+
+ are defined as follows:
+\begin_inset Formula 
+\begin{align*}
+W_{1}= & \left[\begin{array}{cc}
+k_{x}C_{1}\left(1-\alpha\right) & -\frac{1}{2}C_{1}k_{v}\left(1+\alpha\right)\\
+-\frac{1}{2}C_{1}k_{v}\left(1+\alpha\right) & k_{v}\left(1-\alpha\right)-C_{1}m
+\end{array}\right]\\
+W_{12}= & \left[\begin{array}{cc}
+k_{x}e_{v,\max}+C_{1}B & 0\\
+B & 0
+\end{array}\right].
+\end{align*}
+
+\end_inset
+
+To ensure that 
+\begin_inset Formula $W_{1},M_{11},$
+\end_inset
+
+ and 
+\begin_inset Formula $M_{12}$
+\end_inset
+
+ are positive definite, 
+\begin_inset Formula $C_{1}$
+\end_inset
+
+ is selected to satisfy 
+\begin_inset Formula 
+\begin{align}
+C_{1} & <\min\Bigl\{\sqrt{\frac{k_{x}}{m}},\frac{k_{v}\left(1-\alpha\right)}{m},\frac{4k_{x}k_{v}\left(1-\alpha\right)^{2}}{k_{v}^{2}\left(1+\alpha\right)^{2}+4mk_{x}\left(1-\alpha\right)}\Bigr\}.\label{eq:C1}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Remark
+Although 
+\begin_inset Formula $m$
+\end_inset
+
+ in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:C1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) is unknown, its upper and lower bound can be obtained from best guesses.
+ 
+\end_layout
+
+\begin_layout Subsection
+Stability Analysis of the Overall System
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:The-ICL-controller"
+
+\end_inset
+
+The ICL controller developed in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:force control input"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:moment control input"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) ensures that the system defined by (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:translational dynamics1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+)–(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:rotational dynamics2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) can achieve  asymptotic tracking in the sense of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:control objectives"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) provided that 
+\begin_inset Formula $C_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $C_{2}$
+\end_inset
+
+ defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:C2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:C2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and the initial condition 
+\begin_inset Formula 
+\begin{equation}
+\Psi\left(R\left(0\right),R_{d}\left(0\right)\right)<1\label{eq:psi condition}
+\end{equation}
+
+\end_inset
+
+ are satisfied.
+ 
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $V=V_{1}+V_{2}$
+\end_inset
+
+ be a Lyapunov function for the system containing rotational and translational
+ dynamics: 
+\begin_inset Formula 
+\begin{align}
+V= & V_{1}+V_{2}\nonumber \\
+= & \frac{1}{2}k_{x}e_{x}^{T}e_{x}+\frac{1}{2}me_{v}^{T}e_{v}+C_{1}me_{x}\cdot e_{v}\nonumber \\
+ & +\frac{1}{2}e_{\Omega}\cdot Je_{\Omega}+k_{R}\Psi\left(R,R_{d}\right)+JC_{2}e_{R}\cdot e_{\Omega}\nonumber \\
+ & +\frac{1}{2}\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\tilde{\theta}_{m}+\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J}.\label{eq:V}
+\end{align}
+
+\end_inset
+
+It can be shown that (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:V"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) is bounded by two positive-definite functions: 
+\begin_inset Formula 
+\begin{align*}
+z_{1}^{T}M_{11}z_{1} & +z_{2}^{T}M_{21}z_{2}+\frac{1}{2}\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\tilde{\theta}_{m}+\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J}\\
+\leq V\leq & z_{1}^{T}M_{12}z_{1}+z_{2}^{T}M_{22}z_{2}+\frac{1}{2}\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\tilde{\theta}_{m}\\
+ & +\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J}.
+\end{align*}
+
+\end_inset
+
+Taking the time derivative of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:V"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and using (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:V2_dot_4"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:v1_dot_3"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) yields 
+\begin_inset Formula 
+\begin{align*}
+\dot{V}= & \dot{V}_{1}+\dot{V}_{2}\\
+\leq & -z_{1}^{T}W_{1}z_{1}+z_{1}^{T}W_{12}z_{2}-z_{2}^{T}W_{2}z_{2}\\
+ & -k_{J}^{cl}\tilde{\theta}_{J}^{T}\mathcal{G}_{J}\tilde{\theta}_{J}-k_{m}^{cl}\tilde{\theta}_{m}^{T}\mathcal{G}_{m}\tilde{\theta}_{m},
+\end{align*}
+
+\end_inset
+
+where matrices 
+\begin_inset Formula $W_{1},W_{2}$
+\end_inset
+
+ are positive definite and condition 
+\begin_inset Formula $\lambda_{\min}\left(W_{2}\right)>\frac{4\left\Vert W_{12}\right\Vert ^{2}}{\lambda_{\min}\left(W_{1}\right)}$
+\end_inset
+
+ guarantees that 
+\begin_inset Formula $\dot{V}$
+\end_inset
+
+ is negative definite as long as the initial conditions (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Psi<2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Psi<1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) are satisfied, where 
+\begin_inset Formula $W_{2}$
+\end_inset
+
+ is defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:W2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), and therefore errors 
+\begin_inset Formula $e_{x}$
+\end_inset
+
+, 
+\begin_inset Formula $e_{v}$
+\end_inset
+
+, 
+\begin_inset Formula $e_{R}$
+\end_inset
+
+, and 
+\begin_inset Formula $e_{\Omega}$
+\end_inset
+
+ go to zero as time goes to infinity, as defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:control objectives"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Remark
+Theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:The-ICL-controller"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ requires that the initial attitude error is less than 
+\begin_inset Formula $90^{0}$
+\end_inset
+
+ (i.e., 
+\begin_inset Formula $\Psi\left(R\left(0\right),R_{d}\left(0\right)\right)<1$
+\end_inset
+
+) to achieve exponential stability.
+ Suppose that this condition is not satisfied, i.e., 
+\begin_inset Formula $1\leq\Psi\left(R\left(0\right),R_{d}\left(0\right)\right)<2$
+\end_inset
+
+, the attitude controller designed in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:moment control input"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) can be applied since it guarantees that the attitude error function 
+\begin_inset Formula $\Psi$
+\end_inset
+
+ decreases exponentially fast based on Theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:attitude controller"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and therefore, it enters the region of attraction of Theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:The-ICL-controller"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ (i.e., (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:psi condition"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+)) in finite time.
+ Therefore, by combining Theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:attitude controller"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and Theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:The-ICL-controller"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, almost global exponential attractiveness can be achieved when 
+\begin_inset Formula $\Psi\left(R\left(0\right),R_{d}\left(0\right)\right)<2.$
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

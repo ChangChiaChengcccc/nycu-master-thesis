@@ -1,0 +1,2003 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+theorems-bytype
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Experiments
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Experiments"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this section, the experimental results using developed ICL controller
+ are presented.
+ We used a four-rotor multirotor with an allocation matrix defined as
+\begin_inset Formula 
+\[
+\left[\begin{array}{c}
+f\\
+M_{1}\\
+M_{2}\\
+M_{3}
+\end{array}\right]=\left[\begin{array}{cccc}
+1 & 1 & 1 & 1\\
+-d & d & d & -d\\
+d & d & -d & -d\\
+-c_{\tau f} & c_{\tau f} & -c_{\tau f} & c_{\tau f}
+\end{array}\right]\left[\begin{array}{c}
+f_{1}\\
+f_{2}\\
+f_{3}\\
+f_{4}
+\end{array}\right]
+\]
+
+\end_inset
+
+in the flight experiments.
+ We show the accuracy of the parameter estimator and demonstrate the ability
+ of the ICL controller to track a desired trajectory.
+ Moreover, the comparison between geometric controller, adaptive controller,
+ and the ICL controller is presented.
+\end_layout
+
+\begin_layout Subsection
+Hardware Architecture
+\end_layout
+
+\begin_layout Standard
+A DJI F450 frame of multirotor is deployed as the hardware architecture
+ to implement the ICL controller in the experiments.
+ XBee modules are equipped to the multirotor to communicate between the
+ multirotor and the ground station.
+ Angular velocity and acceleration for obtaining the attitude of the multirotor
+ are measured from inertial measurement unit (IMU), and the position of
+ the multirotor is measured from motion capture system (Optitrack) with
+ 12 cameras.
+ The configuration of the multirotor is shown in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Hardware Architecture"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../Figures/png/hardware.png
+	lyxscale 50
+	width 98col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Hardware Architecture"
+
+\end_inset
+
+Hardware architecture.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+The ground truth parameters, control gains, and parameters used in ICL controlle
+r are listed in Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Parameters-in-Experiments"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Control-gain-in-Experiments"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:N-in-ICL-Experiments"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, respectively.
+ The ground truth of moment of inertia is obtained by establishing the mathemati
+cal model of the multirotor and the ground truth of mass is measured on
+ the scales.
+ The ground truth of moment of inertia 
+\begin_inset Formula $J$
+\end_inset
+
+ and mass 
+\begin_inset Formula $m$
+\end_inset
+
+ in Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Parameters-in-Experiments"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ were unknown parameters to be estimated in the experiments, and were used
+ for evaluating the estimate error but not for implementing the controller.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Parameters-in-Experiments"
+
+\end_inset
+
+Parameters used in the experiments
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Parameter
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Unit
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $m$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1.16$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{kg}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $J$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathrm{diag}\left[0.013,0.013,0.024\right]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{kg}\cdot\text{m}^{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $d$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.225$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{m}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Control-gain-in-Experiments"
+
+\end_inset
+
+Control gains used in the experiments
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="10" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Control Gain
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $k_{x}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $4$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $k_{v}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $2$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $k_{R}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $2.95$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $k_{\Omega}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.36$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $k_{m}^{cl}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $2.5$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $k_{J}^{cl}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $5$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $C_{1}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $C_{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:N-in-ICL-Experiments"
+
+\end_inset
+
+
+\begin_inset Formula $N_{m}$
+\end_inset
+
+ and 
+\begin_inset Formula $N_{J}$
+\end_inset
+
+ used in the ICL controller in the experiments
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Parameter
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $N_{m}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $N_{J}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Trajectory Generation
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Trajectory-Generation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To generate a smooth desired trajectory for the multirotor, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Mellinger.Kumar2011"
+literal "false"
+
+\end_inset
+
+ formulated the trajectory generation problem as a quadratic programming
+ (QP) problem.
+ We write the trajectory passing through given waypoints as piecewise polynomial
+ function of order 
+\begin_inset Formula $n$
+\end_inset
+
+ as
+\begin_inset Formula 
+\[
+s_{i}\left(t\right)=\sum_{j=0}^{n}\sigma_{ij}t^{j},t_{i-1}\leq t<t_{i},i\in\left\{ 1,2,\cdots,m\right\} ,
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $n=7$
+\end_inset
+
+ is selected to obtain the minimum-snap trajectory, 
+\begin_inset Formula $m\in\mathbb{N}$
+\end_inset
+
+ is the total numbers of segments of the trajectory, 
+\begin_inset Formula $\sigma_{ij}\in\mathbb{R}$
+\end_inset
+
+ is the coefficient of 
+\begin_inset Formula $j^{th}$
+\end_inset
+
+ order of the polynomial.
+ The quadratic problem for the minimum-snap trajectory is written with the
+ cost function and the constraints involving initial condition, final condition,
+ and the intermediate condition as
+\begin_inset Formula 
+\[
+\mathrm{min}\int_{t_{0}}^{t_{m}}\left\Vert \frac{d^{4}s_{i}}{d^{4}}\right\Vert ^{2}dt,
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathrm{s.t.}~A\sigma=b.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Estimate Algorithm of the Angular Velocity
+\end_layout
+
+\begin_layout Standard
+Since the ICL-based update law of the estimation of the moment of inertia
+ in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:theta_hat_dot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) involves angular velocity which is greatly affected by the sensor noise,
+ an estimate algorithm of the angular velocity is designed.
+ Rewritting the rotational dynamics of the multirotor (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:rotational dynamics2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) yields
+\begin_inset Formula 
+\begin{equation}
+\dot{\Omega}=\left[\begin{array}{c}
+\frac{M_{1}}{\hat{J}_{xx}}+\frac{\hat{J}_{yy}}{\hat{J}_{xx}}\Omega_{2}\Omega_{3}-\frac{\hat{J}_{zz}}{\hat{J}_{xx}}\Omega_{2}\Omega_{3}\\
+\frac{M_{2}}{\hat{J}_{yy}}-\frac{\hat{J}_{xx}}{\hat{J}_{yy}}\Omega_{1}\Omega_{3}+\frac{\hat{J}_{zz}}{\hat{J}_{yy}}\Omega_{1}\Omega_{3}\\
+\frac{M_{3}}{\hat{J}_{zz}}+\frac{\hat{J}_{xx}}{\hat{J}_{zz}}\Omega_{1}\Omega_{2}-\frac{J_{yy}}{\hat{J}_{zz}}\Omega_{1}\Omega_{2}
+\end{array}\right].\label{eq:rotational dynamics in estimator}
+\end{equation}
+
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:rotational dynamics in estimator"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) can be used in the prediction part which is calculated in the computer
+ as
+\begin_inset Formula 
+\begin{align*}
+\hat{\Omega}_{k}^{-} & =\hat{\Omega}_{k-1}+\dot{\Omega}_{k-1}\Delta t\\
+ & =\left[\begin{array}{c}
+\hat{\Omega}_{k-1,1}+\left(\frac{M_{1}}{\hat{J}_{xx}}+\frac{\hat{J}_{yy}}{\hat{J}_{xx}}\Omega_{2}\Omega_{3}-\frac{\hat{J}_{zz}}{\hat{J}_{xx}}\Omega_{2}\Omega_{3}\right)\cdot\triangle t\\
+\hat{\Omega}_{k-1,2}+\left(\frac{M_{2}}{\hat{J}_{yy}}-\frac{\hat{J}_{xx}}{\hat{J}_{yy}}\Omega_{1}\Omega_{3}+\frac{\hat{J}_{zz}}{\hat{J}_{yy}}\Omega_{1}\Omega_{3}\right)\cdot\triangle t\\
+\hat{\Omega}_{k-1,3}+\left(\frac{M_{3}}{\hat{J}_{zz}}+\frac{\hat{J}_{xx}}{\hat{J}_{zz}}\Omega_{1}\Omega_{2}-\frac{\hat{J}_{yy}}{\hat{J}_{zz}}\Omega_{1}\Omega_{2}\right)\cdot\triangle t
+\end{array}\right],
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula $\hat{J}_{xx}$
+\end_inset
+
+, 
+\begin_inset Formula $\hat{J}_{yy}$
+\end_inset
+
+, 
+\begin_inset Formula $\hat{J}_{zz}$
+\end_inset
+
+ are the estimation of the moment of inertia and 
+\begin_inset Formula $\triangle t\in\mathbb{R}$
+\end_inset
+
+ is the sampling time.
+ The estimate of the angular velocity can be designed by combining the predictio
+n part and the measurement part as
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\hat{\Omega}_{k}=\hat{\Omega}_{k}^{-}+K_{\Omega}\left(\Omega-\hat{\Omega}_{k}^{-}\right),
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $K_{\Omega}\in\mathbb{R}^{3\times3}$
+\end_inset
+
+ is the estimator gain and 
+\begin_inset Formula $\Omega$
+\end_inset
+
+ is the angular velocity measurement from the gyroscope.
+\end_layout
+
+\begin_layout Subsection
+Estimate of the Mass
+\end_layout
+
+\begin_layout Standard
+The estimate of the mass of the multirotor with ICL controller converged
+ to 1.15 kg as shown in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Mass-estimation-exp"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ with 1% error.
+ This means the multirotor with the developed ICL controller is able to
+ accurately estimate the mass during the flight.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../Figures/eps/mass_est_0716.eps
+	lyxscale 50
+	width 98col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Mass-estimation-exp"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Estimate of the mass of the multirotor in the experiments.
+\end_layout
+
+\end_inset
+
+Estimate of the mass of the multirotor in the experiments.
+ The red line represents the ground truth.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The accurate mass estimation makes the multirotor have better tracking performan
+ce in 
+\begin_inset Formula $Z$
+\end_inset
+
+ direction.
+ The comparison of the tracking errors in 
+\begin_inset Formula $Z$
+\end_inset
+
+ direction with geometric controller (with constant mass from best guess)
+ and ICL controller is presented in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Controller-comparison-z"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ It shows that there exists steady-state error in 
+\begin_inset Formula $Z$
+\end_inset
+
+ direction while using geometric controller.
+ However, the steady-state error can be eliminated by using the developed
+ ICL controller.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../Figures/eps/z_dir.eps
+	lyxscale 50
+	width 98col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Controller-comparison-z"
+
+\end_inset
+
+Comparison of position errors in 
+\begin_inset Formula $Z$
+\end_inset
+
+ direction.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Estimate of the Moment of Inertia
+\end_layout
+
+\begin_layout Standard
+The estimate error of the moment of inertia using ICL controller is presented
+ in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Inertia-estimation-exp"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The moment of inertia estimation converge to 
+\begin_inset Formula $\left[0.013,0.014,0.022\right](\mathrm{kg\cdot m^{2}})$
+\end_inset
+
+ with around 8% RMS error.
+ The error can be attributed to the measurement noises since they can lead
+ to inaccurate regression matrices through integration based on (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Y_CL"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Y1_integral"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../Figures/eps/inertia_estimation_exp.eps
+	lyxscale 50
+	width 98col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Inertia-estimation-exp"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Estimate of the moment of inertia of the multirotor.
+\end_layout
+
+\end_inset
+
+Estimate of the moment of inertia of the multirotor.
+ Red lines represent the ground truth.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To further verify the efficacy of the developed ICL controller, multiple
+ flights with different initial estimation values of the moment of inertia
+ were conducted, and the estimate errors of the moment of inertia are presented
+ in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Inertia-estimation-exp-diff-init"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../Figures/eps/inertia_estimation_exp_diff_init.eps
+	lyxscale 50
+	width 98col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Inertia-estimation-exp-diff-init"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Estimate of the moment of inertia of the multirotor with different initial
+ estimation value.
+\end_layout
+
+\end_inset
+
+Estimate of the moment of inertia of the multirotor with different initial
+ estimation value.
+ The red line indicates the ground truth listed in Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Parameters-in-Experiments"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Other lines with different color indicate the moment of inertia estimation
+ with different initial estimation value.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Inertia-estimation-exp-diff-init-exp"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ compares the estimates of moment of inertia when using an adaptive controller
+ and the developed ICL controller.
+ The estimate errors converged asymptotically when using the ICL controller,
+ whereas they converged to the wrong values when using the adaptive controller.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../Figures/eps/MOI_w_and_wo_ICL_exp.eps
+	lyxscale 50
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Inertia-estimation-exp-diff-init-exp"
+
+\end_inset
+
+Comparison of the estimate errors using the adaptive controller and the
+ ICL controller.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Tracking Performance
+\end_layout
+
+\begin_layout Standard
+After a minimum-snap trajectory being generated in Section.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Trajectory-Generation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we test our ICL control algorithm on multiple runs of the trajectory.
+ The trajectory tracking performance are presented in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:X_pos_vel_adaptive"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+-
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Z_pos_vel_adaptive"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ These findings verify that the multirotor with the developed ICL controller
+ is able to track a desired trajectory without knowledge of the mass and
+ moment of inertia.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../Figures/eps/x_pos_vel_adaptive.eps
+	lyxscale 50
+	width 98col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:X_pos_vel_adaptive"
+
+\end_inset
+
+Tracking performance of the position and the velocity in 
+\begin_inset Formula $X$
+\end_inset
+
+ direction.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../Figures/eps/y_pos_vel_adaptive.eps
+	lyxscale 50
+	width 98col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Y_pos_vel_adaptive"
+
+\end_inset
+
+Tracking performance of the position and the velocity in 
+\begin_inset Formula $Y$
+\end_inset
+
+ direction.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../Figures/eps/z_pos_vel_adaptive.eps
+	lyxscale 50
+	width 98col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Z_pos_vel_adaptive"
+
+\end_inset
+
+Tracking performance of the position and the velocity in 
+\begin_inset Formula $Z$
+\end_inset
+
+ direction.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The comparison of geometric controllers and ICL controllers in tracking
+ performance are presented in Figs.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:X_pos_vel_adaptive_geometric"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+-
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Z_pos_vel_adaptive_geometric"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, which show that the multirotor with ICL controller has better tracking
+ performance since the estimate of the mass and the moment of inertia provide
+ system knowledge to achieve good control performance.
+ Moreover, the mass estimate with the ICL controller eliminates the steady-state
+ error in 
+\begin_inset Formula $Z$
+\end_inset
+
+ direction as shown in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Z_pos_vel_adaptive_geometric"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../Figures/eps/x_pos_vel_adaptive.eps
+	lyxscale 50
+	width 49col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename ../Figures/eps/x_pos_vel_geometric.eps
+	width 49col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:X_pos_vel_adaptive_geometric"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Tracking errors of the position and the velocity in 
+\begin_inset Formula $X$
+\end_inset
+
+ direction.
+\end_layout
+
+\end_inset
+
+Tracking errors of the position and the velocity in 
+\begin_inset Formula $X$
+\end_inset
+
+ direction.
+ Left) the tracking performance for the ICL controller, right) the tracking
+ performance for the geometric controller.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../Figures/eps/y_pos_vel_adaptive.eps
+	lyxscale 50
+	width 49col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename ../Figures/eps/y_pos_vel_geometric.eps
+	width 49col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Y_pos_vel_adaptive_geometric"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Tracking errors of the position and the velocity in 
+\begin_inset Formula $Y$
+\end_inset
+
+ direction.
+\end_layout
+
+\end_inset
+
+Tracking errors of the position and the velocity in 
+\begin_inset Formula $Y$
+\end_inset
+
+ direction.
+ Left) the tracking performance for the ICL controller, right) the tracking
+ performance for the geometric controller.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../Figures/eps/z_pos_vel_adaptive.eps
+	lyxscale 50
+	width 49col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename ../Figures/eps/z_pos_vel_geometric.eps
+	width 49col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Z_pos_vel_adaptive_geometric"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Tracking errors of the position and the velocity in 
+\begin_inset Formula $Z$
+\end_inset
+
+ direction.
+\end_layout
+
+\end_inset
+
+Tracking errors of the position and the velocity in 
+\begin_inset Formula $Z$
+\end_inset
+
+ direction.
+ Left) the tracking performance for the ICL controller, right) the tracking
+ performance for the geometric controller.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

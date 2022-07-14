@@ -1,0 +1,1544 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+theorems-bytype
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Problem Formulation
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Problem-Formulation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+A Motor efficiency definition
+\end_layout
+
+\begin_layout Standard
+If I offer motor1 the appropriate voltage and current according to motor
+ characteristic curves, and expect the motor1 provides me with 
+\begin_inset Formula $10N$
+\end_inset
+
+ thrust.
+ However, motor1 provides me with only 
+\begin_inset Formula $7N$
+\end_inset
+
+ thrust due to the deficiency of motor1.
+ I would define the efficiency of motor1 
+\begin_inset Formula $e_{1}=70\%$
+\end_inset
+
+.
+ Similarly, if I offer motor1 the appropriate voltage and current according
+ to motor characteristic curves, and expect the motor1 provides me with
+ 
+\begin_inset Formula $20N$
+\end_inset
+
+ thrust.
+ Motor1 would provide me with only 
+\begin_inset Formula $14N$
+\end_inset
+
+ thrust.
+\end_layout
+
+\begin_layout Subsection
+Dynamics of the Multirotor 
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename C:/Users/johnsongash/Desktop/nctu-master-thesis/Figures/png/dynamics.png
+	lyxscale 60
+	width 60col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:coordinate of the multirotor"
+
+\end_inset
+
+Coordinate systems of four-rotor multirotor
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="17" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Multirotor Symbol
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Description
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $x\in\mathbb{R}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+multirotor position in the inertial frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $v\in\mathbb{\mathbb{R}}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+multirotor velocity in the inertial frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $R\in\text{SO\left(3\right)}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+rotation matrix from the body-fixed frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+to the inertial frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega\in\mathbb{R}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+angular velocity in the body-fixed frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $f_{d}\in\mathbb{R}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+net thrust in the body-fixed frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $f_{di}\in\mathbb{R}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+thrust generated by the 
+\begin_inset Formula $i^{{\rm th}}$
+\end_inset
+
+ propeller
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $M_{d}\in\mathbb{R}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+total moment in the body-fixed frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $m\in\mathbb{R}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mass of the multirotor
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+to be an unknown constant
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $d\in\mathbb{R}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+distance between the center of mass and
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+the center of the propeller
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $J\in\mathbb{R}^{3\times3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+inertia matrix
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $D_{T}\in\mathbb{R}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+the disturbance of thrust
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $D_{M}\in\mathbb{R}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+the disturbance of moment
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Definition of the multirotor symbols"
+
+\end_inset
+
+ Definition of the multirotor symbols
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+As shown in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:coordinate of the multirotor"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the inertial frame and body-fixed frame are defined as 
+\begin_inset Formula $\left\{ \begin{array}{ccc}
+\vec{X}_{E}, & \vec{Y}_{E}, & \vec{Z}_{E}\end{array}\right\} $
+\end_inset
+
+ and 
+\begin_inset Formula $\left\{ \begin{array}{ccc}
+\vec{X}_{B}, & \vec{Y}_{B}, & \vec{Z}_{B}\end{array}\right\} $
+\end_inset
+
+ respectively.
+\end_layout
+
+\begin_layout Standard
+The dynamics of the multirotor can be divided into two parts: translational
+ and rotational dynamics.
+ The translational dynamics considers forces such as the effects of gravity,
+ thrusts, and external forces which caused by defective motors on the multirotor
+, and the rotational dynamics considers the moment of the control input,
+ rotational speed, and external moment which is caused by the defective
+ motors.
+ The dynamics of the multirotor is formulated as 
+\begin_inset Formula 
+\begin{align}
+\dot{x} & =v,\label{eq:translational dynamics1}\\
+m\dot{v} & =mge_{3}-(f_{d}-D_{T})Re_{3},\label{eq:translational dynamics2}\\
+\dot{R} & =R\hat{\Omega},\label{eq:rotational dynamics1}\\
+J\dot{\Omega} & =(M_{d}-D_{M})-\Omega\times J\Omega,\label{eq:rotational dynamics2}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $x$
+\end_inset
+
+, 
+\begin_inset Formula $v\in\mathbb{R}^{3}$
+\end_inset
+
+ represent the position and velocity in the inertial frame, respectively,
+ and 
+\begin_inset Formula $f_{d}\in\mathbb{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $M_{d}\in\mathbb{R}^{3}$
+\end_inset
+
+ are desired net thrust and moment control inputs, respectively, in the
+ body-fixed frame.
+ 
+\begin_inset Formula $R\in\text{\ensuremath{\text{SO\ensuremath{\left(3\right)}}}}$
+\end_inset
+
+ is the rotation matrix from the body-fixed frame to the inertial frame,
+ as shown in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:coordinate of the multirotor"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Formula $m$
+\end_inset
+
+ and 
+\begin_inset Formula $g\in\mathbb{R}$
+\end_inset
+
+ are mass of the multirotor and gravity, respectively, 
+\begin_inset Formula $e_{3}$
+\end_inset
+
+ is an unit vector defined as 
+\begin_inset Formula $e_{3}=\left[0,0,1\right]^{T}\in\mathbb{R}^{3}$
+\end_inset
+
+, 
+\begin_inset Formula $\Omega=\left[\begin{array}{ccc}
+\Omega_{1} & \Omega_{2} & \Omega_{3}\end{array}\right]^{T}$
+\end_inset
+
+is defined as the angular velocity of the multirotor, 
+\begin_inset Formula $\dot{\Omega}$
+\end_inset
+
+ is the angular acceleration of the multirotor, and 
+\begin_inset Formula $\boldsymbol{J}\in\mathbb{R}^{3\times3}$
+\end_inset
+
+ is inertia matrix of the multirotor.
+ The subscript 
+\begin_inset Formula $d$
+\end_inset
+
+ means desired value which is calculated by the controller.
+\end_layout
+
+\begin_layout Standard
+The notations of the symbols are presented in Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Definition of the multirotor symbols"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ In a four-rotor multirotor, the first and third propellers rotate clockwise,
+ and the second and fourth propellers rotate counterclockwise.
+ The total moment generated by the propellers in the body-fixed frame is
+ defined as 
+\begin_inset Formula 
+\[
+M_{d}\triangleq\left[\begin{array}{c}
+M_{d1}\\
+M_{d2}\\
+M_{d3}
+\end{array}\right]=\left[\begin{array}{c}
+d\left(f_{d4}-f_{d2}\right)\\
+d\left(f_{d1}-f_{d3}\right)\\
+c_{\tau f}\left(-f_{d1}+f_{d2}-f_{d3}+f_{d4}\right)
+\end{array}\right],
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $f_{di}$
+\end_inset
+
+ is the desired thrust calculated by the controller along the 
+\begin_inset Formula $-\vec{Z}_{B}$
+\end_inset
+
+ axis and can be obtained from (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:allocation matrix"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) given 
+\begin_inset Formula $f_{d}$
+\end_inset
+
+ and 
+\begin_inset Formula $M_{d}$
+\end_inset
+
+, 
+\begin_inset Formula $d>0$
+\end_inset
+
+ is the distance between the center of mass and the center of a propeller,
+ and 
+\begin_inset Formula $c_{\tau f}>0$
+\end_inset
+
+ is a constant parameter of the propeller.
+ The relation between 
+\begin_inset Formula $f_{d},$
+\end_inset
+
+ 
+\begin_inset Formula $M_{d},$
+\end_inset
+
+ and 
+\begin_inset Formula $f_{di}$
+\end_inset
+
+ can be expressed through the allocation matrix as
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{c}
+f_{d}\\
+M_{d1}\\
+M_{d2}\\
+M_{d3}
+\end{array}\right]=\left[\begin{array}{cccc}
+1 & 1 & 1 & 1\\
+0 & -d & 0 & d\\
+d & 0 & -d & 0\\
+-c_{\tau f} & c_{\tau f} & -c_{\tau f} & c_{\tau f}
+\end{array}\right]\left[\begin{array}{c}
+f_{d1}\\
+f_{d2}\\
+f_{d3}\\
+f_{d4}
+\end{array}\right].\label{eq:allocation matrix}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Dynamics of the Cooperative Transporstation System (CTS)
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename C:/Users/johnsongash/Desktop/nctu-master-thesis/Figures/png/q1q2dynamics.png
+	lyxscale 60
+	width 70col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:coordinate of the cooperative transportation system"
+
+\end_inset
+
+Coordinate systems of the cooperative transportation system
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="15" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+CTS Symbol
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Description
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $x_{s}\in\mathbb{R}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+position in the inertial frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $v_{s}\in\mathbb{\mathbb{R}}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+velocity in the inertial frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $R_{s}\in\text{SO\left(3\right)}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+rotation matrix from the body-fixed frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+to the inertial frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega_{s}\in\mathbb{R}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+angular velocity in the body-fixed frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $f_{d,s}\in\mathbb{R}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+net thrust in the body-fixed frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $f_{di,s}\in\mathbb{R}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+thrust generated by the 
+\begin_inset Formula $i^{{\rm th}}$
+\end_inset
+
+ propeller
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $M_{d,s}\in\mathbb{R}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+total moment in the body-fixed frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $m_{s}\in\mathbb{R}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mass of the system
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+to be an unknown constant
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $J_{s}\in\mathbb{R}^{3\times3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+inertia matrix
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $D_{T,s}\in\mathbb{R}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+the disturbance of thrust
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $D_{M,s}\in\mathbb{R}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+the disturbance of moment
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Definition of the cooperative transportation system symbols"
+
+\end_inset
+
+Definition of the cooperative transportation system symbols
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\dot{x}_{s} & =v_{s},\label{eq:translational dynamics2-1}\\
+m_{s}\dot{v}_{s} & =m_{s}ge_{3}-(f_{d,s}-D_{T,s})R_{s}e_{3},\label{eq:translational dynamics2-2}\\
+\dot{R}_{s} & =R_{s}\hat{\Omega}_{s},\label{eq:rotational dynamics2-1}\\
+J_{s}\dot{\Omega}_{s} & =(M_{d,s}-D_{M,s})-\Omega_{s}\times J_{s}\Omega_{s},\label{eq:rotational dynamics2-2}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $x_{s}$
+\end_inset
+
+, 
+\begin_inset Formula $v_{s}\in\mathbb{R}^{3}$
+\end_inset
+
+ represent the position and velocity in the inertial frame, respectively,
+ and 
+\begin_inset Formula $f_{d,s}\in\mathbb{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $M_{d,s}\in\mathbb{R}^{3}$
+\end_inset
+
+ are desired net thrust and moment control inputs, respectively, in the
+ body-fixed frame.
+ 
+\begin_inset Formula $R_{s}\in\text{\ensuremath{\text{SO\ensuremath{\left(3\right)}}}}$
+\end_inset
+
+ is the rotation matrix from the body-fixed frame to the inertial frame,
+ as shown in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:coordinate of the cooperative transportation system"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Formula $m_{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $g\in\mathbb{R}$
+\end_inset
+
+ are mass of the CTS and gravity, respectively, 
+\begin_inset Formula $e_{3}$
+\end_inset
+
+ is an unit vector defined as 
+\begin_inset Formula $e_{3}=\left[0,0,1\right]^{T}\in\mathbb{R}^{3}$
+\end_inset
+
+, 
+\begin_inset Formula $\Omega=\left[\begin{array}{ccc}
+\Omega_{1} & \Omega_{2} & \Omega_{3}\end{array}\right]^{T}$
+\end_inset
+
+is defined as the angular velocity of the CTS, 
+\begin_inset Formula $\dot{\Omega}$
+\end_inset
+
+ is the angular acceleration of the multirotor, and 
+\begin_inset Formula $\boldsymbol{J}\in\mathbb{R}^{3\times3}$
+\end_inset
+
+ is inertia matrix of the multirotor.
+ The subscript 
+\series bold
+
+\begin_inset Formula $s$
+\end_inset
+
+
+\series default
+ means the CTS.
+ 
+\end_layout
+
+\begin_layout Subsection
+Tracking Errors and Estimate Errors
+\end_layout
+
+\begin_layout Standard
+Given a desired trajectory 
+\begin_inset Formula $x_{d}\in\mathbb{R}^{3},$
+\end_inset
+
+ the position and velocity tracking errors are defined as 
+\begin_inset Formula 
+\begin{equation}
+e_{x}\triangleq x-x_{d},\label{eq:ex}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+e_{v}\triangleq v-v_{d},\label{eq:ev}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $v_{d}\triangleq\dot{x}_{d}\in\mathbb{R}^{3}$
+\end_inset
+
+ is the desired velocity.
+ To address the rotational dynamics in the subsequent analysis, the attitude
+ error function on 
+\begin_inset Formula $\text{SO\ensuremath{\left(3\right)}}$
+\end_inset
+
+, the attitude tracking error, and the angular velocity tracking error are
+ defined as
+\begin_inset Formula 
+\begin{align}
+\Psi(R,R_{d})\triangleq & \frac{1}{2}\text{tr}\left[I-R_{d}^{T}R\right],\label{eq:Psi}\\
+e_{R}\triangleq & \frac{1}{2}\left(R_{d}^{T}R-R^{T}R_{d}\right)^{\vee},\label{eq:e_R}\\
+e_{\Omega}\triangleq & \Omega-R^{T}R_{d}\Omega_{d},\label{eq:e_Omega}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $R_{d}=\left[\vec{X}_{B_{d}},\vec{Y}_{B_{d}},\vec{Z}_{B_{d}}\right]\in\text{SO\ensuremath{\left(3\right)}}$
+\end_inset
+
+ is the desired attitude for the multirotor, and 
+\begin_inset Formula $\left(\check{\cdot}\right):\text{SO\ensuremath{\left(3\right)}}\rightarrow\mathbb{R}^{3}$
+\end_inset
+
+ is the vee map.
+ Angular velocity 
+\begin_inset Formula $\Omega_{d}=\left(R_{d}^{T}\dot{R}_{d}\right)^{\vee}$
+\end_inset
+
+ can be obtained from the rotational dynamics of the multirotor as described
+ in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:rotational dynamics1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ The estimate error of the mass is defined as 
+\begin_inset Formula 
+\begin{equation}
+\tilde{\theta}_{m}\triangleq\theta_{m}-\hat{\theta}_{m},\label{eq:theta_m_error}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\theta_{m}$
+\end_inset
+
+ is defined as 
+\begin_inset Formula 
+\begin{equation}
+\theta_{m}\triangleq m\in\mathbb{R},\label{eq:theta_m}
+\end{equation}
+
+\end_inset
+
+and 
+\begin_inset Formula $\hat{\theta}_{m}$
+\end_inset
+
+ is the estimate of 
+\begin_inset Formula $\theta_{m}$
+\end_inset
+
+ and is updated by 
+\begin_inset Formula $\dot{\hat{\theta}}_{m}$
+\end_inset
+
+ as described below.
+\end_layout
+
+\begin_layout Standard
+The moment of inertia defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:J"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) is reshaped to a constant column vector 
+\begin_inset Formula $\theta_{J}$
+\end_inset
+
+ defined as 
+\begin_inset Formula 
+\begin{equation}
+\theta_{J}=\left[\begin{array}{ccc}
+J_{xx}, & J_{yy}, & J_{zz}\end{array}\right]^{T},\label{eq:theta_diag}
+\end{equation}
+
+\end_inset
+
+where the elements in 
+\begin_inset Formula $\theta_{J}$
+\end_inset
+
+ are unknown constants to be estimated during flight.
+ The estimate error of the moment of inertia is defined as 
+\begin_inset Formula 
+\begin{equation}
+\tilde{\theta}_{J}\triangleq\theta_{J}-\hat{\theta}_{J},\label{eq:theta_error}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\hat{\theta}_{J}$
+\end_inset
+
+ is the estimate of 
+\begin_inset Formula $\theta_{J}$
+\end_inset
+
+ and is updated by 
+\begin_inset Formula $\dot{\hat{\theta}}_{J}$
+\end_inset
+
+ as described below.
+\end_layout
+
+\begin_layout Subsection
+Control Objectives
+\end_layout
+
+\begin_layout Standard
+The flight controller is designed for the multirotor to track a desired
+ trajectory 
+\begin_inset Formula $x_{d}$
+\end_inset
+
+ and desired yaw direction 
+\begin_inset Formula $\vec{X}_{B_{d}}$
+\end_inset
+
+, and also estimate the unknown mass and moment of inertia of the multirotor
+ (
+\begin_inset Formula $\theta_{m}$
+\end_inset
+
+ and 
+\begin_inset Formula $\theta_{J}$
+\end_inset
+
+) during flight.
+ These control objectives are described as
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\begin{cases}
+e_{x} & \rightarrow0\\
+e_{v} & \rightarrow0\\
+e_{R} & \rightarrow0\\
+e_{\Omega} & \rightarrow0\\
+\tilde{\theta}_{m} & \rightarrow0\\
+\tilde{\theta}_{J} & \rightarrow0
+\end{cases} & \qquad as\quad t\rightarrow\infty.\label{eq:control objectives}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,27 @@
+\newpage
+\begin{center}
+   \begin{singlespace}
+     \large \textbf{\titleCh} \\[0.8cm]
+   \end{singlespace}
+
+    % \begin{singlespace}    
+    % \begin{tabular}{\raggedright} l >{\raggedleft} r}
+    學生： \studentCh 
+    \hfill
+    指導教授： \advisorCh \hspace{0.1cm} 博士 \\[0.5cm]
+    % \end{tabular}
+    % \end{singlespace} 
+
+  \begin{singlespace}
+  \large \universityCh  工學院\instituteCh 碩士班 \\[0.5cm]
+  \end{singlespace}  
+
+  %\makebox[4em][s]{摘要} \\[0.5cm]
+  \LARGE 摘要\\[0.5cm]
+\end{center}
+
+\normalsize 
+% -------------------Add your contents here-------------------
+本篇論文試著提升無人機在升力打折情況下的飛行表現，升力打折的情況有很多，例如:馬達的缺陷和變形的螺旋槳等。為此，本篇論文首先藉由無損卡爾曼濾波估測出無人機的各顆馬達的升力效率，並設計出的high gain geometic tracking controller接受升力效率的回授，無論是升力打折又或者是回授估測出的升力效率，都將被當成不確定性，對飛行造成一致最終有界(uniformly ultimately bounded)的影響，但不影響穩定性。下文中，除了提供上述設計細節外，也藉由數學證明了控制器的穩定性，以及無損卡爾曼濾波的可觀性。最後會透過模擬以及實驗，展現此架構下的飛行表現。\\[0.7cm]
+
+關鍵字：多軸無人機、無人機容錯控制、幾何追蹤控制、系統參數估測、無損卡爾曼濾波

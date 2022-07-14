@@ -1,0 +1,1514 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+theorems-bytype
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Controller Design
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Controller-Design"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To ensure that the multirotor achieves the control objectives defined in
+ (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:control objectives"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) as well as estimate the unknown mass and moment of inertia, translational
+ and rotational controllers 
+\begin_inset Formula $f$
+\end_inset
+
+ and 
+\begin_inset Formula $M$
+\end_inset
+
+ are designed using an ICL-based update law, as described below.
+\end_layout
+
+\begin_layout Subsection
+Translational Controller for the Multirotor
+\end_layout
+
+\begin_layout Standard
+Let the translational controller be designed as
+\begin_inset Formula 
+\begin{align}
+f & =(k_{x}e_{x}+k_{v}e_{v}+Y_{m}\hat{\theta}_{m})\cdot Re_{3,}\label{eq:force control input}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $k_{x}$
+\end_inset
+
+, 
+\begin_inset Formula $k_{v}$
+\end_inset
+
+ are positive control gains, and 
+\begin_inset Formula $Y_{m}$
+\end_inset
+
+ is a regression matrix defined as 
+\begin_inset Formula $Y_{m}:\mathbb{R}^{n}\times[0,\infty)\rightarrow\mathbb{R}^{n\times m}$
+\end_inset
+
+ 
+\begin_inset Formula 
+\begin{equation}
+Y_{m}=\left[\begin{array}{c}
+-\ddot{x}_{d_{1}}\\
+-\ddot{x}_{d_{2}}\\
+g-\ddot{x}_{d_{3}}
+\end{array}\right],\label{eq:Y_m}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\ddot{x}_{d_{1}}$
+\end_inset
+
+, 
+\begin_inset Formula $\ddot{x}_{d_{2}}$
+\end_inset
+
+, and 
+\begin_inset Formula $\ddot{x}_{d_{3}}\in\mathbb{R}$
+\end_inset
+
+ are the elements of the acceleration of the desired trajectory of the multiroto
+r 
+\begin_inset Formula $\ddot{x}_{d}$
+\end_inset
+
+.
+ 
+\begin_inset Formula $Y_{m}$
+\end_inset
+
+ comprising gravity and the command acceleration is bounded by a positive
+ constant 
+\begin_inset Formula $\bar{Y}_{m}\in\mathbb{R}_{>0}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{equation}
+\left\Vert Y_{m}\right\Vert <\bar{Y}_{m}.\label{eq:Y_m_upper_bound}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Remark
+Note that the controller designed in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:force control input"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) is the net thrust obtained by projecting the force control input 
+\begin_inset Formula $\vec{f}$
+\end_inset
+
+ into 
+\begin_inset Formula $e_{3}$
+\end_inset
+
+ on the body frame: 
+\begin_inset Formula 
+\begin{equation}
+\vec{f}=k_{x}e_{x}+k_{v}e_{v}+Y_{m}\hat{\theta}_{m}.\label{eq:f_vec}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The translational dynamics of the multirotors defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:translational dynamics2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) can be rewritten as
+\begin_inset Formula 
+\begin{equation}
+fRe_{3}=mge_{3}-m\dot{v},\label{eq:f_R_e3}
+\end{equation}
+
+\end_inset
+
+which can be linearly parameterized to separate the known and unknown parameters
+ as
+\begin_inset Formula 
+\begin{equation}
+fRe_{3}=Y_{m}^{cl}\theta_{m},\label{eq:f_R_e3_cl}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $Y_{m}^{cl}:\mathbb{R}^{n}\times[0,\infty)\rightarrow\mathbb{R}^{n\times m}$
+\end_inset
+
+ is a regression matrix defined as
+\begin_inset Formula 
+\begin{equation}
+Y_{m}^{cl}=\left[\begin{array}{c}
+-\ddot{x}_{1}\\
+-\ddot{x}_{2}\\
+g-\ddot{x}_{3}
+\end{array}\right],\label{eq:Y_m_cl}
+\end{equation}
+
+\end_inset
+
+and 
+\begin_inset Formula $\hat{\theta}_{m}$
+\end_inset
+
+ estimates 
+\begin_inset Formula $\theta_{m}$
+\end_inset
+
+ using the ICL-based update law
+\begin_inset Formula 
+\begin{align}
+\dot{\hat{\theta}}_{m}= & \text{proj}\left(\varGamma_{m}Y_{m}^{T}\left(e_{v}+C_{1}e_{x}\right)\right)\nonumber \\
+ & +\text{proj}\left(k_{m}^{cl}\varGamma_{m}\sum_{j=1}^{N_{m}}\left(y_{m}^{cl}\left(t_{j}\right)\right)^{T}\left(F-y_{m}^{cl}\left(t_{j}\right)\hat{\theta}_{m}\left(t_{j}\right)\right)\right),\label{eq:theta_m_hat_dot}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $\varGamma_{m}$
+\end_inset
+
+, 
+\begin_inset Formula $k_{m}^{cl},C_{1}\in\mathbb{R}_{>0}$
+\end_inset
+
+ are positive control gains, 
+\begin_inset Formula $t_{j}\in[0,t]$
+\end_inset
+
+ is the time between the initial time and the current time, and 
+\begin_inset Formula $N_{m}\in\mathbb{Z}^{+}$
+\end_inset
+
+ is a positive constant that characterizes the amount of data used for the
+ ICL controller.
+ The 
+\begin_inset Formula $\text{proj}\left(\cdot\right)$
+\end_inset
+
+ operation is inspired by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Patre2008"
+literal "false"
+
+\end_inset
+
+ and it ensures that 
+\begin_inset Formula $\hat{\theta}_{m}$
+\end_inset
+
+ is upper bounded by a prescribed positive constant 
+\begin_inset Formula $\bar{\hat{\theta}}_{m}$
+\end_inset
+
+ as
+\begin_inset Formula 
+\begin{equation}
+\left\Vert \hat{\theta}_{m}\right\Vert <\bar{\hat{\theta}}_{m}.\label{eq:theta_hat_bound}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Definition
+The 
+\begin_inset Formula $\text{proj}\left(\cdot\right)$
+\end_inset
+
+ operation is defined as 
+\begin_inset Formula $\dot{\hat{\theta}}=\text{proj}\left(e\right)$
+\end_inset
+
+, which is equivalent to
+\begin_inset Formula 
+\[
+\dot{\hat{\theta}}=\begin{cases}
+\begin{array}{cc}
+0 & \;\;\;\;\;,\left\Vert \hat{\theta}\right\Vert >\bar{\hat{\theta}}\\
+e & ,else
+\end{array} & .\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+In (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:theta_m_hat_dot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), 
+\begin_inset Formula $F$
+\end_inset
+
+ and 
+\begin_inset Formula $y_{m}^{cl}$
+\end_inset
+
+ are defined as
+\begin_inset Formula 
+\begin{align}
+F(t) & \triangleq\begin{cases}
+\begin{array}{c}
+0_{n\times1}\\
+\int_{t-\triangle t}^{t}fRe_{3}\left(\tau\right)d\tau
+\end{array} & \begin{array}{c}
+t\in[0,\triangle t]\\
+t>\triangle t
+\end{array}\end{cases},\label{eq:F}\\
+y_{m}^{cl}(t) & \triangleq\begin{cases}
+\begin{array}{c}
+0_{n\times1}\\
+\int_{t-\triangle t}^{t}Y_{m}^{cl}(\tau)d\tau
+\end{array} & \begin{array}{c}
+t\in[0,\triangle t]\\
+t>\triangle t
+\end{array}\end{cases},\label{eq:y_m_cl}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $\triangle t\in\mathbb{R}$
+\end_inset
+
+ is the time interval of integration.
+ 
+\end_layout
+
+\begin_layout Proposition
+\begin_inset CommandInset label
+LatexCommand label
+name "prop1:-defined"
+
+\end_inset
+
+
+\begin_inset Formula $\dot{\hat{\theta}}_{m}$
+\end_inset
+
+ defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:theta_m_hat_dot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) is equivalent to 
+\begin_inset Formula 
+\begin{align}
+\dot{\hat{\theta}}_{m}= & \text{proj}\left(\varGamma_{m}Y_{m}^{T}\left(e_{v}+C_{1}e_{x}\right)\right)\nonumber \\
+ & +\text{proj}\left(k_{m}^{cl}\varGamma_{m}\mathcal{G}_{m}\tilde{\theta}_{m}\right).\label{eq:theta_m_hat_dot_f}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Integrating both sides of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:f_R_e3_cl"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) yields
+\begin_inset Formula 
+\begin{equation}
+\int_{t-\triangle t}^{t}fRe_{3}\left(\tau\right)d\tau=\int_{t-\triangle t}^{t}Y_{m}^{cl}(\tau)\theta_{m}d\tau,\label{eq:int_f}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\theta_{m}\in\mathbb{R}$
+\end_inset
+
+ represents the constant unknown mass, and 
+\begin_inset Formula $\forall t>\triangle t$
+\end_inset
+
+.
+ Using the fundamental theorem of calculus and the definitions in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:F"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:y_m_cl"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) yields 
+\begin_inset Formula 
+\begin{equation}
+\int fRe_{3}(\tau)\mid_{\tau=t}-\int fRe_{3}(\tau)\mid_{\tau=t-\triangle t}=y_{m}^{cl}(t)\theta_{m}.\label{eq:difference between force}
+\end{equation}
+
+\end_inset
+
+Substituting (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:difference between force"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) into (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:theta_m_hat_dot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) yields (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:theta_m_hat_dot_f"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), wherewhere 
+\begin_inset Formula $\mathcal{G}_{m}\triangleq\sum_{j=1}^{N_{m}}\left(y_{m,j}^{cl}\right)^{T}y_{m,j}^{cl}.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Remark
+The 
+\begin_inset Formula $Y_{m}^{cl}$
+\end_inset
+
+ defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Y_m_cl"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) is not implementable since it includes acceleration terms 
+\begin_inset Formula $\ddot{x}_{1},$
+\end_inset
+
+ 
+\begin_inset Formula $\ddot{x}_{2},$
+\end_inset
+
+ and 
+\begin_inset Formula $\ddot{x}_{3},$
+\end_inset
+
+ which are not measurable.
+ However, by integrating 
+\begin_inset Formula $Y_{m}^{cl}$
+\end_inset
+
+ to be 
+\begin_inset Formula $y_{m}^{cl}$
+\end_inset
+
+ as defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:y_m_cl"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), 
+\begin_inset Formula $y_{m}^{cl}$
+\end_inset
+
+ becomes implementable since 
+\begin_inset Formula $v_{1},$
+\end_inset
+
+ 
+\begin_inset Formula $v_{2},$
+\end_inset
+
+ and 
+\begin_inset Formula $v_{3}$
+\end_inset
+
+ are available.
+\end_layout
+
+\begin_layout Subsection
+Rotational Controller for the Multirotor
+\end_layout
+
+\begin_layout Standard
+The subsequent analysis is facilitated by making the following assumption:
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\left\Vert -k_{x}e_{x}-k_{v}e_{v}-Y_{m}\hat{\theta}_{m}\right\Vert \neq0,\label{eq:not_equal_to_zero}
+\end{equation}
+
+\end_inset
+
+which is similar to 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lee2010"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Let the rotational controller be designed as
+\begin_inset Formula 
+\begin{align}
+M & =-k_{R}e_{R}-k_{\Omega}e_{\Omega}-Y_{J}\hat{\theta}_{J},\label{eq:moment control input}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $k_{R}$
+\end_inset
+
+, 
+\begin_inset Formula $k_{\Omega}$
+\end_inset
+
+ are positive control gains, and 
+\begin_inset Formula $Y_{J}:\mathbb{R}^{n}\times[0,\infty)\rightarrow\mathbb{R}^{n\times m}$
+\end_inset
+
+ is a regression matrix defined as 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Y_{J}=\left[\begin{array}{ccc}
+\overline{\Omega}_{1} & \Omega_{2}\cdot\Omega_{3} & -\Omega_{2}\cdot\Omega_{3}\\
+-\Omega_{1}\cdot\Omega_{3} & \overline{\Omega}_{2} & \Omega_{1}\cdot\Omega_{3}\\
+\Omega_{1}\cdot\Omega_{2} & -\Omega_{1}\cdot\Omega_{2} & \overline{\Omega}_{3}
+\end{array}\right],\label{eq:Y_diag}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\overline{\Omega}_{1},$
+\end_inset
+
+ 
+\begin_inset Formula $\overline{\Omega}_{2},$
+\end_inset
+
+ and 
+\begin_inset Formula $\overline{\Omega}_{3}\in\mathbb{R}$
+\end_inset
+
+ are the elements of 
+\begin_inset Formula $\overline{\Omega}\in\mathbb{R}^{3}$
+\end_inset
+
+ defined as 
+\begin_inset Formula 
+\begin{equation}
+\overline{\Omega}\triangleq\left[\begin{array}{c}
+\overline{\Omega}_{1}\\
+\overline{\Omega}_{2}\\
+\overline{\Omega}_{3}
+\end{array}\right]=\hat{\Omega}R^{T}R_{d}\Omega_{d}-R^{T}R_{d}\dot{\Omega}_{d},\label{eq:Omega_bar}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $R_{d}=\left[\vec{X}_{B_{d}},\vec{Y}_{B_{d}},\vec{Z}_{B_{d}}\right]\in\text{SO\ensuremath{\left(3\right)}}$
+\end_inset
+
+ and
+\begin_inset Formula 
+\begin{equation}
+\vec{Z}_{B_{d}}=-\frac{-k_{x}e_{x}-k_{v}e_{v}-Y_{m}\hat{\theta}_{m}}{\left\Vert -k_{x}e_{x}-k_{v}e_{v}-Y_{m}\hat{\theta}_{m}\right\Vert }\label{eq:b3d}
+\end{equation}
+
+\end_inset
+
+designed using an approach similar to that adopted in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lee2010"
+literal "false"
+
+\end_inset
+
+, are the desired attitude and the 
+\begin_inset Formula $z$
+\end_inset
+
+-axis of the body-fixed frame of the multirotor, respectively, and 
+\begin_inset Formula $\vec{Z}_{B_{d}}$
+\end_inset
+
+ exists based on (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:not_equal_to_zero"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Based on the definitions of 
+\begin_inset Formula $Y_{m}$
+\end_inset
+
+, 
+\begin_inset Formula $\theta_{m}$
+\end_inset
+
+, (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Y_m_upper_bound"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:theta_hat_bound"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), the following inequalities are satisfied:
+\begin_inset Formula 
+\begin{equation}
+\left\Vert -Y_{m}\theta_{m}\right\Vert <\left\Vert Y_{m}\right\Vert \left\Vert \theta_{m}\right\Vert <\bar{Y}_{m}\bar{\hat{\theta}}_{m}<B,\label{eq:B}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $B\in\mathbb{R}_{>0}$
+\end_inset
+
+ is a positive constant.
+ 
+\end_layout
+
+\begin_layout Standard
+To facilitate the following analysis, the rotational dynamics of the multirotors
+ defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:rotational dynamics2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) can be further linearly parameterized as
+\begin_inset Formula 
+\begin{equation}
+M=Y_{J}^{cl}\theta_{J},\label{eq:moment input after being linear parameterized}
+\end{equation}
+
+\end_inset
+
+ where 
+\begin_inset Formula $Y_{J}^{cl}:\mathbb{R}^{n}\times[0,\infty)\rightarrow\mathbb{R}^{n\times m}$
+\end_inset
+
+ is a regression matrix defined as
+\begin_inset Formula 
+\begin{equation}
+Y_{J}^{cl}=\left[\begin{array}{ccc}
+\dot{\Omega}_{1} & -\Omega_{2}\cdot\Omega_{3} & \Omega_{2}\cdot\Omega_{3}\\
+\Omega_{1}\cdot\Omega_{3} & \dot{\Omega}_{2} & -\Omega_{1}\cdot\Omega_{3}\\
+-\Omega_{1}\cdot\Omega_{2} & \Omega_{1}\cdot\Omega_{2} & \dot{\Omega}_{3}
+\end{array}\right],\label{eq:Y_CL}
+\end{equation}
+
+\end_inset
+
+and 
+\begin_inset Formula $\theta_{J}$
+\end_inset
+
+ is the unknown constants to be estimated according to (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:theta_diag"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+The last term in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:moment control input"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), 
+\begin_inset Formula $\hat{\theta}_{J}$
+\end_inset
+
+, is updated to estimate 
+\begin_inset Formula $\theta_{J}$
+\end_inset
+
+ by applying the ICL-based update law: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\dot{\hat{\theta}}_{J}(t) & \triangleq\varGamma_{J}Y_{J}^{T}(e_{\Omega}+C_{2}e_{R})\nonumber \\
+ & +k_{J}^{cl}\varGamma_{J}\sum_{j=1}^{N_{J}}\left(y_{J}^{cl}(t_{j})\right)^{T}(\overline{M}(t_{j})-y_{J}^{cl}(t_{j})\hat{\theta}_{J}),\label{eq:theta_hat_dot}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $k_{J}^{cl}\in\mathbb{R}$
+\end_inset
+
+ is the control gain, 
+\begin_inset Formula $C_{2}\in\mathbb{R}$
+\end_inset
+
+ is a positive constant, 
+\begin_inset Formula $N_{J}\in\mathbb{Z}^{+}$
+\end_inset
+
+ is a positive constant that characterizes the number of data used for concurren
+t learning, 
+\begin_inset Formula $\varGamma_{J}\in\mathbb{R}^{m\times m}$
+\end_inset
+
+ is a constant gain matrix, and 
+\begin_inset Formula $y_{J}^{cl}$
+\end_inset
+
+ and 
+\begin_inset Formula $\overline{M}$
+\end_inset
+
+ are defined as
+\begin_inset Formula 
+\begin{equation}
+y_{J}^{cl}(t)\triangleq\begin{cases}
+\begin{array}{c}
+0_{n\times m}\\
+\int_{t-\triangle t}^{t}Y_{J}^{cl}(\Omega(\tau),\tau)d\tau
+\end{array} & \begin{array}{c}
+t\in[0,\triangle t]\\
+t>\triangle t
+\end{array}\end{cases},\label{eq:Y1_integral}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\overline{M}(t)\triangleq\begin{cases}
+\begin{array}{c}
+0_{n\times1}\\
+\int_{t-\triangle t}^{t}M(\tau)d\tau
+\end{array} & \begin{array}{c}
+t\in[0,\triangle t]\\
+t>\triangle t
+\end{array}\end{cases}.\label{eq:M_integral}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proposition
+\begin_inset CommandInset label
+LatexCommand label
+name "prop2:-defined-in"
+
+\end_inset
+
+
+\begin_inset Formula $\dot{\hat{\theta}}_{J}$
+\end_inset
+
+ defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:theta_hat_dot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) is equivalent to 
+\begin_inset Formula 
+\begin{align}
+\dot{\hat{\theta}}_{J}= & \varGamma_{J}Y_{J}^{T}(e_{\Omega}+C_{2}e_{R})\nonumber \\
+ & +k_{J}^{cl}\varGamma_{J}\mathcal{G}_{J}\tilde{\theta}_{J}.\label{eq:theta_hat_dot_f}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Integrating both sides of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:moment input after being linear parameterized"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) yields
+\begin_inset Formula 
+\[
+\int_{t-\triangle t}^{t}M(\tau)d\tau=\int_{t-\triangle t}^{t}Y_{J}^{cl}(\Omega,\tau)\theta_{J}d\tau.
+\]
+
+\end_inset
+
+Using the fundamental theorem of calculus and the definitions in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:M_integral"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Y1_integral"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) yields 
+\begin_inset Formula 
+\begin{equation}
+\int M(\tau)\mid_{\tau=t}-\int M(\tau)\mid_{\tau=t-\triangle t}=y_{J}^{cl}(t)\theta_{J}.\label{eq:difference between omega}
+\end{equation}
+
+\end_inset
+
+Substituting (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:difference between omega"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) into (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:theta_hat_dot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) yields (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:theta_hat_dot_f"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), where 
+\begin_inset Formula $\mathcal{G}_{J}\triangleq\sum_{j=1}^{N_{J}}\left(y_{J,j}^{cl}\right)^{T}y_{J,j}^{cl}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{\theta}_{J}$
+\end_inset
+
+ is the estimate error defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:theta_error"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Remark
+The 
+\begin_inset Formula $Y_{J}^{cl}$
+\end_inset
+
+ defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Y_CL"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) is not implementable since it includes angular acceleration terms 
+\begin_inset Formula $\dot{\Omega}_{1},$
+\end_inset
+
+ 
+\begin_inset Formula $\dot{\Omega}_{2},$
+\end_inset
+
+ and 
+\begin_inset Formula $\dot{\Omega}_{3},$
+\end_inset
+
+ which are not measurable.
+ However, by integrating 
+\begin_inset Formula $Y_{J}^{cl}$
+\end_inset
+
+ to be 
+\begin_inset Formula $y_{J}^{cl}$
+\end_inset
+
+ as defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Y1_integral"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), 
+\begin_inset Formula $y_{J}^{cl}$
+\end_inset
+
+ becomes implementable since 
+\begin_inset Formula $\Omega_{1},$
+\end_inset
+
+ 
+\begin_inset Formula $\Omega_{2},$
+\end_inset
+
+ and 
+\begin_inset Formula $\Omega_{3}$
+\end_inset
+
+ are available.
+\end_layout
+
+\begin_layout Standard
+A block diagram of the ICL controller is depicted in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:control architecture"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../Figures/eps/block_diagram.eps
+	lyxscale 50
+	width 98col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:control architecture"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Control architecture of the ICL controller.
+\end_layout
+
+\end_inset
+
+Control architecture of the ICL controller.
+ MoI, moment of inertia.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Closed-Loop Error System
+\end_layout
+
+\begin_layout Standard
+To facilitate the stability analysis presented in Chapter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Stability-Analysis"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the closed-loop error systems of rotational and translational dynamics
+ are derived in this section.
+\end_layout
+
+\begin_layout Subsubsection
+Translational Dynamics
+\end_layout
+
+\begin_layout Standard
+Taking the time derivative of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:ev"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and substituting the translational dynamics of the multirotor defined
+ in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:translational dynamics2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) yields
+\begin_inset Formula 
+\begin{align}
+m\dot{e}_{v}= & mge_{3}-fRe_{3}-m\ddot{x}_{d}\nonumber \\
+= & Y_{m}\theta_{m}-fRe_{3},\label{eq:ev_dot}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $Y_{m}$
+\end_inset
+
+ and 
+\begin_inset Formula $\theta_{m}$
+\end_inset
+
+ are defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Y_m"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:theta_m"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ By substituting the force control (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:force control input"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) into (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:ev_dot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), and adding and subtracting 
+\begin_inset Formula $\frac{f}{e_{3}^{T}R_{d}^{T}Re_{3}}R_{d}e_{3}$
+\end_inset
+
+ to the right-hand side of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:ev_dot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) yields the closed-loop translation dynamics of the multirotor as
+\begin_inset Formula 
+\begin{equation}
+m\dot{e}_{v}=-k_{x}e_{x}-k_{v}e_{v}+Y_{m}\tilde{\theta}_{m}-X,\label{eq:mev_dot}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $X\in\mathbb{R}^{3}$
+\end_inset
+
+ is defined as
+\begin_inset Formula 
+\[
+X=\frac{f}{e_{3}^{T}R_{d}^{T}Re_{3}}\Bigl(\left(e_{3}^{T}R_{d}^{T}Re_{3}\right)Re_{3}-R_{d}e_{3}\Bigr).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Rotational Dynamics
+\end_layout
+
+\begin_layout Standard
+Taking the time derivative of error dynamics 
+\begin_inset Formula $e_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $e_{\Omega}$
+\end_inset
+
+ defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:e_R"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:e_Omega"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) yields
+\begin_inset Formula 
+\begin{align}
+\dot{e}_{R} & =\frac{1}{2}(R_{d}^{T}R\hat{e}_{\Omega}+\hat{e}_{\Omega}R^{T}R_{d})^{\vee}\nonumber \\
+ & =C(R_{d}^{T}R)e_{\Omega},\label{eq:eR_dot}\\
+\dot{e}_{\Omega} & =\dot{\Omega}+(\hat{\Omega}R^{T}R_{d}\Omega_{d}-R^{T}R_{d}\dot{\Omega}_{d})\nonumber \\
+ & =\dot{\Omega}+\overline{\Omega},\label{eq:eOmega_dot}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $C(R_{d}^{T}R)$
+\end_inset
+
+ is defined as 
+\begin_inset Formula 
+\begin{equation}
+C(R_{d}^{T}R)\triangleq\frac{1}{2}(\text{tr}[R^{T}R_{d}]I-R^{T}R_{d}).\label{eq:C_RdR}
+\end{equation}
+
+\end_inset
+
+Multiplying (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:eOmega_dot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) by 
+\begin_inset Formula $J$
+\end_inset
+
+ and substituting the rotation dynamics of the multirotor (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:rotational dynamics2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) into (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:eOmega_dot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) yields
+\begin_inset Formula 
+\begin{equation}
+J\dot{e}_{\Omega}=M+Y_{J}\theta_{J},\label{eq:Je_Omega_dot}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $Y_{J}\theta_{J}$
+\end_inset
+
+ is defined as
+\begin_inset Formula 
+\begin{equation}
+Y_{J}\theta_{J}=J\overline{\Omega}-\Omega\times J\Omega,\label{eq:Y_diag*theta_diag}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $J$
+\end_inset
+
+, 
+\begin_inset Formula $\theta_{J}$
+\end_inset
+
+, and 
+\begin_inset Formula $Y_{J}$
+\end_inset
+
+ are defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:J"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:theta_diag"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Y_diag"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), respectively.
+ Substituting the rotational control input (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:moment control input"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) into (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Je_Omega_dot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) yields
+\begin_inset Formula 
+\begin{equation}
+J\dot{e}_{\Omega}=-k_{R}e_{R}-k_{\Omega}e_{\Omega}+Y_{J}\tilde{\theta}_{J}.\label{eq:Je_Omega_dot_new}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

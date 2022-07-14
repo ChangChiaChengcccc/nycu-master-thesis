@@ -1,0 +1,556 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Subsection
+Background
+\end_layout
+
+\begin_layout Standard
+A multirotor is a type of vertical take-off-and-landing unmanned aerial
+ vehicle that has enormous potential due to its agility, mobility, lightness,
+ and maneuverability.
+ These advantages have resulted in multirotors being widely utilized in
+ various fields, including cooperative load transportation 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Aghdam2016"
+literal "false"
+
+\end_inset
+
+, search and rescue 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Almurib2011"
+literal "false"
+
+\end_inset
+
+, and military surveillance 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Masum2013"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Numerous studies have investigated how to control a multirotor, including
+ using linear control methods such as PID control and feedback linearization
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Li2011"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Salih2010"
+literal "false"
+
+\end_inset
+
+, and 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lee2011"
+literal "false"
+
+\end_inset
+
+ and feedback linearization method and adaptive sliding mode control method
+ based on the Lyapunov stability theory 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Voos2009"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lee2009"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Runcharoon2013"
+literal "false"
+
+\end_inset
+
+, and 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Zheng2014"
+literal "false"
+
+\end_inset
+
+.
+ A geometric tracking control method that calculated the attitude and angular
+ velocity tracking error on 
+\begin_inset Formula $\text{SO\ensuremath{\left(3\right)}}$
+\end_inset
+
+ was developed in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lee2010"
+literal "false"
+
+\end_inset
+
+.
+ This method avoided the singularities of Euler angles and guaranteed the
+ exponential stability through Lyapunov stability theory when the initial
+ attitude error is less than 
+\begin_inset Formula $180^{\circ}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Motivation
+\end_layout
+
+\begin_layout Standard
+One of seniors in the lab did the research about Parameter Estimation and
+ Control of Multirotors Using Integral Concurrent Learning.
+ The research estimates mass and moment of inertia of a multirotor, and
+ feedbacks the estimation parameter for better flight control.
+ The research experiment shows the validity of the theory when the battery
+ is fully charged.
+ However, when the battery power is geting lower, the estimated mass in
+ the experiment is getting bigger .This is because the low power battery
+ dosen't have enough power to actuate the motors and other elements on multiroto
+r.
+ The situation is reasonable because my senior dosen't put the battery power
+ model in his reseach.
+ As mentioned above, the unmodel hardware does influence to the research,
+ and I'm curious that if I could do qualitative and quantitative analysis
+ to hardware.
+ Eventually, I select motors on a multirotor as my research subject.
+\end_layout
+
+\begin_layout Subsection
+Related Works
+\end_layout
+
+\begin_layout Subsubsection
+Estimate the Mass of the Multirotor
+\end_layout
+
+\begin_layout Standard
+Several methods have been used to estimate the mass of a multirotor, such
+ as the linear least-squares method and an extended Kalman filter.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Mellinger2011"
+literal "false"
+
+\end_inset
+
+ estimated the mass of the whole system including the multirotor, grasper,
+ and payload using a linear least-squares method in a multirotor used for
+ aerial grasping.
+ In order to deal with the situation of grasping a different payload, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Mellinger2011"
+literal "false"
+
+\end_inset
+
+ formulated the dynamics model considering the mass change of the multirotor
+ system.
+ In 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ho2017"
+literal "false"
+
+\end_inset
+
+, the authors designed an estimator that estimated the mass of the multirotor
+ using only inertia measurements and pilot commands.
+ They derived a dynamics model that considered the relation between roll
+ rate and lateral acceleration.
+ Furthermore, those authors compared the performances of several methods
+ for estimating the mass of the multirotor, including least-squares estimation,
+ an extended Kalman filter, and an instrumental variable method.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Al-Shabi2013"
+literal "false"
+
+\end_inset
+
+ presented two methods for estimating parameters of a multirotor that included
+ the mass and the reformulated moment of inertia.
+ The smooth variable structure filter method with information about chattering
+ signal and the recursive least squares were applied to estimate the parameters
+ , and the accuracies of estimation of these two estimation methods were
+ compared.
+ The authors also conducted simulations that including sensor noise in order
+ to mimic the real flight.
+ However, the algorithms in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Mellinger2011"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ho2017"
+literal "false"
+
+\end_inset
+
+, and 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Al-Shabi2013"
+literal "false"
+
+\end_inset
+
+ were developed using Euler angles, and were limited by the gimbal lock
+ phenomenon.
+\end_layout
+
+\begin_layout Subsubsection
+Estimate the Moment of Inertia of the Multirotor
+\end_layout
+
+\begin_layout Standard
+There are several methods available for obtaining the moment of inertia
+ during setup, such as tabulation method in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Amir2008"
+literal "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Bresciani2008"
+literal "false"
+
+\end_inset
+
+, and CAD-based method in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Hussein2009"
+literal "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pounds2010"
+literal "false"
+
+\end_inset
+
+.
+ In tabulation method involves disassembling the multirotor model into simple
+ geometrical objects such as cross-beam, cylinder, and boxes elements.
+ The body-fixed frame is considered to have a cross-beam geometry, while
+ motors and propellers are regarded as cylinders with different dimensions.
+ The total moment of inertia of the multirotor is calculated by combining
+ the inertia contribution of each component and using the parallel-axis
+ theorem.
+ However, the complicated real structure of a multirotor might be oversimplified
+ by using these simple elements.
+ 
+\end_layout
+
+\begin_layout Standard
+In the CAD-based method, a model of the multirotor is constructed using
+ computer software.
+ This approach means that the model is not restricted to elements with simple
+ geometries, meaning that the constructed multirotor model can have greater
+ complexity and a more-accurate structure.
+ Moreover, all parameters related to the dynamics and control of the multirotor
+ are available in the software.
+ However, the parameters may differ between the simulations and the real
+ structure, and also due to imperfections associated with the manufacturing
+ and assembly processes.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Muliadi2017"
+literal "false"
+
+\end_inset
+
+ proposed a method for estimating the moment of inertia directly from flight
+ data.
+ The method modified the Newton-Euler equation of motion for the rotational
+ dynamics to derive a linear and algebraic model.
+ The flight data were used to solve the unknown parameters by taking numerically
+ time derivative of the gyroscope signal, which is vulnerable to noises.
+ Moreover, calculating the inverse of the matrix is too complicated to be
+ performed on the on-board computers.
+ Needing a high-performance flight controller for recording the flight data
+ also increases the cost of a multirotor.
+ 
+\end_layout
+
+\begin_layout Standard
+A frequency-domain approach for estimating the moment of inertia 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Mettler1999"
+literal "false"
+
+\end_inset
+
+ can be applied equally to full-size helicopters and small multirotors.
+ The dynamics of the system after linearization is fully described by frequency-
+response approaches, but the stability of the linearized system is only
+ guaranteed around the equilibrium point.
+ The performance of the controller may be impaired by nonlinear dynamics
+ of the real physical system.
+ Moreover, the model in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Mettler1999"
+literal "false"
+
+\end_inset
+
+ was derived for the hovering condition and the motion of the system is
+ restricted to one axis at a time, whereas multirotors are usually required
+ to follow a desired trajectory.
+ 
+\end_layout
+
+\begin_layout Standard
+The methods for estimating the moment of inertia mentioned above are based
+ on offline analysis.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Burri2018"
+literal "false"
+
+\end_inset
+
+ proposed an approach for accurately estimating physical parameters based
+ on the maximum-likelihood estimation.
+ This approach reflects the uncertainty of the measurement implicit in the
+ probability distribution.
+ However, collecting flight data may increases the computational complexity
+ of the on-board computer.
+\end_layout
+
+\begin_layout Standard
+It is not possible to determine the variations in parameters when the structure
+ of a multirotor changes in real time.
+ Such parameter variations could occur when a payload is attached to a multiroto
+r during a flight.
+ This kinds of problems were addressed in by designing a real-time, on-board
+ estimator for estimating the geometric and inertia parameters of a multirotor.
+ This estimator is able to re-estimate the parameters as they change during
+ the flight time.
+ Nevertheless, that could only estimate unbiased states and parameters when
+ the system was locally weakly observable.
+ 
+\end_layout
+
+\begin_layout Standard
+An adaptive control method based on Lyapunov stability theory was developed
+ to design a controller with unknown system parameters.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ImranRashid2012"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Diao2011"
+literal "false"
+
+\end_inset
+
+, and 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Chaturvedi2006"
+literal "false"
+
+\end_inset
+
+ implemented this control method on a multirotor for which the moment of
+ inertia was unknown.
+ 
+\end_layout
+
+\begin_layout Subsection
+Contributions
+\end_layout
+
+\begin_layout Standard
+The present study has developed an integral concurrent learning (ICL) control
+ method that can simultaneously stabilize the multirotor and estimate the
+ moment of inertia.
+ By combining the controller architecture in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lee2010"
+literal "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ParikhKamalapurkarDixonarXiv:1512.03464"
+literal "false"
+
+\end_inset
+
+, a concurrent learning method has been developed for estimating the system
+ parameters.
+ Not only is the control objective of attitude tracking achieved, but also
+ the unknown moments of inertia converge to close to their true values.
+ 
+\end_layout
+
+\begin_layout Standard
+The main contributions of this study are summarized as follows:
+\end_layout
+
+\begin_layout Enumerate
+This is the first study to develop a method of ICL for asymptotically estimating
+ the mass and moment of inertia of a multirotor.
+ 
+\end_layout
+
+\begin_layout Enumerate
+The dynamics of the multirotor is globally defined, and so the developed
+ ICL controller can perform asymptotic tracking and parameter estimation.
+ 
+\end_layout
+
+\begin_layout Enumerate
+The developed ICL controller can estimate the system parameters online,
+ requiring less human intervention, which is very useful in the application
+ of package delivery in which the mass and moment of inertia of the overall
+ system is unknown.
+ 
+\end_layout
+
+\begin_layout Enumerate
+The developed ICL controller can be applied to multirotors with different
+ numbers of axes and ensures asymptotic tracking.
+\end_layout
+
+\end_body
+\end_document
