@@ -256,9 +256,20 @@ filename "Chapters/Problem_formulation.lyx"
 \end_inset
 
 
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "Chapters/Motors-Efficiency-Estimation.lyx"
+
+\end_inset
+
+
 \begin_inset Newpage newpage
 \end_inset
 

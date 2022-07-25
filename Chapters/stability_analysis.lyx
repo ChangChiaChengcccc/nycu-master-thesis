@@ -92,8 +92,8 @@ name "sec:Stability-Analysis"
 \end_layout
 
 \begin_layout Standard
-The stability analysis of this control algorithm can be divided into two
- parts: rotational and translational.
+The stability analysis of this controller can be divided into two parts:
+ rotational and translational.
  Lyapunov functions 
 \begin_inset Formula $V_{1}$
 \end_inset
@@ -148,7 +148,7 @@ noprefix "false"
 \begin_inset Formula $e_{\Omega}$
 \end_inset
 
- achieve exponential stability and 
+ are bounded and 
 \begin_inset Formula $\Psi\left(R\left(t\right),R_{d}\left(t\right)\right)$
 \end_inset
 
@@ -184,25 +184,53 @@ noprefix "false"
 
 \end_inset
 
-provided that the following conditions are satisfied 
+provided that the following conditions are satisfied
+\begin_inset Formula 
+\begin{align*}
+\Psi\left(R\left(0\right),R_{d}\left(0\right)\right)< & 2
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Theorem
+\begin_inset Formula 
+\begin{align}
+\left\Vert e_{\Omega}\left(0\right)\right\Vert  & <\frac{2}{\lambda_{\max}\left(J\right)}(k_{R}+k_{RD})\left(2-\Psi\left(R\left(0\right),R_{d}\left(0\right)\right)\right)\label{eq:e_omega=0}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Theorem
+\begin_inset Formula 
+\[
+c_{2}<min\left\{ (k_{\Omega}+k_{\Omega D}),\right.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Theorem
 \begin_inset Formula 
 \begin{equation}
-\Psi\left(R\left(0\right),R_{d}\left(0\right)\right)<2\label{eq:Psi<2}
+\left.\frac{4(k_{\Omega}+k_{\Omega D})(k_{R}+k_{RD})\lambda_{min}\left(J\right)^{2}}{(k_{\Omega}+k_{\Omega D})^{2}\lambda_{max}\left(J\right)+4(k_{\Omega}+k_{\Omega D})(k_{R}+k_{RD})\lambda_{min}\left(J\right)^{2}},\sqrt{(k_{R}+k_{RD})\lambda_{min}\left(J\right)}\right\} \label{eq:c2}
 \end{equation}
 
 \end_inset
 
 
-\begin_inset Formula 
-\begin{align}
-\left\Vert e_{\Omega}\left(0\right)\right\Vert ^{2} & <\frac{2}{\lambda_{\max}\left(J\right)}k_{R}\left(2-\Psi\left(R\left(0\right),R_{d}\left(0\right)\right)\right).\label{eq:e_omega=0}\\
-C_{2} & <\min\Bigl\{\frac{k_{\Omega}}{\lambda_{\max}\left(J\right)},\frac{4k_{\Omega}k_{R}}{k_{\Omega}^{2}+4k_{R}\lambda_{\max}\left(J\right)},\sqrt{\frac{k_{R}\lambda_{\min}\left(J\right)}{\lambda_{\max}\left(J\right)^{2}}}\Bigr\},\label{eq:C2}
-\end{align}
+\end_layout
 
-\end_inset
-
+\begin_layout Theorem
 where 
-\begin_inset Formula $C_{2}$
+\begin_inset Formula $c_{2}$
 \end_inset
 
  is a positive constant.
@@ -214,9 +242,12 @@ Let
 \end_inset
 
  be defined as
+\end_layout
+
+\begin_layout Proof
 \begin_inset Formula 
 \begin{align}
-V_{2}= & \frac{1}{2}e_{\Omega}\cdot Je_{\Omega}+k_{R}\Psi(R,R_{d})+JC_{2}e_{R}\cdot e_{\Omega}+\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J},\label{eq:V2}
+V_{2} & =\frac{1}{2}e_{\Omega}\cdot Je_{\Omega}+(k_{R}+k_{RD})\Psi\left(R,R_{d}\right)+c_{2}e_{R}\cdot e_{\Omega}\label{eq:V2}
 \end{align}
 
 \end_inset
@@ -224,7 +255,7 @@ V_{2}= & \frac{1}{2}e_{\Omega}\cdot Je_{\Omega}+k_{R}\Psi(R,R_{d})+JC_{2}e_{R}\c
 which can be lower and upper bounded by 
 \begin_inset Formula 
 \begin{align}
-z_{2}^{T}M_{21}z_{2} & +\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J}\leq V_{2}\leq z_{2}^{T}M_{22}z_{2}+\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J},\label{eq:V2 bound}
+z_{2}^{T}M_{21}z_{2} & \leq V_{2}\leq z_{2}^{T}M_{22}z_{2},\label{eq:V2 bound}
 \end{align}
 
 \end_inset
@@ -238,12 +269,12 @@ where
 \begin_inset Formula 
 \begin{align}
 M_{21} & =\frac{1}{2}\left[\begin{array}{cc}
-k_{R} & -C_{2}\lambda_{\max}\left(J\right)\\
--C_{2}\lambda_{\max}\left(J\right) & \lambda_{\min}\left(J\right)
+k_{R}+k_{RD} & -c_{2}\\
+-c_{2} & \lambda_{min}\left(J\right)
 \end{array}\right],\label{eq:M21}\\
 M_{22} & =\frac{1}{2}\left[\begin{array}{cc}
-\frac{2k_{R}}{2-\psi_{2}} & C_{2}\lambda_{\max}\left(J\right)\\
-C_{2}\lambda_{\max}\left(J\right) & \lambda_{\max}\left(J\right)
+\frac{2(k_{R}+k_{RD})}{2-\psi_{2}} & c_{2}\\
+c_{2} & \lambda_{max}\left(J\right)
 \end{array}\right],\label{eq:M22}
 \end{align}
 
@@ -256,7 +287,7 @@ where
  is defined as
 \begin_inset Formula 
 \begin{equation}
-\psi_{2}=\frac{1}{k_{R}}\left[\frac{1}{2}e_{\Omega}\left(0\right)\cdot Je_{\Omega}\left(0\right)+k_{R}\Psi(R\left(0\right),R_{d}\left(0\right))\right].\label{eq:psi2}
+\psi_{2}=\frac{1}{k_{R}+k_{RD}}\left[\frac{1}{2}e_{\Omega}\left(0\right)\cdot Je_{\Omega}\left(0\right)+(k_{R}+k_{RD})\Psi(R\left(0\right),R_{d}\left(0\right))\right].\label{eq:psi2}
 \end{equation}
 
 \end_inset
@@ -266,98 +297,24 @@ Taking the time derivative of
 \end_inset
 
  yields 
+\end_layout
+
+\begin_layout Proof
 \begin_inset Formula 
-\begin{align}
-\dot{V_{2}}= & e_{\Omega}\cdot J\dot{e}_{\Omega}-\frac{1}{2}k_{R}\text{tr}[-\hat{\Omega}_{d}R_{d}^{T}R+R_{d}^{T}R\hat{\Omega}]\nonumber \\
- & +JC_{2}\dot{e}_{R}\cdot e_{\Omega}+JC_{2}\dot{e}_{\Omega}\cdot e_{R}\nonumber \\
- & +\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\dot{\tilde{\theta}}_{J}\nonumber \\
-= & e_{\Omega}\cdot J\dot{e}_{\Omega}-\frac{1}{2}k_{R}\text{tr}[R_{d}^{T}R\hat{e}_{\Omega}]\nonumber \\
- & +JC_{2}\dot{e}_{R}\cdot e_{\Omega}+JC_{2}\dot{e}_{\Omega}\cdot e_{R}\nonumber \\
- & +\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\dot{\tilde{\theta}}_{J}.\label{eq:V2_dot}
-\end{align}
+\begin{align*}
+\dot{V}_{2}= & e_{\Omega}\cdot J\dot{e}_{\Omega}+(k_{R}+k_{RD})e_{R}\cdot e_{\Omega}+c_{2}\dot{e}_{R}\cdot e_{\Omega}+c_{2}e_{R}\cdot\dot{e}_{\Omega}\\
+= & e_{\Omega}\cdot(-(k_{R}+k_{RD})e_{R}-(k_{\Omega}+k_{\Omega D})e_{\Omega}-D_{M})+(k_{R}+k_{RD})e_{R}\cdot e_{\Omega}+c_{2}\dot{e}_{R}\cdot e_{\Omega}\\
+ & +c_{2}e_{R}\cdot J^{-1}(-(k_{R}+k_{RD})e_{R}-(k_{\Omega}+k_{\Omega D})e_{\Omega}-D_{M})\\
+= & -k_{\Omega}\Vert e_{\Omega}\Vert^{2}-c_{2}k_{R}e_{R}\cdot J^{-1}e_{R}+c_{2}C(R_{d}^{T}R)e_{\Omega}\cdot e_{\Omega}-c_{2}(k_{\Omega}+k_{\Omega}d)e_{R}\cdot J^{-1}e_{\Omega}\\
+ & -k_{\Omega D}\Vert e_{\Omega}\Vert^{2}-c_{2}k_{RD}e_{R}\cdot J^{-1}e_{R}-e_{\Omega}\cdot D_{M}-c_{2}e_{R}\cdot J^{-1}D_{M}
+\end{align*}
 
 \end_inset
 
-The second and fifth terms of (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:V2_dot"
-plural "false"
-caps "false"
-noprefix "false"
 
-\end_inset
+\end_layout
 
-) can be written as 
-\begin_inset Formula 
-\begin{align}
-\text{tr}[R_{d}^{T}R\hat{e}_{\Omega}] & =\frac{1}{2}\text{tr}[R_{d}^{T}R\hat{e}_{\Omega}-\hat{e}_{\Omega}R^{T}R_{d}]\nonumber \\
- & =\frac{1}{2}\text{tr}[\hat{e}_{\Omega}(R_{d}^{T}R-R^{T}R_{d})]=\text{tr}[\hat{e}_{\Omega}\hat{e}_{R}]\nonumber \\
- & =-2e_{R}e_{\Omega}.\label{eq:2nd_of_V2_dot}\\
-\dot{\tilde{\theta}}_{J} & =-\dot{\hat{\theta}}_{J}.\label{eq:fifth_of_V2_dot}
-\end{align}
-
-\end_inset
-
-Based on (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:eR_dot"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-), (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:Je_Omega_dot_new"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-), (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:2nd_of_V2_dot"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-), and (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:fifth_of_V2_dot"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-), (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:V2_dot"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-) can be written as  
-\begin_inset Formula 
-\begin{align}
-\dot{V_{2}}= & (e_{\Omega}+C_{2}e_{R})\cdot(-k_{R}e_{R}-k_{\Omega}e_{\Omega}+Y_{J}\tilde{\theta}_{J})+k_{R}e_{\Omega}\cdot e_{R}\nonumber \\
- & +JC_{2}C(R_{d}^{T}R)e_{\Omega}\cdot e_{\Omega}-\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\dot{\hat{\theta}}_{J}.\label{eq:V2_dot_2}
-\end{align}
-
-\end_inset
-
+\begin_layout Proof
 Since 
 \begin_inset Formula $C(R_{d}^{T}R)$
 \end_inset
@@ -376,17 +333,7 @@ noprefix "false"
 \begin_inset Formula $\left\Vert C(R_{d}^{T}R)\right\Vert \leq1$
 \end_inset
 
-, substituting the equivalent ICL-based update law in Proposition 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "prop2:-defined-in"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- into (
+, substituting into (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:V2_dot_2"
@@ -397,13 +344,81 @@ noprefix "false"
 \end_inset
 
 ) yields 
+\end_layout
+
+\begin_layout Proof
 \begin_inset Formula 
-\begin{align}
-\dot{V_{2}}\leq & -z_{2}^{T}W_{2}z_{2}-k_{J}^{cl}\tilde{\theta}_{J}^{T}\mathcal{G}_{J}\tilde{\theta}_{J},\label{eq:V2_dot_4}
-\end{align}
+\begin{align*}
+\dot{V}_{2}\le & -(k_{\Omega}-c_{2})\Vert e_{\Omega}\Vert^{2}-\frac{c_{2}k_{R}}{\lambda_{max}(J)}\Vert e_{R}\Vert^{2}+\frac{c_{2}(k_{\Omega}+k_{\Omega D})}{\lambda_{min}(J)}\Vert e_{R}\Vert\Vert e_{\Omega}\Vert\\
+ & -k_{\Omega D}\Vert e_{\Omega}\Vert^{2}-\frac{c_{2}k_{RD}}{\lambda_{max}(J)}\Vert e_{R}\Vert^{2}+\bar{D}_{M}\Vert e_{\Omega}\Vert+\frac{c_{2}\bar{D}_{M}}{\lambda_{min}(J)}\Vert e_{R}\Vert
+\end{align*}
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Proof
+By the method of completing the square, we know that
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{align*}
+-ax^{2}+bx= & -a(x-\frac{b}{2a})^{2}+\frac{b^{2}}{4a}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+and 
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{align*}
+-k_{\Omega D}\Vert e_{\Omega}\Vert^{2}+\bar{D}_{M}\Vert e_{\Omega}\Vert= & -k_{\Omega D}(\Vert e_{\Omega}\Vert-\frac{\bar{D}_{M}}{2k_{\Omega D}})^{2}+\frac{\bar{D}_{M}^{2}}{4k_{\Omega D}}\\
+-\frac{c_{2}k_{RD}}{\lambda_{max}(J)}\Vert e_{R}\Vert^{2}+\frac{c_{2}\bar{D}_{M}}{\lambda_{min}(J)}\Vert e_{R}\Vert= & -\frac{c_{2}k_{RD}}{\lambda_{max}(J)}(\Vert e_{R}\Vert-\frac{\bar{D}_{M}\lambda_{max}(J)}{2k_{RD}\lambda_{min}(J)})^{2}+\frac{c_{2}\bar{D}_{M}^{2}\lambda_{max}(J)}{4k_{RD}\lambda_{min}^{2}(J)}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+substituting into 
+\begin_inset Formula $\dot{V}_{2}$
+\end_inset
+
+ yields 
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{align*}
+\dot{V}_{2}\le & -(k_{\Omega}-c_{2})\Vert e_{\Omega}\Vert^{2}-\frac{c_{2}k_{R}}{\lambda_{max}(J)}\Vert e_{R}\Vert^{2}+\frac{c_{2}(k_{\Omega}+k_{\Omega D})}{\lambda_{min}(J)}\Vert e_{R}\Vert\Vert e_{\Omega}\Vert\\
+ & -k_{\Omega D}(\Vert e_{\Omega}\Vert-\frac{\bar{D}_{M}}{2k_{\Omega D}})^{2}+\frac{\bar{D}_{M}^{2}}{4k_{\Omega D}}-\frac{c_{2}k_{RD}}{\lambda_{max}(J)}(\Vert e_{R}\Vert-\frac{\bar{D}_{M}\lambda_{max}(J)}{2k_{RD}\lambda_{min}(J)})^{2}+\frac{c_{2}\bar{D}_{M}^{2}\lambda_{max}(J)}{4k_{RD}\lambda_{min}^{2}(J)}\\
+\leq & -\left[\begin{array}{cc}
+\left\Vert e_{R}\right\Vert  & \left\Vert e_{\Omega}\right\Vert \end{array}\right]\left[\begin{array}{cc}
+\frac{c_{2}k_{R}}{\lambda_{max}\left(J\right)} & -\frac{c_{2}(k_{\Omega}+k_{\Omega D})}{2\lambda_{min}\left(J\right)}\\
+-\frac{c_{2}(k_{\Omega}+k_{\Omega D})}{2\lambda_{min}\left(J\right)} & k_{\Omega}-c_{2}
+\end{array}\right]\text{\left[\begin{array}{c}
+ \left\Vert e_{R}\right\Vert \\
+ \left\Vert e_{\Omega}\right\Vert 
+\end{array}\right]}+\frac{\bar{D}_{M}^{2}}{4k_{\Omega D}}+\frac{c_{2}\bar{D}_{M}^{2}\lambda_{max}(J)}{4k_{RD}\lambda_{min}^{2}(J)}\\
+\leq & -z_{2}^{T}W_{2}z_{2}+\frac{\bar{D}_{M}^{2}}{4k_{\Omega D}}+\frac{c_{2}\bar{D}_{M}^{2}\lambda_{max}(J)}{4k_{RD}\lambda_{min}^{2}(J)}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
 where 
 \begin_inset Formula $W_{2}$
 \end_inset
@@ -412,8 +427,8 @@ where
 \begin_inset Formula 
 \begin{equation}
 W_{2}=\left[\begin{array}{cc}
-C_{2}k_{R} & -\frac{C_{2}k_{\Omega}}{2}\\
--\frac{C_{2}k_{\Omega}}{2} & k_{\Omega}-C_{2}\lambda_{\max}(J)
+\frac{c_{2}k_{R}}{\lambda_{max}\left(J\right)} & -\frac{c_{2}(k_{\Omega}+k_{\Omega D})}{2\lambda_{min}\left(J\right)}\\
+-\frac{c_{2}(k_{\Omega}+k_{\Omega D})}{2\lambda_{min}\left(J\right)} & k_{\Omega}-c_{2}
 \end{array}\right].\label{eq:W2}
 \end{equation}
 
@@ -437,7 +452,7 @@ noprefix "false"
 
 ).
  Supposing that 
-\begin_inset Formula $C_{2}=0$
+\begin_inset Formula $c_{2}=0$
 \end_inset
 
 , 
@@ -477,8 +492,8 @@ noprefix "false"
 ) can be rewritten as
 \begin_inset Formula 
 \begin{align*}
-V_{2}\mid_{C_{2}=0} & =\frac{1}{2}e_{\Omega}\cdot Je_{\Omega}+k_{R}\Psi(R,R_{d})+\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J},\\
-\dot{V_{2}}\mid_{C_{2}=0} & \leq-k_{\Omega}\left\Vert e_{\Omega}\right\Vert ^{2}-k_{J}^{cl}\tilde{\theta}_{J}^{T}\mathcal{G}_{J}\tilde{\theta}_{J},
+V_{2}\mid_{C_{2}=0} & =\frac{1}{2}e_{\Omega}\cdot Je_{\Omega}+k_{R}\Psi(R,R_{d}),\\
+\dot{V_{2}}\mid_{C_{2}=0} & \leq-k_{\Omega}\left\Vert e_{\Omega}\right\Vert ^{2}+\frac{\bar{D}_{M}^{2}}{4k_{\Omega D}},
 \end{align*}
 
 \end_inset
@@ -510,10 +525,9 @@ noprefix "false"
 
 ), the attitude error function can be bounded as 
 \begin_inset Formula 
-\begin{align}
-k_{R}\Psi\left(R\left(t\right),R_{d}\left(t\right)\right)+\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J} & \leq V_{2}\mid_{C_{2}=0}\left(t\right)\leq\nonumber \\
-V_{2}\mid_{C_{2}=0}\left(0\right)<2k_{R}+\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J},\label{eq:attitude error bound}
-\end{align}
+\begin{align*}
+k_{R}\Psi\left(R\left(t\right),R_{d}\left(t\right)\right) & \leq V_{2}\mid_{C_{2}=0}\left(t\right)\leq V_{2}\mid_{C_{2}=0}\left(0\right)<2k_{R},
+\end{align*}
 
 \end_inset
 
@@ -583,7 +597,7 @@ Step 2: To prove
 \begin_inset Formula $e_{\Omega}$
 \end_inset
 
- achieve exponential stability, the matrices 
+ achieve are bounded, the matrices 
 \begin_inset Formula $M_{21},$
 \end_inset
 
@@ -626,13 +640,13 @@ noprefix "false"
 \end_inset
 
 ) are positive definite by selecting 
-\begin_inset Formula $C_{2}$
+\begin_inset Formula $c_{2}$
 \end_inset
 
  to satisfy (
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:C2"
+reference "eq:c2"
 plural "false"
 caps "false"
 noprefix "false"
@@ -648,7 +662,11 @@ noprefix "false"
 \begin_inset Formula $\dot{V}_{2}$
 \end_inset
 
- is negative definite based on (
+ can be adjusted by the disturbance gain 
+\begin_inset Formula $k_{\Omega D},k_{RD}$
+\end_inset
+
+ based on (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:V2 bound"
@@ -679,26 +697,6 @@ noprefix "false"
 \end_inset
 
  is proven.
-\end_layout
-
-\begin_layout Remark
-Although 
-\begin_inset Formula $J$
-\end_inset
-
- in (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:C2"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-) is unknown, its maximal and minimal eigenvalues can be obtained from best
- guesses.
- 
 \end_layout
 
 \begin_layout Subsection
@@ -749,7 +747,7 @@ provided that the initial conditions are satisfied
 
 \begin_inset Formula 
 \begin{equation}
-\left\Vert e_{\Omega}\left(0\right)\right\Vert ^{2}<\frac{2}{\lambda_{\max}\left(J\right)}k_{R}\left(\psi_{1}-\Psi\left(R\left(0\right),R_{d}\left(0\right)\right)\right),\label{eq:e_omega}
+\left\Vert e_{\Omega}\left(0\right)\right\Vert ^{2}<\frac{2}{\lambda_{\max}\left(J\right)}(k_{R}+k_{RD})\left(\psi_{1}-\Psi\left(R\left(0\right),R_{d}\left(0\right)\right)\right),\label{eq:e_omega}
 \end{equation}
 
 \end_inset
@@ -761,7 +759,7 @@ where
  is defined as
 \begin_inset Formula 
 \begin{equation}
-\psi_{1}=\frac{1}{k_{R}}\left[\frac{1}{2}e_{\Omega}\left(0\right)\cdot Je_{\Omega}\left(0\right)+k_{R}\Psi(R\left(0\right),R_{d}\left(0\right))\right].\label{eq:psi1}
+\psi_{1}=\frac{1}{k_{R}+k_{RD}}\left[\frac{1}{2}e_{\Omega}\left(0\right)\cdot Je_{\Omega}\left(0\right)+k_{R}\Psi(R\left(0\right),R_{d}\left(0\right))\right].\label{eq:psi1}
 \end{equation}
 
 \end_inset
@@ -803,8 +801,7 @@ noprefix "false"
 ) can be written as
 \begin_inset Formula 
 \begin{align*}
- & k_{R}\Psi\left(R\left(t\right),R_{d}\left(t\right)\right)+\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J}\leq V_{2}\mid_{C_{2}=0}\left(t\right)\\
- & \leq V_{2}\mid_{C_{2}=0}\left(0\right)<k_{R}\psi_{1}+\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J},
+ & k_{R}\Psi\left(R\left(t\right),R_{d}\left(t\right)\right)\leq V_{2}\mid_{c_{2}=0}\left(t\right)\leq V_{2}\mid_{c_{2}=0}\left(0\right)<k_{R}\psi_{1},
 \end{align*}
 
 \end_inset
@@ -823,6 +820,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
+\align center
 In the translational dynamics, Lyapunov function 
 \begin_inset Formula $V_{1}$
 \end_inset
@@ -830,7 +828,7 @@ In the translational dynamics, Lyapunov function
  containing the position and velocity errors is defined as
 \begin_inset Formula 
 \begin{equation}
-V_{1}=\frac{1}{2}k_{x}e_{x}^{T}e_{x}+\frac{1}{2}me_{v}^{T}e_{v}+C_{1}me_{x}\cdot e_{v}+\frac{1}{2}\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\tilde{\theta}_{m},\label{eq:V1}
+V_{1}=\frac{1}{2}(k_{x}+k_{xD})e_{x}\cdot e_{x}+\frac{1}{2}me_{v}\cdot e_{v}+c_{1}e_{x}\cdot e_{v},\label{eq:V1}
 \end{equation}
 
 \end_inset
@@ -838,8 +836,7 @@ V_{1}=\frac{1}{2}k_{x}e_{x}^{T}e_{x}+\frac{1}{2}me_{v}^{T}e_{v}+C_{1}me_{x}\cdot
 which can be lower and upper bounded by
 \begin_inset Formula 
 \begin{align*}
-z_{1}^{T}M_{11}z_{1} & +\frac{1}{2}\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\tilde{\theta}_{m}\leq V_{1}\\
- & \leq z_{1}^{T}M_{12}z_{1}+\frac{1}{2}\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\tilde{\theta}_{m},
+z_{1}^{T}M_{11}z_{1}\leq V_{1} & \leq z_{1}^{T}M_{12}z_{1}
 \end{align*}
 
 \end_inset
@@ -861,19 +858,19 @@ where
 \begin_inset Formula 
 \begin{align*}
 M_{11} & =\frac{1}{2}\left[\begin{array}{cc}
-k_{x} & -C_{1}m\\
--C_{1}m & m
+k_{x}+k_{xD} & -c_{1}\\
+-c_{1} & m
 \end{array}\right],\\
 M_{12} & =\frac{1}{2}\left[\begin{array}{cc}
-k_{x} & C_{1}m\\
-C_{1}m & m
+k_{x}+k_{xD} & c_{1}\\
+c_{1} & m
 \end{array}\right],
 \end{align*}
 
 \end_inset
 
 and 
-\begin_inset Formula $C_{1}$
+\begin_inset Formula $c_{1}$
 \end_inset
 
  is a positive constant described in the subsequent analysis.
@@ -892,53 +889,47 @@ noprefix "false"
 \end_inset
 
 ) yields
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula 
-\begin{align}
-\dot{V}_{1}= & k_{x}e_{x}\cdot\dot{e}_{x}+e_{v}\cdot m\dot{e}_{v}+C_{1}m\dot{e}_{x}\cdot e_{v}+C_{1}e_{x}\cdot m\dot{e}_{v}\nonumber \\
- & +\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\dot{\tilde{\theta}}_{m}\nonumber \\
-= & k_{x}e_{x}\cdot e_{v}+mC_{1}\left\Vert e_{v}\right\Vert ^{2}+\left(e_{v}+C_{1}e_{x}\right)\cdot m\dot{e}_{v}-\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\dot{\hat{\theta}}_{m}\nonumber \\
-= & k_{x}e_{x}\cdot e_{v}+mC_{1}\left\Vert e_{v}\right\Vert ^{2}-\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\dot{\hat{\theta}}_{m}\nonumber \\
- & +\left(e_{v}+C_{1}e_{x}\right)\cdot\left(-k_{x}e_{x}-k_{v}e_{v}+Y_{m}\tilde{\theta}_{m}-X\right).\label{eq:V1_dot}
-\end{align}
+\begin{align*}
+\dot{V}_{1}= & (k_{x}+k_{xD})e_{x}\cdot\dot{e}_{x}+e_{v}\cdot m\dot{e}_{v}+c_{1}\dot{e}_{x}\cdot e_{v}+c_{1}e_{x}\cdot\dot{e}_{v}
+\end{align*}
 
 \end_inset
 
-Substituting the update law of 
-\begin_inset Formula $\hat{\theta}_{m}$
+
+\end_layout
+
+\begin_layout Standard
+Substituting 
+\begin_inset Formula $m\dot{e_{v}}$
 \end_inset
 
- in Proposition 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "prop1:-defined"
-plural "false"
-caps "false"
-noprefix "false"
-
+with and 
+\begin_inset Formula $f_{d}$
 \end_inset
 
- into (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:V1_dot"
-plural "false"
-caps "false"
-noprefix "false"
+ with yields
+\end_layout
 
-\end_inset
-
-) yields
+\begin_layout Standard
+\align center
 \begin_inset Formula 
-\begin{align}
-\dot{V}_{1}= & -k_{x}C_{1}\left\Vert e_{x}\right\Vert ^{2}-\left(k_{v}-mC_{1}\right)\left\Vert e_{v}\right\Vert ^{2}-k_{v}C_{1}e_{x}\cdot e_{v}\nonumber \\
- & +\left(e_{v}+C_{1}e_{x}\right)^{T}\left(Y_{m}\tilde{\theta}_{m}\right)-\tilde{\theta}_{m}^{T}Y_{m}^{T}\left(e_{v}+C_{1}e_{x}\right)\nonumber \\
- & -\left(e_{v}+C_{1}e_{x}\right)\cdot X-k_{m}^{cl}\tilde{\theta}_{m}^{T}\mathcal{G}_{m}\tilde{\theta}_{m}\nonumber \\
-= & -k_{x}C_{1}\left\Vert e_{x}\right\Vert ^{2}-\left(k_{v}-mC_{1}\right)\left\Vert e_{v}\right\Vert ^{2}-k_{v}C_{1}e_{x}\cdot e_{v}\nonumber \\
- & -\left(e_{v}+C_{1}e_{x}\right)\cdot X-k_{m}^{cl}\tilde{\theta}_{m}^{T}\mathcal{G}_{m}\tilde{\theta}_{m}.\label{eq:V1_dot_1}
-\end{align}
+\begin{align*}
+\dot{V}_{1}= & (k_{x}+k_{xD})e_{x}\cdot e_{v}+e_{v}\cdot(-(k_{x}+k_{xD})e_{x}-(k_{v}+k_{vD})e_{v}-X+D_{T}Re_{3})+c_{1}\dot{e}_{x}\cdot e_{v}\\
+ & +\frac{c_{1}e_{x}}{m}(-(k_{x}+k_{xD})e_{x}-(k_{v}+k_{vD})e_{v}-X+D_{T}Re_{3})\\
+= & -(k_{v}-c_{1})\Vert e_{v}\Vert^{2}-\frac{c_{1}k_{x}}{m}\Vert e_{x}\Vert^{2}-\frac{c_{1}(k_{v}+k_{vD})}{m}e_{x}\cdot e_{v}-X\cdot(\frac{c_{1}}{m}e_{x}+e_{v})\\
+ & -k_{xD}\Vert e_{x}\Vert^{2}-k_{vD}\Vert e_{v}\Vert^{2}+D_{T}Re_{3}\cdot(\frac{c_{1}}{m}e_{x}+e_{v})
+\end{align*}
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Standard
 The upper bound of 
 \begin_inset Formula $X$
 \end_inset
@@ -1104,11 +1095,15 @@ noprefix "false"
 ) can be upper bounded by 
 \begin_inset Formula 
 \begin{align}
-\left\Vert X\right\Vert \leq & \left(k_{x}\left\Vert e_{x}\right\Vert +k_{v}\left\Vert e_{v}\right\Vert +B\right)\left\Vert e_{R}\right\Vert .\label{eq:X norm}
+\left\Vert X\right\Vert \leq & \left((k_{x}+k_{xD})\left\Vert e_{x}\right\Vert +(k_{v}+k_{vD})\left\Vert e_{v}\right\Vert +B\right)\left\Vert e_{R}\right\Vert .\label{eq:X norm}
 \end{align}
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Standard
 Substituting (
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1133,20 +1128,68 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
+\align center
 \begin_inset Formula 
-\begin{align}
-\dot{V}_{1}\leq & -k_{x}C_{1}\left\Vert e_{x}\right\Vert ^{2}-\left(k_{v}-mC_{1}\right)\left\Vert e_{v}\right\Vert ^{2}-k_{v}C_{1}e_{x}\cdot e_{v}\nonumber \\
- & +\left(\left\Vert e_{v}\right\Vert +C_{1}\left\Vert e_{x}\right\Vert \right)\left(k_{x}\left\Vert e_{x}\right\Vert +k_{v}\left\Vert e_{v}\right\Vert +B\right)\left\Vert e_{R}\right\Vert \nonumber \\
- & -k_{m}^{cl}\tilde{\theta}_{m}^{T}\mathcal{G}_{m}\tilde{\theta}_{m}\nonumber \\
-\leq & -k_{x}C_{1}\left\Vert e_{x}\right\Vert ^{2}-\left(k_{v}-mC_{1}\right)\left\Vert e_{v}\right\Vert ^{2}-k_{v}C_{1}e_{x}\cdot e_{v}\nonumber \\
- & +k_{x}\left\Vert e_{R}\right\Vert \left\Vert e_{x}\right\Vert \left\Vert e_{v}\right\Vert +k_{v}\left\Vert e_{R}\right\Vert \left\Vert e_{v}\right\Vert ^{2}+B\left\Vert e_{R}\right\Vert \left\Vert e_{v}\right\Vert \nonumber \\
- & +k_{x}C_{1}\left\Vert e_{R}\right\Vert \left\Vert e_{x}\right\Vert ^{2}+k_{v}C_{1}\left\Vert e_{R}\right\Vert \left\Vert e_{x}\right\Vert \left\Vert e_{v}\right\Vert \nonumber \\
- & +C_{1}B\left\Vert e_{R}\right\Vert \left\Vert e_{x}\right\Vert -k_{m}^{cl}\tilde{\theta}_{m}^{T}\mathcal{G}_{m}\tilde{\theta}_{m}\nonumber \\
-\leq & -\left[k_{x}C_{1}\left(1-\alpha\right)\right]\left\Vert e_{x}\right\Vert ^{2}-\left[k_{v}\left(1-\alpha\right)-C_{1}m\right]\left\Vert e_{v}\right\Vert ^{2}\nonumber \\
- & +C_{1}k_{v}\left(1+\alpha\right)\left\Vert e_{x}\right\Vert \left\Vert e_{v}\right\Vert \nonumber \\
- & +\left\Vert e_{R}\right\Vert \left\{ k_{x}\left\Vert e_{x}\right\Vert \left\Vert e_{v}\right\Vert +B\left\Vert e_{v}\right\Vert +C_{1}B\left\Vert e_{x}\right\Vert \right\} \nonumber \\
- & -k_{m}^{cl}\tilde{\theta}_{m}^{T}\mathcal{G}_{m}\tilde{\theta}_{m}.\label{eq:V1_dot_2}
-\end{align}
+\begin{align*}
+\dot{V}_{1}\le & -(k_{v}-c_{1})\Vert e_{v}\Vert^{2}-\frac{c_{1}k_{x}}{m}\Vert e_{x}\Vert^{2}-\frac{c_{1}(k_{v}+k_{vD})}{m}e_{x}\cdot e_{v}\\
+ & +((k_{x}+k_{xD})\Vert e_{x}\Vert+(k_{v}+k_{vD})\Vert e_{v}\Vert+B)\Vert e_{R}\Vert(\frac{c_{1}}{m}\Vert e_{x}\Vert+\Vert e_{v}\Vert)\\
+ & -k_{xD}\Vert e_{x}\Vert^{2}-k_{vD}\Vert e_{v}\Vert^{2}+\bar{D}_{T}\Vert Re_{3}\Vert(\frac{c_{1}}{m}\Vert e_{x}\Vert+\Vert e_{v}\Vert)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By the method of completing the square, we know that
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+-k_{xD}(1-\alpha\frac{c_{1}}{m})\Vert e_{x}\Vert^{2}+\frac{c_{1}\bar{D}_{T}}{m}\Vert e_{x}\Vert= & -k_{xD}(1-\alpha\frac{c_{1}}{m})(\Vert e_{x}\Vert-\frac{c_{1}\bar{D}_{T}}{2mk_{xD}(1-\alpha\frac{c_{1}}{m})})^{2}\\
+ & +\frac{c_{1}^{2}\bar{D}_{T}^{2}}{4m^{2}k_{xD}(1-\alpha\frac{c_{1}}{m})}\\
+-k_{vD}(1-\alpha)\Vert e_{v}\Vert^{2}+\bar{D}_{T}\Vert e_{v}\Vert= & -k_{vD}(1-\alpha)(\Vert e_{v}\Vert-\frac{\bar{D}_{T}}{2k_{vD}(1-\alpha)})^{2}\\
+ & +\frac{\bar{D}_{T}^{2}}{4k_{vD}(1-\alpha)}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+substituting into 
+\begin_inset Formula $\dot{V}_{2}$
+\end_inset
+
+ yields 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\dot{V}_{2}\leq & -\left(k_{v}\left(1-\alpha\right)-c_{1}\right)\left\Vert e_{v}\right\Vert ^{2}-\frac{c_{1}k_{x}}{m}\left(1-\alpha\right)\left\Vert e_{x}\right\Vert ^{2}\\
+ & +\frac{c_{1}(k_{v}+k_{vD})}{m}\left(1+\alpha\right)\left\Vert e_{x}\right\Vert \left\Vert e_{v}\right\Vert +\left\Vert e_{R}\right\Vert \left\{ (k_{x}+k_{xD})\left\Vert e_{x}\right\Vert \left\Vert e_{v}\right\Vert +\frac{c_{1}}{m}B\left\Vert e_{x}\right\Vert +B\left\Vert e_{v}\right\Vert \right\} \\
+ & -k_{xD}(1-\alpha\frac{c_{1}}{m})(\Vert e_{x}\Vert-\frac{c_{1}\bar{D}_{T}}{2mk_{xD}(1-\alpha\frac{c_{1}}{m})})^{2}+\frac{c_{1}^{2}\bar{D}_{T}^{2}}{4m^{2}k_{xD}(1-\alpha\frac{c_{1}}{m})}\\
+ & -k_{vD}(1-\alpha)(\Vert e_{v}\Vert-\frac{\bar{D}_{T}}{2k_{vD}(1-\alpha)})^{2}+\frac{\bar{D}_{T}^{2}}{4k_{vD}(1-\alpha)}\\
+\le & -\left[\begin{array}{cc}
+\left\Vert e_{x}\right\Vert  & \left\Vert e_{v}\right\Vert \end{array}\right]\left[\begin{array}{cc}
+\frac{c_{1}k_{x}}{m}\left(1-\alpha\right) & -\frac{c_{1}(k_{v}+k_{vD})}{2m}\left(1+\alpha\right)\\
+-\frac{c_{1}(k_{v}+k_{vD})}{2m}\left(1+\alpha\right) & k_{v}\left(1-\alpha\right)-c_{1}
+\end{array}\right]\left[\begin{array}{c}
+\left\Vert e_{x}\right\Vert \\
+\left\Vert e_{v}\right\Vert 
+\end{array}\right]\\
+ & +\left[\begin{array}{cc}
+\left\Vert e_{x}\right\Vert  & \left\Vert e_{v}\right\Vert \end{array}\right]\left[\begin{array}{cc}
+(k_{x}+k_{xD})e_{v_{max}}+\frac{C_{1}}{m}B & 0\\
+B & 0
+\end{array}\right]\\
+ & +\frac{c_{1}^{2}\bar{D}_{T}^{2}}{4m^{2}k_{xD}(1-\alpha\frac{c_{1}}{m})}+\frac{\bar{D}_{T}^{2}}{4k_{vD}(1-\alpha)}\\
+\leq & -z_{1}^{T}W_{1}z_{1}+z_{1}^{T}W_{12}z_{2}+\frac{c_{1}^{2}\bar{D}_{T}^{2}}{4m^{2}k_{xD}(1-\alpha\frac{c_{1}}{m})}+\frac{\bar{D}_{T}^{2}}{4k_{vD}(1-\alpha)}
+\end{align*}
 
 \end_inset
 
@@ -1173,7 +1216,7 @@ The following inequality is true:
 
 \begin_layout Proof
 Supposing that 
-\begin_inset Formula $C_{1}=k_{x}=0,$
+\begin_inset Formula $c_{1}=k_{x}=k_{xD}=0,$
 \end_inset
 
  
@@ -1217,40 +1260,16 @@ noprefix "false"
 ) can be rewritten as 
 \begin_inset Formula 
 \begin{align}
-V_{1}\mid_{C_{1}=k_{x}=0}= & \frac{1}{2}m\left\Vert e_{v}\right\Vert ^{2}+\frac{1}{2}\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\tilde{\theta}_{m}\label{eq:V1_redefine}\\
-\dot{V}_{1}\mid_{C_{1}=k_{x}=0}\leq & -k_{v}\left(1-\alpha\right)\left\Vert e_{v}\right\Vert ^{2}+B\left\Vert e_{v}\right\Vert \nonumber \\
-\leq & -\frac{k_{v}}{2}\left(1-\alpha\right)\left\Vert e_{v}\right\Vert ^{2}\nonumber \\
- & -\frac{k_{v}}{2}\left(1-\alpha\right)\left\Vert e_{v}\right\Vert ^{2}+B\left\Vert e_{v}\right\Vert \nonumber \\
-\leq & -\frac{k_{v}}{2}\left(1-\alpha\right)\left\Vert e_{v}\right\Vert ^{2}+\frac{B^{2}}{2k_{v}\left(1-\alpha\right)},\label{eq:V1_dot_4}
+V_{1}\mid_{c_{1}=k_{x}=k_{xD}=0}= & \frac{1}{2}m\left\Vert e_{v}\right\Vert ^{2}\label{eq:V1_redefine}\\
+\dot{V}_{1}\mid_{c_{1}=k_{x}=k_{xD}=0}\leq & -(k_{v}+k_{vD})\left(1-\alpha\right)\left\Vert e_{v}\right\Vert ^{2}+B\left\Vert e_{v}\right\Vert \nonumber \\
+\leq & -\frac{(k_{v}+k_{vD})}{2}\left(1-\alpha\right)\left\Vert e_{v}\right\Vert ^{2}\nonumber \\
+ & -\frac{(k_{v}+k_{vD})}{2}\left(1-\alpha\right)\left\Vert e_{v}\right\Vert ^{2}+B\left\Vert e_{v}\right\Vert \nonumber \\
+\leq & -\frac{(k_{v}+k_{vD})}{2}\left(1-\alpha\right)\left\Vert e_{v}\right\Vert ^{2}+\frac{B^{2}}{2(k_{v}+k_{vD})\left(1-\alpha\right)},\label{eq:V1_dot_4}
 \end{align}
 
 \end_inset
 
-where the negative term 
-\begin_inset Formula $-k_{m}^{cl}\tilde{\theta}_{m}^{T}\mathcal{G}_{m}\tilde{\theta}_{m}$
-\end_inset
-
- was dropped from (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:V1_dot_2"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-), and (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:V1_redefine"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-) and (
+ where (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:V1_dot_4"
@@ -1312,7 +1331,7 @@ noprefix "false"
 ) can be bounded as 
 \begin_inset Formula 
 \begin{equation}
-\dot{V}_{1}\leq-z_{1}^{T}W_{1}z_{1}+z_{1}^{T}W_{12}z_{2}-k_{m}^{cl}\tilde{\theta}_{m}^{T}\mathcal{G}_{m}\tilde{\theta}_{m},\label{eq:v1_dot_3}
+\dot{V}_{1}\leq-z_{1}^{T}W_{1}z_{1}+z_{1}^{T}W_{12}z_{2}+\frac{c_{1}^{2}\bar{D}_{T}^{2}}{4m^{2}k_{xD}(1-\alpha\frac{c_{1}}{m})}+\frac{\bar{D}_{T}^{2}}{4k_{vD}(1-\alpha)},\label{eq:v1_dot_3}
 \end{equation}
 
 \end_inset
@@ -1329,11 +1348,11 @@ where
 \begin_inset Formula 
 \begin{align*}
 W_{1}= & \left[\begin{array}{cc}
-k_{x}C_{1}\left(1-\alpha\right) & -\frac{1}{2}C_{1}k_{v}\left(1+\alpha\right)\\
--\frac{1}{2}C_{1}k_{v}\left(1+\alpha\right) & k_{v}\left(1-\alpha\right)-C_{1}m
+\frac{c_{1}k_{x}}{m}\left(1-\alpha\right) & -\frac{c_{1}(k_{v}+k_{vD})}{2m}\left(1+\alpha\right)\\
+-\frac{c_{1}(k_{v}+k_{vD})}{2m}\left(1+\alpha\right) & k_{v}\left(1-\alpha\right)-c_{1}
 \end{array}\right]\\
 W_{12}= & \left[\begin{array}{cc}
-k_{x}e_{v,\max}+C_{1}B & 0\\
+(k_{x}+k_{xD})e_{v_{max}}+\frac{C_{1}}{m}B & 0\\
 B & 0
 \end{array}\right].
 \end{align*}
@@ -1348,38 +1367,23 @@ To ensure that
 \begin_inset Formula $M_{12}$
 \end_inset
 
- are positive definite, 
-\begin_inset Formula $C_{1}$
+ are positive definite and 
+\begin_inset Formula $-k_{xD}(1-\alpha\frac{c_{1}}{m})<0$
+\end_inset
+
+, 
+\begin_inset Formula $c_{1}$
 \end_inset
 
  is selected to satisfy 
 \begin_inset Formula 
 \begin{align}
-C_{1} & <\min\Bigl\{\sqrt{\frac{k_{x}}{m}},\frac{k_{v}\left(1-\alpha\right)}{m},\frac{4k_{x}k_{v}\left(1-\alpha\right)^{2}}{k_{v}^{2}\left(1+\alpha\right)^{2}+4mk_{x}\left(1-\alpha\right)}\Bigr\}.\label{eq:C1}
+m<c_{1} & <min\left\{ (k_{v}+k_{vD})\left(1-\alpha\right),\frac{4m(k_{x}+k_{xD})(k_{v}+k_{vD})\left(1-\alpha\right)}{(k_{v}+k_{vD})^{2}\left(1+\alpha\right)^{2}+4m(k_{x}+k_{xD})},\sqrt{(k_{x}+k_{xD})m}\right\} ,\label{eq:c1}
 \end{align}
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Remark
-Although 
-\begin_inset Formula $m$
-\end_inset
-
- in (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:C1"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-) is unknown, its upper and lower bound can be obtained from best guesses.
- 
 \end_layout
 
 \begin_layout Subsection
@@ -1444,17 +1448,17 @@ noprefix "false"
 \end_inset
 
 ) provided that 
-\begin_inset Formula $C_{1}$
+\begin_inset Formula $c_{1}$
 \end_inset
 
  and 
-\begin_inset Formula $C_{2}$
+\begin_inset Formula $c_{2}$
 \end_inset
 
  defined in (
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:C2"
+reference "eq:c2"
 plural "false"
 caps "false"
 noprefix "false"
@@ -1464,7 +1468,7 @@ noprefix "false"
 ) and (
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:C2"
+reference "eq:c2"
 plural "false"
 caps "false"
 noprefix "false"
@@ -1493,9 +1497,8 @@ Let
 \begin_inset Formula 
 \begin{align}
 V= & V_{1}+V_{2}\nonumber \\
-= & \frac{1}{2}k_{x}e_{x}^{T}e_{x}+\frac{1}{2}me_{v}^{T}e_{v}+C_{1}me_{x}\cdot e_{v}\nonumber \\
- & +\frac{1}{2}e_{\Omega}\cdot Je_{\Omega}+k_{R}\Psi\left(R,R_{d}\right)+JC_{2}e_{R}\cdot e_{\Omega}\nonumber \\
- & +\frac{1}{2}\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\tilde{\theta}_{m}+\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J}.\label{eq:V}
+= & \frac{1}{2}(k_{x}+k_{xD})e_{x}\cdot e_{x}+\frac{1}{2}me_{v}\cdot e_{v}+c_{1}e_{x}\cdot e_{v}\nonumber \\
+ & +\frac{1}{2}e_{\Omega}\cdot Je_{\Omega}+(k_{R}+k_{RD})\Psi\left(R,R_{d}\right)+c_{2}e_{R}\cdot e_{\Omega}\label{eq:V}
 \end{align}
 
 \end_inset
@@ -1513,9 +1516,7 @@ noprefix "false"
 ) is bounded by two positive-definite functions: 
 \begin_inset Formula 
 \begin{align*}
-z_{1}^{T}M_{11}z_{1} & +z_{2}^{T}M_{21}z_{2}+\frac{1}{2}\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\tilde{\theta}_{m}+\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J}\\
-\leq V\leq & z_{1}^{T}M_{12}z_{1}+z_{2}^{T}M_{22}z_{2}+\frac{1}{2}\tilde{\theta}_{m}^{T}\varGamma_{m}^{-1}\tilde{\theta}_{m}\\
- & +\frac{1}{2}\tilde{\theta}_{J}^{T}\varGamma_{J}^{-1}\tilde{\theta}_{J}.
+z_{1}^{T}M_{11}z_{1}+z_{2}^{T}M_{21}z_{2}\leq V\leq & z_{1}^{T}M_{12}z_{1}+z_{2}^{T}M_{22}z_{2}
 \end{align*}
 
 \end_inset
@@ -1554,182 +1555,163 @@ noprefix "false"
 \begin_inset Formula 
 \begin{align*}
 \dot{V}= & \dot{V}_{1}+\dot{V}_{2}\\
-\leq & -z_{1}^{T}W_{1}z_{1}+z_{1}^{T}W_{12}z_{2}-z_{2}^{T}W_{2}z_{2}\\
- & -k_{J}^{cl}\tilde{\theta}_{J}^{T}\mathcal{G}_{J}\tilde{\theta}_{J}-k_{m}^{cl}\tilde{\theta}_{m}^{T}\mathcal{G}_{m}\tilde{\theta}_{m},
+\leq & -z_{1}^{T}W_{1}z_{1}+z_{1}^{T}W_{12}z_{2}-z_{2}^{T}W_{2}z_{2}-z_{1}^{T}W_{1}z_{1}+z_{1}^{T}W_{12}z_{2}-z_{2}^{T}W_{2}z_{2}\\
+ & +\frac{c_{1}^{2}\bar{D}_{T}^{2}}{4m^{2}k_{xD}(1-\alpha\frac{c_{1}}{m})}+\frac{\bar{D}_{T}^{2}}{4k_{vD}(1-\alpha)}+\frac{\bar{D}_{M}^{2}}{4k_{\Omega D}}+\frac{c_{2}\bar{D}_{M}^{2}\lambda_{max}(J)}{4k_{RD}\lambda_{min}^{2}(J)}\\
+\leq & -z_{1}^{T}W_{1}z_{1}+z_{1}^{T}W_{12}z_{2}-z_{2}^{T}W_{2}z_{2}-z_{1}^{T}W_{1}z_{1}+z_{1}^{T}W_{12}z_{2}-z_{2}^{T}W_{2}z_{2}\\
+ & +P_{T}+P_{M}
 \end{align*}
 
 \end_inset
 
-where matrices 
-\begin_inset Formula $W_{1},W_{2}$
+
+\end_layout
+
+\begin_layout Proof
+where 
+\begin_inset Formula $P_{T}$
 \end_inset
 
- are positive definite and condition 
-\begin_inset Formula $\lambda_{\min}\left(W_{2}\right)>\frac{4\left\Vert W_{12}\right\Vert ^{2}}{\lambda_{\min}\left(W_{1}\right)}$
+ and 
+\begin_inset Formula $P_{M}$
 \end_inset
 
- guarantees that 
+ are defined as 
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{align*}
+P_{T}= & \frac{c_{1}^{2}\bar{D}_{T}^{2}}{4m^{2}k_{xD}(1-\alpha\frac{c_{1}}{m})}+\frac{\bar{D}_{T}^{2}}{4k_{vD}(1-\alpha)}\\
+P_{M}= & \frac{\bar{D}_{M}^{2}}{4k_{\Omega D}}+\frac{c_{2}\bar{D}_{M}^{2}\lambda_{max}(J)}{4k_{RD}\lambda_{min}^{2}(J)}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+where 
+\begin_inset Formula $W_{1},W_{12}$
+\end_inset
+
+ are defined in the translational stability analysis and 
+\begin_inset Formula $W_{2}\in\mathbb{R}^{2\times2}$
+\end_inset
+
+ is defined in the rotational stability analysis.
+ We expand the 
 \begin_inset Formula $\dot{V}$
 \end_inset
 
- is negative definite as long as the initial conditions (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:Psi<2"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-) and (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:Psi<1"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-) are satisfied, where 
-\begin_inset Formula $W_{2}$
-\end_inset
-
- is defined in (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:W2"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-), and therefore errors 
-\begin_inset Formula $e_{x}$
-\end_inset
-
-, 
-\begin_inset Formula $e_{v}$
-\end_inset
-
-, 
-\begin_inset Formula $e_{R}$
-\end_inset
-
-, and 
-\begin_inset Formula $e_{\Omega}$
-\end_inset
-
- go to zero as time goes to infinity, as defined in (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:control objectives"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-).
- 
+ as
 \end_layout
 
-\begin_layout Remark
-Theorem 
+\begin_layout Proof
+\begin_inset Formula 
+\begin{align*}
+\dot{V}\leq & -\lambda_{min}\left(W_{1}\right)\left\Vert z_{1}\right\Vert ^{2}+\left\Vert W_{12}\right\Vert _{2}\left\Vert z_{1}\right\Vert \left\Vert z_{2}\right\Vert -\lambda_{min}\left(W_{2}\right)\left\Vert z_{2}\right\Vert ^{2}+P_{T}+P_{M}\\
+\leq & -\frac{1}{2}\lambda_{min}\left(W_{1}\right)\left\Vert z_{1}\right\Vert ^{2}-\frac{1}{2}\lambda_{min}\left(W_{2}\right)\left\Vert z_{2}\right\Vert ^{2}\\
+ & +\left\Vert W_{12}\right\Vert _{2}\left\Vert z_{1}\right\Vert ^{2}+\left\Vert W_{12}\right\Vert _{2}\left\Vert z_{2}\right\Vert ^{2}-\frac{1}{2}\lambda_{min}\left(W_{1}\right)\left\Vert z_{1}\right\Vert ^{2}-\frac{1}{2}\lambda_{min}\left(W_{2}\right)\left\Vert z_{2}\right\Vert ^{2}\\
+ & +P_{T}+P_{M}.
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+The following condition must be satisified to make the terms of 
+\begin_inset Formula $\dot{V}$
+\end_inset
+
+ except for (
+\begin_inset Formula $P_{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $P_{M}$
+\end_inset
+
+) be negative-definite,
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\begin{align}
+\frac{1}{2}\lambda_{min}\left(W_{1}\right)> & \left\Vert W_{12}\right\Vert _{2}\label{eq:N.D1}\\
+\frac{1}{2}\lambda_{min}\left(W_{2}\right)> & \left\Vert W_{12}\right\Vert _{2}\label{eq:N.D2}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+and multiplying 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "thm:The-ICL-controller"
+reference "eq:N.D1"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
- requires that the initial attitude error is less than 
-\begin_inset Formula $90^{0}$
-\end_inset
-
- (i.e., 
-\begin_inset Formula $\Psi\left(R\left(0\right),R_{d}\left(0\right)\right)<1$
-\end_inset
-
-) to achieve exponential stability.
- Suppose that this condition is not satisfied, i.e., 
-\begin_inset Formula $1\leq\Psi\left(R\left(0\right),R_{d}\left(0\right)\right)<2$
-\end_inset
-
-, the attitude controller designed in (
+ and 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:moment control input"
+reference "eq:N.D2"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-) can be applied since it guarantees that the attitude error function 
-\begin_inset Formula $\Psi$
-\end_inset
+ yields
+\end_layout
 
- decreases exponentially fast based on Theorem 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "thm:attitude controller"
-plural "false"
-caps "false"
-noprefix "false"
+\begin_layout Proof
+\begin_inset Formula 
+\begin{align*}
+\lambda_{min}\left(W_{2}\right)> & \frac{4\left\Vert W_{12}\right\Vert _{2}^{2}}{\lambda_{min}\left(W_{2}\right)}
+\end{align*}
 
 \end_inset
 
-, and therefore, it enters the region of attraction of Theorem 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "thm:The-ICL-controller"
-plural "false"
-caps "false"
-noprefix "false"
 
+\end_layout
+
+\begin_layout Proof
+As a result, all of the matrices 
+\begin_inset Formula $M_{11},M_{12},W_{1},M_{21},M_{22},W_{2}$
 \end_inset
 
- (i.e., (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:psi condition"
-plural "false"
-caps "false"
-noprefix "false"
-
+ are positive-definite with appropriate gain selection and the condition
+ 
+\begin_inset Formula $\lambda_{min}\left(W_{2}\right)>\frac{4\left\Vert W_{12}\right\Vert ^{2}}{\lambda_{min}\left(W_{1}\right)}$
 \end_inset
 
-)) in finite time.
- Therefore, by combining Theorem 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "thm:attitude controller"
-plural "false"
-caps "false"
-noprefix "false"
-
+ can't guarantee that 
+\begin_inset Formula $\dot{V}$
 \end_inset
 
- and Theorem 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "thm:The-ICL-controller"
-plural "false"
-caps "false"
-noprefix "false"
-
+ becomes exponentially stable because the last two terms of 
+\begin_inset Formula $\dot{V}(P_{T}$
 \end_inset
 
-, almost global exponential attractiveness can be achieved when 
-\begin_inset Formula $\Psi\left(R\left(0\right),R_{d}\left(0\right)\right)<2.$
+ and 
+\begin_inset Formula $P_{M}$
 \end_inset
 
+) are positive terms, but guarantees uniformly ultimately bounded (UUB).
+ Therefore, the whole system is stable, and the error 
+\begin_inset Formula $e_{x},e_{v},e_{R},e_{\Omega}$
+\end_inset
 
+ are bounded.
 \end_layout
 
 \end_body

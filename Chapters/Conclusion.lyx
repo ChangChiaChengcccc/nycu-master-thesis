@@ -92,38 +92,27 @@ name "sec:Conclusion"
 \end_layout
 
 \begin_layout Standard
-An ICL controller has been developed for controlling a multirotor with unknown
- mass and moment of inertia.
- One of the main contributions of this work is that the developed ICL controller
- can be applied to many types of multirotors of unknown mass without the
- requirement of implementing extra sensors.
- The tracking errors and estimate errors of the unknown parameters were
- rigorously proven to exhibit  asymptotic convergence.
- The stability of the ICL controller was verified in simulations and experiments.
- Compared to the geometric controller, the ICL controller ensures that steady-st
-ate errors in 
-\begin_inset Formula $Z$
-\end_inset
-
- direction can be greatly reduced thanks to estimated mass.
- On the other hand, the ICL controller can outperform the adaptive controller
- since the adaptive controller cannot guarantee asymptotic convergence on
- the system parameters.
- Accurately estimating the system parameters using an ICL controller requires
- less human intervention before the flight and is thus crucial to achieving
- autonomous flight.
- The measurement noise is also an important factor in estimating the system
- parameters since it can cause the regression matrices to be less accurate.
+This research has developed the high gain geometric tracking controller
+ with the feedback of the motors efficiency to controll a multirotor and
+ the CTS under the influence of defective motors and UKF model for estimating
+ the motors efficicency of a multirotor and the CTS.
+ The controller can endure the disturbance caused by the defective motors
+ and the error of the feedback motors efficiency.
+ Though the defective motors lead to more translational and rotational error,
+ the feedback estimated motors efficiency significantly reduce the error
+ during flight.
+ That is to say the performance of the flight is improved when the motors
+ of the multirotor is defective and is proved in experiment.
+ In addition, the controller stability analysis and the observability of
+ new designed UKF model observability is proved.
 \end_layout
 
 \begin_layout Standard
-Future work will include extending the current study to estimate other parameter
-s of the multirotor, such as off-diagonal elements in the inertia matrix
- and the center of mass.
- Estimating the parameters online will avoid the need for an offline measurement
- procedure.
- Moreover, the stability of the multirotor system can still be ensured even
- when the geometric and inertia parameters are unknown.
+Future work will include removing the torque sensor applied in the CTS,
+ and reducing the effect of unmodeled disturbance like wind, low battery
+ voltage.
+ The former can significantly reduce the cost of the CTS, the latter can
+ get the more accurate estimation of the motors efficiency.
 \end_layout
 
 \end_body

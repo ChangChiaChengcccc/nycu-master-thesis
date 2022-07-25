@@ -1,0 +1,1772 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Motors Efficiency Estimation
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Motors-Efficiency-Estimation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Unscented Kalman Filter(UKF)
+\end_layout
+
+\begin_layout Standard
+A UKF is evolved from Kalman Filter (KF) and Extended Kalman Filter (EKF).
+ The aforementioned filters are algorithm that uses a number of measurements
+ observed over time, including noise and other disturbance, and produces
+ estimates of unknown variables.
+ Those filters are designed for different application scenarios.
+ According to the assumption and algorithm of KF, a ordinary KF can be only
+ applied on linear system.
+ In order to make state estimation on nonlinear systems, using the KF, one
+ of possible approaches is to linearize the system, and this is why EKF
+ are created.
+ Although EKF can be applied on nonlinear system, it might face a problem
+ on strongly nonlinear system.
+ The linearization of strongly nonlinear system would cause the poor approximati
+on due to the linearization feature.
+ Known that the dynamics of multirotor is strongly nonlinear, choosing the
+ UKF as the efficiency estimator on this research might is a better choice.
+ Therefore, the estimator of this reseach are choosed to be UKF, and the
+ design details of UKF are represented later.
+\end_layout
+
+\begin_layout Standard
+Estimation of the state of a discrete-time nonlinear dynamic system
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+x_{k+1}= & F(x_{k})+n_{k}\label{eq:UKF-predict-model}\\
+z_{k}= & H(x_{k})+v_{k}\label{eq:UKF-measurement-model}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $x_{k}$
+\end_inset
+
+ represent the state of the system and 
+\begin_inset Formula $z_{k}$
+\end_inset
+
+ is the measurement of the system.
+ The process noise is 
+\begin_inset Formula $n_{k}$
+\end_inset
+
+ and the measurement noise is 
+\begin_inset Formula $v_{k}$
+\end_inset
+
+.
+ The system dynamic model 
+\begin_inset Formula $F(\cdot)$
+\end_inset
+
+(predict model) and 
+\begin_inset Formula $H(\cdot)$
+\end_inset
+
+(measurement model) are adjusted according different application scenarios.
+ For more UKF theory details can check on UKF paper.
+\end_layout
+
+\begin_layout Subsection
+UKF model
+\end_layout
+
+\begin_layout Standard
+UKF model section is divided into two parts: The multirotor and the cooperative
+ transportation system.
+ Both UKF models are dedicated to estimate the motor efficiency.
+ By discretizing the nonlinear dynamics of the multirotor and the cooperative
+ transportation system, the predict model and measurement of both models
+ can be represented as follows.
+ The subscript of 
+\begin_inset Formula $k$
+\end_inset
+
+ denotes the time point 
+\begin_inset Formula $k$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph
+A.
+ The multirotor 
+\end_layout
+
+\begin_layout Subsubsection
+The predict model of the multirotor
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/UKF_multrotor_coodinate.png
+	lyxscale 50
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:UKF-coordinate-of-the-multirotor"
+
+\end_inset
+
+UKF Coordinate systems of four-rotor multirotor
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As shown in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:UKF-coordinate-of-the-multirotor"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the inertial frame and body-fixed frame are defined as 
+\begin_inset Formula $\left\{ \begin{array}{ccc}
+\vec{X}_{E,U}, & \vec{Y}_{E,U}, & \vec{Z}_{E,U}\end{array}\right\} $
+\end_inset
+
+ and 
+\begin_inset Formula $\left\{ \begin{array}{ccc}
+\vec{X}_{B,U}, & \vec{Y}_{B,U}, & \vec{Z}_{B,U}\end{array}\right\} $
+\end_inset
+
+ respectively, and the subscript of 
+\begin_inset Formula $U$
+\end_inset
+
+ means UKF.
+ Comparing Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:UKF-coordinate-of-the-multirotor"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:coordinate of the multirotor"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ , the Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:UKF-coordinate-of-the-multirotor"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is revised the the sequence of axis 
+\begin_inset Formula $X,Y,Z$
+\end_inset
+
+ from North, East, Down (NED) to East, North, Up (ENU) and the sequence
+ of motors.
+ Those changes make the UKF model more intuitive.
+ In a four-rotor multirotor, the first and third propellers rotate clockwise,
+ and the second and fourth propellers rotate counterclockwise.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="16" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+UKF Multirotor
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Description
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $x_{k}\in\mathbb{R}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+multirotor position in the inertial frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $v_{k}\in\mathbb{\mathbb{R}}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+multirotor velocity in the inertial frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $R_{k}\in\text{SO\left(3\right)}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+rotation matrix from the body-fixed frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+to the inertial frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega_{k}\in\mathbb{R}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+angular velocity in the body-fixed frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $f_{d,k}\in\mathbb{R}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+net thrust in the body-fixed frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $f_{dj,k}\in\mathbb{R}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+thrust generated by the 
+\begin_inset Formula $j^{{\rm th}}$
+\end_inset
+
+ propeller
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $M_{d,k}\in\mathbb{R}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+total moment in the body-fixed frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $m\in\mathbb{R}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mass of the multirotor
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+to be an unknown constant
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $d\in\mathbb{R}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+distance between the center of mass and
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+the center of the propeller
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $J\in\mathbb{R}^{3\times3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+inertia matrix
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $D_{T}\in\mathbb{R}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+the disturbance of thrust
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $D_{M}\in\mathbb{R}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+the disturbance of moment
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:UKF-symbol-of-the-multirotor"
+
+\end_inset
+
+UKF symbol of the multirotor
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To address the predict model later, the translational and rotational control
+ input function 
+\begin_inset Formula $f(E)\in\mathbb{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $M(E)\in\mathbb{R}^{3}$
+\end_inset
+
+, the efficiency vector 
+\begin_inset Formula $E\in\mathbb{R}^{4}$
+\end_inset
+
+ are defined as
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+M(E)= & \left[\begin{array}{c}
+M_{x}(E)\\
+M_{y}(E)\\
+M_{z}(E)
+\end{array}\right]
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\varLambda= & \left[\begin{array}{cccc}
+1 & 1 & 1 & 1\\
+l & l & -l & -l\\
+-l & l & l & -l\\
+c_{\tau f} & -c_{\tau f} & c_{\tau f} & -c_{\tau f}
+\end{array}\right]
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+E= & \left[\begin{array}{c}
+e_{1}\\
+e_{2}\\
+e_{3}\\
+e_{4}
+\end{array}\right]
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+E_{diag}= & \left[\begin{array}{cccc}
+e_{1} & 0 & 0 & 0\\
+0 & e_{2} & 0 & 0\\
+0 & 0 & e_{3} & 0\\
+0 & 0 & 0 & e_{4}
+\end{array}\right]
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+F_{d}= & \left[\begin{array}{c}
+f_{d1}\\
+f_{d2}\\
+f_{d3}\\
+f_{d4}
+\end{array}\right]
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\left[\begin{array}{c}
+f(E)\\
+M_{1}(E)\\
+M_{2}(E)\\
+M_{3}(E)
+\end{array}\right]= & \left[\begin{array}{cccc}
+1 & 1 & 1 & 1\\
+l & l & -l & -l\\
+-l & l & l & -l\\
+c_{\tau f} & -c_{\tau f} & c_{\tau f} & -c_{\tau f}
+\end{array}\right]\left[\begin{array}{cccc}
+e_{1} & 0 & 0 & 0\\
+0 & e_{2} & 0 & 0\\
+0 & 0 & e_{3} & 0\\
+0 & 0 & 0 & e_{4}
+\end{array}\right]\left[\begin{array}{c}
+f_{d1}\\
+f_{d2}\\
+f_{d3}\\
+f_{d4}
+\end{array}\right]\nonumber \\
+= & \varLambda E_{diag}F_{d}\label{eq:multirotor-control-inout-efficiency}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\left[\begin{array}{c}
+x_{k}\\
+v_{k}\\
+a_{k}\\
+\Omega_{k}\\
+\alpha_{k}\\
+E_{k}
+\end{array}\right]= & \left[\begin{array}{c}
+x_{k-1}+v_{k-1}\Delta t+\frac{1}{2}a_{k-1}\Delta t^{2}\\
+v_{k-1}+a_{k-1}\Delta t\\
+\frac{f(E_{k-1})R_{k-1}e_{3}}{m}-ge_{3}\\
+\Omega_{k-1}+\alpha_{k-1}\Delta t\\
+J^{-1}(M(E_{k-1})-\Omega_{k-1}\times J\Omega_{k-1})\\
+E_{k-1}
+\end{array}\right]\label{eq:predict-model-of-the-multirotor}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+The measurement model of the multirotor
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\left[\begin{array}{c}
+x_{k}\\
+\omega_{k}
+\end{array}\right]= & \left[\begin{array}{c}
+x_{k}\\
+\omega_{k}
+\end{array}\right]\label{eq:measurement-model-of-the-multirotor}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+B.
+ The cooperative transportation system
+\end_layout
+
+\begin_layout Standard
+The mission of this section is estimating the motors efficiency of both
+ multirotors in the CTS while the CTS is following a trajectory and transporting
+ a payload.
+\end_layout
+
+\begin_layout Standard
+In order to build the nonlinear dynamic model of the cooperative system,
+ it's necessary to clearly define the measurement.
+ Thinking of estimating motors efficiency of both multirotors in CTS by
+ UKF, it is intuitive to think that the mission needs some sensors on both
+ multirotors and payload.
+ By trying different combinations of dynamics, state variable and measurement
+ variable, the mission only needs the position, angular velocity and torque
+ sensors on payload.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/UKF_CTS_sensors.png
+	lyxscale 50
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:sensor-position-of-the-CTS"
+
+\end_inset
+
+Sensor position of the cooperative transportation system
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As shown in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:sensor-position-of-the-CTS"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, q1, q2, p are rigidly connected, so the attitude related dynamics is the
+ same.
+ For simplicity, the position mark on the payload is assumed to be the position
+ of the CTS system.
+\end_layout
+
+\begin_layout Subsubsection
+The multirotors dynamics related to the CTS system
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+x_{i/s}= & x_{i}-x_{s}\\
+a_{i}= & a_{s}+\dot{\Omega}\times x_{i/s}+\Omega\times(\Omega\times x_{i/s})\\
+\dot{\Omega}_{i}= & \dot{\Omega}_{s}=\dot{\Omega}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+The Physical Specifications of the CTS
+\end_layout
+
+\begin_layout Standard
+For simplicity, the position of the CTS center of mass (COM) is assumed
+ to overlap with position mark on payload.
+ The COM of the CTS is described as
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+x_{s}= & \frac{\sum_{i}m_{i}x_{i}}{\sum_{i}m_{i}},i=1,2,p
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The mass of the CTS are described as 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+m_{s}= & \sum_{i}m_{i},i=1,2,p
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The moment of inertia of the CTS are described as 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+J_{i}= & \left[\begin{array}{ccc}
+J_{xx,i} & 0 & 0\\
+0 & J_{yy,i} & 0\\
+0 & 0 & J_{zz,i}
+\end{array}\right]
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+J_{xx,s}= & \sum_{i}(J_{xx,i}+m_{i}(y_{i}^{S,U^{2}}+z_{i}^{S,U^{2}}))\\
+J_{yy,s}= & \sum_{i}(J_{yy,i}+m_{i}(x_{i}^{S,U^{2}}+z_{i}^{S,U^{2}}))\\
+J_{zz,s}= & \sum_{i}(J_{zz,i}+m_{i}(y_{i}^{S,U^{2}}+x_{i}^{S,U^{2}})),i=1,2,p
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+The predict model of the CTS
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/UKF_CTS_coodinate.png
+	lyxscale 50
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:UKF-coordinate-of-the-CTS"
+
+\end_inset
+
+UKF Coordinate systems of the cooperative transportation system
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As shown in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:UKF-coordinate-of-the-CTS"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the inertial frame and body-fixed frame are defined as 
+\begin_inset Formula $\left\{ \begin{array}{ccc}
+\vec{X}_{E,U}, & \vec{Y}_{E,U}, & \vec{Z}_{E,U}\end{array}\right\} $
+\end_inset
+
+ and 
+\begin_inset Formula $\left\{ \begin{array}{ccc}
+\vec{X}_{S,U}, & \vec{Y}_{S,U}, & \vec{Z}_{S,U}\end{array}\right\} $
+\end_inset
+
+ respectively, and the subscript of 
+\begin_inset Formula $S$
+\end_inset
+
+ means system.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="18" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="left" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+CTS Symbol
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Description
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $i$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+the subscript 
+\begin_inset Formula $i$
+\end_inset
+
+, which represents one of
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+quadrotor1(q1),quadrotor2(q2),payload(p)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $j$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+the subscript 
+\begin_inset Formula $j$
+\end_inset
+
+, which represents one of 1,2,3,4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $x_{i,k}\in\mathbb{R}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+position of 
+\begin_inset Formula $i$
+\end_inset
+
+ in the inertial frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $v_{i,k}\in\mathbb{\mathbb{R}}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+velocity of 
+\begin_inset Formula $i$
+\end_inset
+
+ in the inertial frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $a_{i,k}\in\mathbb{\mathbb{R}}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+acceleration of 
+\begin_inset Formula $i$
+\end_inset
+
+ in the inertial frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $R_{k}\in\text{SO\left(3\right)}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+rotation matrix from the body-fixed frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+to the inertial frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega_{k}\in\mathbb{R}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+angular velocity in the body-fixed frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\alpha_{k}\in\mathbb{R}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+angular acceleration in the body-fixed frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $E_{i,k}\in\mathbb{R}^{4}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+motors efficiency vector of 
+\begin_inset Formula $i$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $e_{j,i}\in\mathbb{R}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+efficiency value of 
+\begin_inset Formula $i$
+\end_inset
+
+ multirotor and 
+\begin_inset Formula $j^{th}$
+\end_inset
+
+ motor
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $f_{d,s,k}\in\mathbb{R}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+net thrust of the CTS in the body-fixed frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $f_{dj,i}\in\mathbb{R}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+distributed thrust generated by the 
+\begin_inset Formula $j^{{\rm th}}$
+\end_inset
+
+ propeller
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $M_{d,s,k}\in\mathbb{R}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+total moment of the CTS in the body-fixed frame
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $m_{s}\in\mathbb{R}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mass of the CTS
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $J_{s}\in\mathbb{R}^{3\times3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+inertia matrix of the CTS
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:UKF-symbol-of-the-CTS"
+
+\end_inset
+
+UKF symbol of the cooperative transportation system
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\left[\begin{array}{c}
+x_{1,k}\\
+v_{1,k}\\
+a_{1,k}\\
+\Omega_{1,k}\\
+\alpha_{1,k}\\
+E_{1,k}\\
+x_{2,k}\\
+v_{2,k}\\
+a_{2,k}\\
+\Omega_{2,k}\\
+\alpha_{2,k}\\
+E_{2,k}\\
+x_{p,k}\\
+v_{p,k}\\
+a_{p,k}\\
+\Omega_{p,k}\\
+\alpha_{p,k}\\
+F_{1,k}\\
+F_{2,k}
+\end{array}\right]= & \left[\begin{array}{c}
+x_{1,k-1}+v_{1,k-1}\Delta t+\frac{1}{2}\alpha_{1,k-1}\Delta t^{2}\\
+v_{1,k-1}+a_{1,k-1}\Delta t\\
+\frac{f_{1}(E_{1,k-1})R_{k-1}e_{3}}{m_{1}}-ge_{3}+F_{1,k-1}\\
+\Omega_{1,k-1}+\alpha_{1,k-1}\Delta t\\
+\alpha_{1,k-1}\\
+E_{1,k-1}\\
+x_{2,k-1}+v_{2,k-1}\Delta t+\frac{1}{2}\alpha_{2,k-1}\Delta t^{2}\\
+v_{2,k-1}+a_{2,k-1}\Delta t\\
+\frac{f_{2}(E_{2,k-1})R_{k-1}e_{3}}{m_{2}}-ge_{3}+F_{2,k-1}\\
+\Omega_{2,k-1}+\alpha_{2,k-1}\Delta t\\
+\alpha_{2,k-1}\\
+E_{2,k-1}\\
+x_{p,k-1}+v_{p,k-1}\Delta t+\frac{1}{2}\alpha_{p,k-1}\Delta t^{2}\\
+v_{p,k-1}+a_{p,k-1}\Delta t\\
+\frac{-(F_{1}+F_{2})}{m_{p}}-ge_{3}\\
+\Omega_{p,k-1}+\alpha_{p,k-1}\Delta t\\
+\alpha_{p,k-1}\\
+F_{1,k-1}\\
+F_{2,k-1}
+\end{array}\right]
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+The measurement model of the CTS
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\left[\begin{array}{c}
+x_{1,k}\\
+\Omega_{1,k}\\
+\tau_{1,k}\\
+x_{2,k}\\
+\Omega_{2,k}\\
+\tau_{2,k}\\
+x_{p,k}\\
+\Omega_{p,k}
+\end{array}\right]= & \left[\begin{array}{c}
+x_{1,k}\\
+\Omega_{1,k}\\
+J_{1}\alpha_{1,k-1}-(M_{1}(E_{1,k})-\Omega_{k-1}\times J_{1}\Omega_{k-1})\\
+x_{2,k}\\
+\Omega_{2,k}\\
+J_{2}\alpha_{2,k-1}-(M_{2}(E_{2,k})-\Omega_{k-1}\times J_{2}\Omega_{k-1})\\
+x_{p,k}\\
+\Omega_{p,k}
+\end{array}\right]
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+UKF Observability
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\begin_inset Formula $x$
+\end_inset
+
+ 
+\series default
+represents a state vector in this section and 
+\begin_inset Formula $z(x)$
+\end_inset
+
+is a measurement vector.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+O\triangleq\frac{\partial\phi}{\partial x} & =\begin{bmatrix}\frac{\partial\mathcal{L}_{f}^{0}(z(x))}{\partial x_{1}}\quad...\quad\frac{\partial\mathcal{L}_{f}^{0}(z(x))}{\partial x_{n}}\\
+\mathcal{\vdots}\quad\ddots\quad\mathcal{\vdots}\\
+\frac{\partial\mathcal{L}_{f}^{n-1}(z(x))}{\partial x_{1}}\quad...\quad\frac{\partial\mathcal{L}_{f}^{n-1}(z(x))}{\partial x_{n}}
+\end{bmatrix}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\phi\triangleq & \begin{bmatrix}\mathcal{L}_{f}^{0}(z(x))\\
+\mathcal{L}_{f}^{1}(z(x))\\
+\mathcal{\vdots}\\
+\mathcal{L}_{f}^{n-1}(z(x))
+\end{bmatrix}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where the elements are defined as 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\mathcal{L}_{f}^{0}(z(x)) & \triangleq z(x)\\
+\mathcal{L}_{f}^{1}(z(x)) & \triangleq\frac{\partial z(x)}{\partial x}\cdot f\\
+\mathcal{L}_{f}^{2}(z(x)) & \triangleq\frac{\partial}{\partial x}\begin{bmatrix}\mathcal{L}_{f}^{1}(z(x))\end{bmatrix}\cdot f\\
+ & \mathcal{\vdots}\\
+\mathcal{L}_{f}^{k}(z(x)) & \triangleq\frac{\partial}{\partial x}\begin{bmatrix}\mathcal{L}_{f}^{k-1}(z(x))\end{bmatrix}\cdot f
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and 
+\begin_inset Formula $f=\dot{x}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+if rank(O) is full rank, the system is observable.
+\end_layout
+
+\end_body
+\end_document

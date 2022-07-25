@@ -497,59 +497,43 @@ Contributions
 \end_layout
 
 \begin_layout Standard
-The present study has developed an integral concurrent learning (ICL) control
- method that can simultaneously stabilize the multirotor and estimate the
- moment of inertia.
- By combining the controller architecture in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Lee2010"
-literal "false"
-
-\end_inset
-
- and 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "ParikhKamalapurkarDixonarXiv:1512.03464"
-literal "false"
-
-\end_inset
-
-, a concurrent learning method has been developed for estimating the system
- parameters.
- Not only is the control objective of attitude tracking achieved, but also
- the unknown moments of inertia converge to close to their true values.
+This research has developed the UKF model to estimate the motors efficicency
+ of a multirotor and the cooperative transportation system.
+ The estimated motors efficiency feedbacks to the new designed controller
+ based on geometric tracking controller.
+ The controller can endure the disturbance caused by the defective motors
+ and the feedback motors efficiency.
+ Though the defective motors lead to more translational and rotational error,
+ the feedback estimated motors efficiency significantly reduce the error
+ during flight.
+ That is to say the performance of the flight is improved when the motors
+ of the multirotor is defective.
  
 \end_layout
 
 \begin_layout Standard
-The main contributions of this study are summarized as follows:
+The main contributions of this study are summarized as follows: 
 \end_layout
 
-\begin_layout Enumerate
-This is the first study to develop a method of ICL for asymptotically estimating
- the mass and moment of inertia of a multirotor.
+\begin_layout Standard
+1.
+ The UKF model to estimate the motors efficiency is designed for the multirotor
+ and the CTS, and the observability is proved in UKF model chapter.
  
 \end_layout
 
-\begin_layout Enumerate
-The dynamics of the multirotor is globally defined, and so the developed
- ICL controller can perform asymptotic tracking and parameter estimation.
+\begin_layout Standard
+2.
+ The developed high gain geometric tracking controller can endure the disturbanc
+e caused by defective motors and the feedback motors efficiency error,and
+ the aforementioned description is proved in stability analysis chapter.
  
 \end_layout
 
-\begin_layout Enumerate
-The developed ICL controller can estimate the system parameters online,
- requiring less human intervention, which is very useful in the application
- of package delivery in which the mass and moment of inertia of the overall
- system is unknown.
- 
-\end_layout
-
-\begin_layout Enumerate
-The developed ICL controller can be applied to multirotors with different
- numbers of axes and ensures asymptotic tracking.
+\begin_layout Standard
+3.
+ The flight performance is improved after the motors efficiency is feedbacked
+ in simulation and experiment chapter.
 \end_layout
 
 \end_body
