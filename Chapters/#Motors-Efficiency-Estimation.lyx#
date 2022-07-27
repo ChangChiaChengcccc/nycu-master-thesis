@@ -2094,7 +2094,7 @@ The measurement model of the CTS
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{align}
+\begin{align*}
 \left[\begin{array}{c}
 x_{1,k}\\
 \Omega_{1,k}\\
@@ -2113,8 +2113,8 @@ x_{2,k}\\
 J_{2}\alpha_{2,k}-(M_{2}(E_{2,k})-\Omega_{k}\times J_{2}\Omega_{k})\\
 x_{p,k}\\
 \Omega_{p,k}
-\end{array}\right]\label{eq:measurement model of the CTS}
-\end{align}
+\end{array}\right]
+\end{align*}
 
 \end_inset
 
@@ -2206,12 +2206,12 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{align}
+\begin{align*}
 O\triangleq\frac{\partial\phi}{\partial x} & =\begin{bmatrix}\frac{\partial\mathcal{L}_{f}^{0}(z(x))}{\partial x_{1}}\quad...\quad\frac{\partial\mathcal{L}_{f}^{0}(z(x))}{\partial x_{n}}\\
 \mathcal{\vdots}\quad\ddots\quad\mathcal{\vdots}\\
 \frac{\partial\mathcal{L}_{f}^{n-1}(z(x))}{\partial x_{1}}\quad...\quad\frac{\partial\mathcal{L}_{f}^{n-1}(z(x))}{\partial x_{n}}
-\end{bmatrix}\label{eq:observability matrix}
-\end{align}
+\end{bmatrix}
+\end{align*}
 
 \end_inset
 
@@ -2257,13 +2257,13 @@ where
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{align}
+\begin{align*}
 \phi\triangleq & \begin{bmatrix}\mathcal{L}_{f}^{0}(z(x))\\
 \mathcal{L}_{f}^{1}(z(x))\\
 \mathcal{\vdots}\\
 \mathcal{L}_{f}^{n-1}(z(x))
-\end{bmatrix}\label{eq:\phi}
-\end{align}
+\end{bmatrix}
+\end{align*}
 
 \end_inset
 
@@ -2276,13 +2276,13 @@ The elements are defined as
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{align}
-\mathcal{L}_{f}^{0}(z(x)) & \triangleq z(x)\nonumber \\
-\mathcal{L}_{f}^{1}(z(x)) & \triangleq\frac{\partial z(x)}{\partial x}\cdot f\nonumber \\
-\mathcal{L}_{f}^{2}(z(x)) & \triangleq\frac{\partial}{\partial x}\begin{bmatrix}\mathcal{L}_{f}^{1}(z(x))\end{bmatrix}\cdot f\nonumber \\
- & \mathcal{\vdots}\nonumber \\
-\mathcal{L}_{f}^{k}(z(x)) & \triangleq\frac{\partial}{\partial x}\begin{bmatrix}\mathcal{L}_{f}^{k-1}(z(x))\end{bmatrix}\cdot f\label{eq:Lie derivative}
-\end{align}
+\begin{align*}
+\mathcal{L}_{f}^{0}(z(x)) & \triangleq z(x)\\
+\mathcal{L}_{f}^{1}(z(x)) & \triangleq\frac{\partial z(x)}{\partial x}\cdot f\\
+\mathcal{L}_{f}^{2}(z(x)) & \triangleq\frac{\partial}{\partial x}\begin{bmatrix}\mathcal{L}_{f}^{1}(z(x))\end{bmatrix}\cdot f\\
+ & \mathcal{\vdots}\\
+\mathcal{L}_{f}^{k}(z(x)) & \triangleq\frac{\partial}{\partial x}\begin{bmatrix}\mathcal{L}_{f}^{k-1}(z(x))\end{bmatrix}\cdot f
+\end{align*}
 
 \end_inset
 

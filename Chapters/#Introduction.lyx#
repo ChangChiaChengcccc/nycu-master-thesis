@@ -257,7 +257,7 @@ ation, and sacrifices heading angle command.
  analysis to deal with the highly nonlinear multirotor dynamics, and the
  yaw angle is controlled despite the motors fault.
  In addition to the active FTCs, there are numerous intelligent passive
- FTCs are based on sliding mode control (SMC) 
+ FTCs are based on sliding mode control (SMC),
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Chen2016a"
@@ -265,7 +265,7 @@ literal "false"
 
 \end_inset
 
-, 
+,
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Mofid2018"
@@ -277,9 +277,11 @@ literal "false"
  disturbances.
  The SMCs have high compatibility so that they are capable to be compatible
  with other techniques including adaptive control and backstepping control.
- The aforementioned SMC researches demonstrate the trajectory tracking performan
-ce and robustness under disturbances via simulation, which ensure the effectiven
-ess of resisting disturbances and the flight performance is great.
+ The aforementioned SMC researches %%[Robust adaptive nonsingular fast terminal
+ sliding-mode tracking control for an uncertain quadrotor UAV subjected
+ to disturbances] demonstrate the trajectory tracking performance and robustness
+ under disturbances via simulation, which ensure the effectiveness of resisting
+ disturbances and the flight performance is great.
  Besides, the stability analysis of the SMCs are rigorously proved according
  to the Lyapunov analysis and theory.
  However, they experience the unfavorable problem of oscillations with finite
@@ -291,17 +293,10 @@ ess of resisting disturbances and the flight performance is great.
  Therefore, the cattering problem is an majoy obstacle for SMCs implementation.
  To deal with those negative effects on SMCs, the researchers of SMCs have
  developed some new techniques.
- Taking 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Labbadi2020"
-literal "false"
-
-\end_inset
-
- for example, this new type of SMC maintains the advantages including high
- precision tracking performances and good robustness against various external
- disturbances.
+ Taking %%[Robust adaptive nonsingular fast terminal sliding-mode tracking
+ control for an uncertain quadrotor UAV subjected to disturbances] for example,
+ this new type of SMC maintains the advantages including high precision
+ tracking performances and good robustness against various external disturbances.
  Furthermore, it has solved the chattering problem.
  Though the simulation has been conducted, the experiment haven't yet.
 \end_layout

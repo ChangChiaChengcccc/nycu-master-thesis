@@ -637,7 +637,7 @@ noprefix "false"
 \end_inset
 
  is the angular acceleration of the multirotor, 
-\begin_inset Formula $J\in\mathbb{R}^{3\times3}$
+\begin_inset Formula $\boldsymbol{J}\in\mathbb{R}^{3\times3}$
 \end_inset
 
  is inertia matrix of the multirotor, 
@@ -1649,16 +1649,7 @@ u_{c}^{*}= & H^{-1}(\Gamma H^{-1})^{+}u_{d,s}=H^{-2}\Gamma^{T}(\Gamma H^{-2}\Gam
 \begin_inset Formula $+$
 \end_inset
 
- denotes the Moore-Penrose inverse.
- The control distribution approach is adopted from 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Mellinger2013a"
-literal "false"
-
-\end_inset
-
-.
+ denotes the Moore-Penrose inverse
 \end_layout
 
 \begin_layout Subsection
