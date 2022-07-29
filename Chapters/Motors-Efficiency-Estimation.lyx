@@ -1064,8 +1064,8 @@ B.
 
 \begin_layout Standard
 The CTS is rigidly conected by three objects, quadrotor1, quadrotor2 and
- payload, and they can be abbreviated as q1, q2, p respectively.
- Also, the CTS can be abbreviated as s.
+ payload, and they can be abbreviated as q1, q2, p respectively as well
+ as the CTS can be abbreviated as s.
  The mission of this section is estimating the motors efficiency of the
  both multirotors in the CTS while the CTS is following a trajectory and
  transporting a payload.
@@ -1090,7 +1090,7 @@ status open
 \begin_inset Graphics
 	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/UKF_CTS_sensors.png
 	lyxscale 50
-	width 50col%
+	width 100col%
 
 \end_inset
 
@@ -1136,6 +1136,21 @@ noprefix "false"
  rigidly connected, so the attitude related dynamics is the same.
  For simplicity, the position mark on the payload is assumed to be the position
  and the center of mass (COM) of the CTS system.
+\end_layout
+
+\begin_layout Standard
+For estimating each motor efficiency in the CTS, it's hard to achieve the
+ objective without the force/torque sensor because with only position and
+ angular velocity sensor on the payload, it's difficult to distinguish the
+ thrust loss are caused by q1 or q2.
+ However, we all know that the force/torque sensor is quite expensive and
+ it's possible to break the force/torque sensor during the air crash.
+ Therefore, for the further model analysis, in order to get rid of the force/tor
+que sensor, it's important to separate q1, q2, p from the CTS and analyze
+ their independent dynamics.
+ After trying many different combinations of dynamics and UKF model to estimate
+ the motors efficiency in the CTS, although the torque sensor is still needed,
+ the translational force sensor can be removed.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1293,6 +1308,332 @@ where
 \end_layout
 
 \begin_layout Subsubsection
+The dynamics of the independent multirotor in CTS
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/single_quadrotor.png
+	lyxscale 70
+	width 70col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Mechanical analysis of the independent multirotor in CTS"
+
+\end_inset
+
+Mechanical analysis of the independent multirotor in CTS
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The dynamics of the independent multirotor in CTS is formulated as 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\dot{x}_{i} & =v_{i},\label{eq:independent multirotor translational dynamics1}\\
+m_{i}\dot{v}_{i} & =m_{i}ge_{3}-f_{d,i}Re_{3}+F_{i},\label{eq:independent multirotor translational dynamics2}\\
+\dot{R} & =R\hat{\Omega},\label{eq:independent multirotor rotational dynamics1}\\
+J_{i}\dot{\Omega} & =M_{d,i}-\Omega\times J\Omega+\tau_{i},\label{eq:independent multirotor rotational dynamics2}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $i$
+\end_inset
+
+ here represents one of q1 and q2, 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+, 
+\begin_inset Formula $v_{i}\in\mathbb{R}^{3}$
+\end_inset
+
+ represent the position and velocity in the inertial frame, respectively,
+ and 
+\begin_inset Formula $f_{d,i}\in\mathbb{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $M_{d,i}\in\mathbb{R}^{3}$
+\end_inset
+
+ are desired thrust and moment control inputs, respectively, in the body-fixed
+ frame, 
+\begin_inset Formula $F_{i}\in\mathbb{R}^{3}$
+\end_inset
+
+ is the external force exerted by the payload, 
+\begin_inset Formula $\tau_{i}\in\mathbb{R}^{3}$
+\end_inset
+
+ is the external torque exerted by the payload, 
+\begin_inset Formula $R\in SO\ensuremath{\left(3\right)}$
+\end_inset
+
+ is the rotation matrix from the body-fixed frame to the inertial frame,
+ as shown in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Mechanical analysis of the independent multirotor in CTS"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Formula $m$
+\end_inset
+
+ and 
+\begin_inset Formula $g\in\mathbb{R}$
+\end_inset
+
+ are mass of the multirotor and gravity, respectively, 
+\begin_inset Formula $e_{3}$
+\end_inset
+
+ is an unit vector defined as 
+\begin_inset Formula $e_{3}=\left[0,0,1\right]^{T}\in\mathbb{R}^{3}$
+\end_inset
+
+, 
+\begin_inset Formula $\Omega\in\mathbb{R}^{3}$
+\end_inset
+
+ is defined as the angular velocity, 
+\begin_inset Formula $\dot{\Omega}\in\mathbb{R}^{3}$
+\end_inset
+
+ is the angular acceleration, 
+\begin_inset Formula $J_{i}\in\mathbb{R}^{3\times3}$
+\end_inset
+
+ is inertia matrix.
+\end_layout
+
+\begin_layout Subsubsection
+The dynamics of the independent payload in CTS
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/dependent_payload.png
+	lyxscale 50
+	width 10cm
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Mechanical analysis of the independent payload in CTS"
+
+\end_inset
+
+Mechanical analysis of the independent payload in CTS
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The dynamics of the independent payload in CTS is formulated as 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\dot{x}_{p} & =v_{p},\label{eq:independent payload translational dynamics1}\\
+m_{p}\dot{v}_{p} & =-(F_{1}+F_{2})-m_{p}ge_{3},\label{eq:independent payload translational dynamics2}\\
+\dot{R} & =R\hat{\Omega},\label{eq:independent payload rotational dynamics1}\\
+J_{p}\dot{\Omega} & =-(\tau_{1}+\tau_{2})+M_{p}(F_{1},F_{2})-\Omega\times J_{p}\Omega,\label{eq:independent payload rotational dynamics2}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $M_{p}(F_{1},F_{2}):\mathbb{R}^{3}\times\mathbb{R}^{3}\rightarrow\mathbb{R}^{3}$
+\end_inset
+
+ is the function represents the torque caused from the multirotors translational
+ force exerts on the payload, and it is defined as
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+M_{p}(F_{1},F_{2})= & \left[\begin{array}{ccc}
+0 & 0 & 0\\
+0 & 0 & 0.5\\
+0 & -0.5 & 0
+\end{array}\right](-F_{1}^{s})+\left[\begin{array}{ccc}
+0 & 0 & 0\\
+0 & 0 & -0.5\\
+0 & 0.5 & 0
+\end{array}\right](-F_{2}^{s})\label{eq:structure torque}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $-F_{1}^{s}$
+\end_inset
+
+, 
+\begin_inset Formula $-F_{2}^{s}$
+\end_inset
+
+ is the force exerted by the q1 and q2 in the CTS body-fixed frame respectively,
+ 
+\begin_inset Formula $-F_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $-F_{2}$
+\end_inset
+
+ are the force exerted by q1 and q2 in the inertial frame respectively,
+ 
+\begin_inset Formula $-\tau_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $-\tau_{2}$
+\end_inset
+
+ are the torque exerted by q1 and q2 in the body-fixed frame respectively,
+ 
+\begin_inset Formula $x_{p}$
+\end_inset
+
+, 
+\begin_inset Formula $v_{p}\in\mathbb{R}^{3}$
+\end_inset
+
+ represent the position and velocity in the inertial frame, respectively,
+ 
+\begin_inset Formula $R\in SO\ensuremath{\left(3\right)}$
+\end_inset
+
+ is the rotation matrix from the body-fixed frame to the inertial frame,
+ as shown in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Mechanical analysis of the independent payload in CTS"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Formula $m$
+\end_inset
+
+ and 
+\begin_inset Formula $g\in\mathbb{R}$
+\end_inset
+
+ are mass of the multirotor and gravity, respectively, 
+\begin_inset Formula $e_{3}$
+\end_inset
+
+ is an unit vector defined as 
+\begin_inset Formula $e_{3}=\left[0,0,1\right]^{T}\in\mathbb{R}^{3}$
+\end_inset
+
+, 
+\begin_inset Formula $\Omega\in\mathbb{R}^{3}$
+\end_inset
+
+ is defined as the angular velocity, 
+\begin_inset Formula $\dot{\Omega}\in\mathbb{R}^{3}$
+\end_inset
+
+ is the angular acceleration, 
+\begin_inset Formula $J_{p}\in\mathbb{R}^{3\times3}$
+\end_inset
+
+ is inertia matrix.
+\end_layout
+
+\begin_layout Subsubsection
 The predict model of the CTS
 \end_layout
 
@@ -1307,7 +1648,7 @@ status open
 \begin_inset Graphics
 	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/UKF_CTS_coodinate.png
 	lyxscale 50
-	width 50col%
+	width 70col%
 
 \end_inset
 
@@ -1914,6 +2255,50 @@ UKF symbol of the cooperative transportation system
 \end_layout
 
 \begin_layout Standard
+After discretizing the dynamics from 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:independent multirotor translational dynamics2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:independent payload translational dynamics2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:independent multirotor rotational dynamics2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:independent payload rotational dynamics2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the predict model is designed as 
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula 
 \begin{align}
 \left[\begin{array}{c}
@@ -1953,7 +2338,7 @@ x_{p,k-1}+v_{p,k-1}\Delta t+\frac{1}{2}\alpha_{p,k-1}\Delta t^{2}\\
 v_{p,k-1}+a_{p,k-1}\Delta t\\
 \frac{-(F_{1}+F_{2})}{m_{p}}-ge_{3}\\
 \Omega_{p,k-1}+\alpha_{p,k-1}\Delta t\\
-\alpha_{p,k-1}\\
+J_{p}^{-1}[M_{p}(F_{1},F_{2})-(\tau_{1,k}+\tau_{2,k})-\Omega_{p,k}\times J_{p}\Omega_{p,k}]\\
 F_{1,k-1}\\
 F_{2,k-1}
 \end{array}\right]\label{eq:predict model of the CTS}

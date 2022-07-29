@@ -902,6 +902,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
+\align center
 In the translational dynamics, Lyapunov function 
 \begin_inset Formula $V_{1}$
 \end_inset

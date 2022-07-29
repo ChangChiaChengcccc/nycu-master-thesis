@@ -273,7 +273,7 @@ The subsequent analysis is facilitated by making the following assumption:
 \end_layout
 
 \begin_layout Standard
-and the commanded acceleration is uniformly bounded such that
+, and the commanded acceleration is uniformly bounded such that
 \end_layout
 
 \begin_layout Standard
@@ -292,15 +292,7 @@ where
 \begin_inset Formula $B\in R_{>0}$
 \end_inset
 
- is a positive constant, which are similar to 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Lee2010"
-literal "false"
-
-\end_inset
-
-.
+ is a positive constant.
 \end_layout
 
 \begin_layout Standard
@@ -391,7 +383,8 @@ noprefix "false"
 \end_inset
 
 ).
- 
+ Based on the definitions of Ym, θm, (20), and (26), the following inequalities
+ are satisfied:
 \end_layout
 
 \begin_layout Subsection
