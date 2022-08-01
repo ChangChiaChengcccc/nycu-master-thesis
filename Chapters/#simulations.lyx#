@@ -1374,7 +1374,7 @@ name "fig:3D-trajectory-for-multirotor"
 The initial states and estimates were 
 \begin_inset Formula 
 \begin{align*}
-x\left(0\right) & =\left[-2,-2,0.15\right],\\
+x\left(0\right) & =\left[-0.45,6.2,0\right],\\
 v\left(0\right) & =\left[0,0,0\right],\\
 R\left(0\right) & =\left[\begin{array}{ccc}
 1 & 0 & 0\\
@@ -1382,7 +1382,8 @@ R\left(0\right) & =\left[\begin{array}{ccc}
 0 & 0 & 1
 \end{array}\right],\\
 \Omega\left(0\right) & =\left[0,0,0\right],\\
-e^{1}(0) & =e^{2}(0)=e^{3}(0)=e^{4}(0)=1
+\hat{\theta}_{m}\left(0\right) & =0,\\
+\hat{\theta}_{J}\left(0\right) & =\left[0,0,0\right].
 \end{align*}
 
 \end_inset
