@@ -105,15 +105,31 @@ literal "false"
  In addition, there is a powerful library in Simulink, which is called Simscape.
  Simscape enables you to rapidly create models of physical systems within
  the Simulink environment.
- Furthermore, a open-source project Quadcopter Drone Model in Simscape developed
- by Matlab staff, Steve Miller, is a quadcopter with multibody, electrical
- and thermal models follows a path to deliver a package.
- With this well developed project, the present work conducts the motors
- efficiency simulation.
+ Furthermore, a open-source project Quadcopter Drone Model in Simscape has
+ developed by Matlab staff, Steve Miller, was a quadcopter with multibody,
+ electrical and thermal models followed a path to deliver a package.
+ With this well developed project, the present work conducted the motors
+ efficiency estimation.
+ A four-rotor multirotor with an allocation matrix as defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:allocation matrix in UKF"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) was used as our model in Simulink with a simulation duration of 50 sec
+ and sampling time 0.01 sec.
  
 \end_layout
 
 \begin_layout Subsection
+The multirotor
+\end_layout
+
+\begin_layout Subsubsection
 Setup and Ground Truth
 \end_layout
 
@@ -154,7 +170,7 @@ noprefix "false"
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "tab:Control-gain-in-Gazebo"
+reference "tab:Control-gain-in-Simscape"
 plural "false"
 caps "false"
 noprefix "false"
@@ -286,7 +302,7 @@ name "tab:motors efficiency in simscape"
 
 \end_inset
 
-Ground truth motors efficiency in the Gazebo simulations
+Ground truth motors efficiency in the Simscape simulations
 \end_layout
 
 \end_inset
@@ -469,11 +485,11 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "tab:Control-gain-in-Gazebo"
+name "tab:Control-gain-in-Simscape"
 
 \end_inset
 
-Control gains used in the Gazebo simulations
+Control gains used in the Simscape simulations
 \end_layout
 
 \end_inset
@@ -545,7 +561,7 @@ Value
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $8$
+\begin_inset Formula $diag([8,8,16])$
 \end_inset
 
 
@@ -571,7 +587,7 @@ Value
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $6$
+\begin_inset Formula $diag([6,6,6])$
 \end_inset
 
 
@@ -597,7 +613,7 @@ Value
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $10$
+\begin_inset Formula $diag([10,10,10])$
 \end_inset
 
 
@@ -623,7 +639,7 @@ Value
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $2.54$
+\begin_inset Formula $diag([2.54,2.54,2.54])$
 \end_inset
 
 
@@ -660,7 +676,7 @@ name "tab:covariance of process"
 
 \end_inset
 
- covariance of process in the multirotor UKF model in the Simscape simulations
+ Covariance of process in the multirotor UKF model in the Simscape simulations
 \end_layout
 
 \end_inset
@@ -700,7 +716,7 @@ name "tab:covariance of process"
 \begin_inset Text
 
 \begin_layout Plain Layout
-Covariance of process for
+Covariance of process
 \end_layout
 
 \end_inset
@@ -899,7 +915,7 @@ name "tab:covariance of measurement"
 
 \end_inset
 
- covariance of measurement in the multirotor UKF model in the Simscape simulatio
+ Covariance of measurement in the multirotor UKF model in the Simscape simulatio
 ns
 \end_layout
 
@@ -940,7 +956,7 @@ ns
 \begin_inset Text
 
 \begin_layout Plain Layout
-Covariance of process for
+Covariance of measurement
 \end_layout
 
 \end_inset
@@ -1035,7 +1051,7 @@ name "tab:multirotor physical parameters"
 
 \end_inset
 
- physical parameters of the multirotor in the Simscape simulations
+ Physical parameters of the multirotor in the Simscape simulations
 \end_layout
 
 \end_inset
@@ -1046,7 +1062,7 @@ name "tab:multirotor physical parameters"
 \begin_layout Plain Layout
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="3">
+<lyxtabular version="3" rows="5" columns="3">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
@@ -1178,44 +1194,6 @@ diag(
 
 \begin_layout Plain Layout
 \begin_inset Formula $kg\cdot m^{2}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $d$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $0.23$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $m$
 \end_inset
 
 
@@ -1390,20 +1368,20 @@ e^{1}(0) & =e^{2}(0)=e^{3}(0)=e^{4}(0)=1
 
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Results
 \end_layout
 
 \begin_layout Standard
 The tracking errors of the position, velocity, attitude, and angular velocity
- converged asymptotically to zero, as shown in Fig.
+ were indeed bounded, as shown in Fig.
 \begin_inset space ~
 \end_inset
 
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:position-error-gazebo"
+reference "fig:position-error-simscape"
 plural "false"
 caps "false"
 noprefix "false"
@@ -1425,9 +1403,9 @@ noprefix "false"
 \end_inset
 
 .
- These findings verify that the multirotor with the developed ICL controller
- is able to track a desired trajectory without knowledge of the moment of
- inertia or mass.
+ These findings verify that the multirotor with the developed controller
+ and the motors efficiency UKF estimator is able to track a desired trajectory
+ without knowledge of the motors efficiency.
  The 
 \begin_inset Formula $\left(\cdot\right)_{1}$
 \end_inset
@@ -1454,8 +1432,9 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename ../Figures/eps/position_error_mass.eps
-	width 98col%
+	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/eps/position_error.eps
+	lyxscale 60
+	width 100col%
 
 \end_inset
 
@@ -1468,11 +1447,11 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:position-error-gazebo"
+name "fig:position-error-simscape"
 
 \end_inset
 
-Position error trajectories.
+Position error
 \end_layout
 
 \end_inset
@@ -1495,8 +1474,9 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename ../Figures/eps/velocity_error_mass.eps
-	width 98col%
+	filename ../Figures/eps/velocity_error.eps
+	lyxscale 60
+	width 100col%
 
 \end_inset
 
@@ -1509,11 +1489,11 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:velocity-error-gazebo"
+name "fig:velocity-error-simscape"
 
 \end_inset
 
-Velocity error trajectories.
+Velocity error
 \end_layout
 
 \end_inset
@@ -1561,7 +1541,7 @@ noprefix "false"
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:attitude-error-gazebo"
+reference "fig:attitude-error-simscape"
 plural "false"
 caps "false"
 noprefix "false"
@@ -1595,8 +1575,9 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename ../Figures/eps/attitude_error_mass.eps
-	width 98col%
+	filename ../Figures/eps/attitude_error.eps
+	lyxscale 60
+	width 100col%
 
 \end_inset
 
@@ -1609,11 +1590,11 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:attitude-error-gazebo"
+name "fig:attitude-error-simscape"
 
 \end_inset
 
-Attitude error trajectories.
+Attitude error
 \end_layout
 
 \end_inset
@@ -1636,8 +1617,9 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename ../Figures/eps/angular_velocity_error_mass.eps
-	width 98col%
+	filename ../Figures/eps/angular_velocity_error.eps
+	lyxscale 60
+	width 100col%
 
 \end_inset
 
@@ -1654,7 +1636,7 @@ name "fig:angular-velocity-error-gazebo"
 
 \end_inset
 
-Angular velocity error trajectories.
+Angular velocity
 \end_layout
 
 \end_inset
@@ -1682,23 +1664,23 @@ Fig.
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:estimated-moment-of-inertia-gazebo"
+reference "fig:estimated-motors-efficiency-simscape"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
- shows the estimates of the moment of inertia and mass during flight.
- The estimated values of the moment of inertia converged to 
-\begin_inset Formula $\mathrm{diag}\left[0.033,0.051,0.091\right]$
+ shows the estimates of the motors efficiency during flight.
+ The estimated values of the motors efficiency are 
+\begin_inset Formula $0.9,0.7,0.5,0.3$
 \end_inset
 
- after about 4
+ after about 3
 \begin_inset space ~
 \end_inset
 
-sec, which are close to the ground truth listed in Table
+sec, which are very close to the ground truth listed in Table
 \begin_inset space ~
 \end_inset
 
@@ -1713,171 +1695,7 @@ noprefix "false"
 \end_inset
 
 .
- The estimated mass of the multirotor converged to 1.543
-\begin_inset space ~
-\end_inset
-
-kg after about 15
-\begin_inset space ~
-\end_inset
-
-sec, which is also close to the ground truth.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename ../Figures/eps/estimated_moment_of_inertia_mass.eps
-	width 98col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:estimated-moment-of-inertia-gazebo"
-
-\end_inset
-
-Estimates of the moment of inertia and mass.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage newpage
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The normalized estimate errors of the moment of inertia and mass were 
-\begin_inset Formula $7.9\%$
-\end_inset
-
- and 
-\begin_inset Formula $1.5\%$
-\end_inset
-
-, respectively, as shown in Fig.
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:error_of_estimate"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename ../Figures/eps/error_of_estimate.eps
-	width 98col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:error_of_estimate"
-
-\end_inset
-
-Normalized estimate errors of the moment of inertia and mass.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage newpage
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Fig.
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:controller_comparison"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- compares the controller performance without and with the ICL controller,
- which demonstrates the importance and robustness of our developed controller.
- Since the mass of the multirotor significantly influences the system in
  
-\begin_inset Formula $Z$
-\end_inset
-
- direction, the position errors in that direction were compared between
- using the two kinds of controller.
- The estimate error of the mass was 0.132
-\begin_inset space ~
-\end_inset
-
-kg when not using the ICL controller, whereas it was very close to zero
- when using the developed ICL controller.
- The figure also shows that there was a steady-state error when the ICL
- controller was not applied, which was eliminated when using the ICL controller.
 \end_layout
 
 \begin_layout Standard
@@ -1890,8 +1708,9 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename ../Figures/eps/controller_comparison.eps
-	width 98col%
+	filename ../Figures/eps/estimated_the_motors_efficiency.eps
+	lyxscale 60
+	width 100col%
 
 \end_inset
 
@@ -1904,39 +1723,11 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:controller_comparison"
+name "fig:estimated-motors-efficiency-simscape"
 
 \end_inset
 
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Controller performance in 
-\begin_inset Formula $Z$
-\end_inset
-
- direction with and without the ICL controller.
-\end_layout
-
-\end_inset
-
-Controller performance in 
-\begin_inset Formula $Z$
-\end_inset
-
- direction with and without the ICL controller.
- The case without the ICL controller is only controlled by the geometric
- tracking controller
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Lee2010"
-literal "false"
-
-\end_inset
-
-.
+Estimates of the motors efficiency.
 \end_layout
 
 \end_inset
@@ -1964,23 +1755,30 @@ Fig.
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:controller_comparison_MOI"
+reference "fig:Thrust-command-for-each-motoros"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
- compares the estimated parameters when using the adaptive controller and
- the developed ICL controller.
- Asymptotic convergence of The estimate errors converged asymptotically
- when using the ICL controller, whereas they converged to the wrong values
- when using the adaptive controller.
+ shows that the system of developed control and motors efficiency UKF estimator
+ truely generates the bigger thrust command to compensate the defective
+ motors.
+ The ratios between the normal thrust command 
+\begin_inset Formula $(2.33N)$
+\end_inset
+
+ and the thrust command for defective motors are the reciprocal of the estimated
+ motors efficiency, that is 
+\begin_inset Formula $\frac{1}{0.9},\frac{1}{0.7},\frac{1}{0.5},\frac{1}{0.3}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status open
@@ -1988,8 +1786,9 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename ../Figures/eps/MOI_w_and_wo_ICL.eps
-	width 98col%
+	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/eps/thrust_cmd.eps
+	lyxscale 60
+	width 100col%
 
 \end_inset
 
@@ -2002,12 +1801,11 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:controller_comparison_MOI"
+name "fig:Thrust-command-for-each-motoros"
 
 \end_inset
 
-Comparison of the estimate errors using the adaptive controller and the
- ICL controller.
+Thrust command for the motors
 \end_layout
 
 \end_inset
@@ -2015,6 +1813,2451 @@ Comparison of the estimate errors using the adaptive controller and the
 
 \end_layout
 
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:position_comparison"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ compares the position with and without the motors efficiency feedback.
+ The position with the motors efficiency feedback almost overlaps with the
+ trajectory, whereas the position without the motors efficiency feedback
+ has an obvious error.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../Figures/eps/position_comparison.eps
+	lyxscale 60
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:position_comparison"
+
+\end_inset
+
+Comparison of the position with and without the Motors Efficiency Feedback.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+The Cooperative Transportation System
+\end_layout
+
+\begin_layout Subsubsection
+Setup and Ground Truth
+\end_layout
+
+\begin_layout Standard
+The model, motors efficiency, and control gains of the CTS are presented
+ in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:model_of_CTS"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:CTS motors efficiency in simscape"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:CTS-control-gain-in-Simscape"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, respectively.
+ The covariance of process and covariance of measurement are represented
+ in Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:CTS covariance of process"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:CTS covariance of measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, respectively.
+ The physical parameters are represented in Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:CTS physical parameter"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.The ground truth of the motors efficiency presented in Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:CTS motors efficiency in simscape"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ were unknown parameters to be estimated in the simulations, and were used
+ for evaluating the estimate error but not for implementing the simulation.
+ Notice that the motors efficiency estimation was not conducted in realtime,
+ because the error of the feedback motors estimation caused the CTS had
+ a severe dynamics.
+ A severe dynamics in Simscape leads to a very long time calculation, which
+ significantly influences the simulations.
+ Therefore, the estimation of motors efficiency was conducted offline.
+ Although the simulations failed in the realtime feedback step, the control
+ and offline estimation performance were still presented below.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/simulation_CTS.PNG
+	lyxscale 65
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:model_of_CTS"
+
+\end_inset
+
+The multirotor model in Simscape.
+ Noted that the yellow line is visualized trajectory and the transparent
+ ball is a visualized waypoint.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:CTS motors efficiency in simscape"
+
+\end_inset
+
+The CTS Ground truth motors efficiency in the Simscape simulations
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="10" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Parameter
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $e_{1}^{1}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.75$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $e_{1}^{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.55$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $e_{1}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.45$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $e_{1}^{4}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.65$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $e_{2}^{1}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.5$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $e_{2}^{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.6$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $e_{2}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.8$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $e_{2}^{4}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.7$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:CTS-control-gain-in-Simscape"
+
+\end_inset
+
+Control gains used in the Simscape simulations
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Control Gain
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $k_{x}+k_{xD}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $diag([4,4,15])$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $k_{v}+k_{vD}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $diag([4,4,10])$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $k_{R}+k_{RD}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $diag([16,40,8])$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $k_{\Omega}+k_{\Omega D}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $diag([2.54,2.54,2.54])$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:CTS covariance of process"
+
+\end_inset
+
+ Covariance of process in the CTS UKF model in the Simscape simulations
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="16" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Covariance of process
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $x_{1,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10^{-6}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $v_{1,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10^{-4}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $a_{1,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10^{-2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega_{1,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10^{-6}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\alpha_{1,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10^{-2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $E_{1,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10^{-6}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $x_{2,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10^{-6}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $v_{2,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10^{-4}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $a_{2,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10^{-2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega_{2,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10^{-6}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\alpha_{2,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10^{-2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $E_{2,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10^{-6}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $F_{1,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $25$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $F_{2,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $25$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:CTS covariance of measurement"
+
+\end_inset
+
+ Covariance of measurement in the CTS UKF model in the Simscape simulations
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Covariance of measurement
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $x_{1,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10^{-6}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega_{1,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10^{-6}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\tau_{1,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10^{-6}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $x_{2,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10^{-6}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega_{2,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10^{-6}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\tau_{2,k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10^{-6}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:CTS physical parameter"
+
+\end_inset
+
+ Physical parameters of the CTS in the Simscape simulations
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="10" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Parameter
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Unit
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $m_{1},m_{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.952$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $kg$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $m_{p}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.5$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $kg$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $m_{s}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $2.404$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $kg$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $J_{1},J_{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+diag(
+\begin_inset Formula $[0.00329,0.00329,0.00581]$
+\end_inset
+
+)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $kg\cdot m^{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $J_{p}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+diag
+\begin_inset Formula $[0.0002,0.042,0.042]$
+\end_inset
+
+)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $kg\cdot m^{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $J_{s}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+diag(
+\begin_inset Formula $[0.068,0.5244,0.5294]$
+\end_inset
+
+)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $kg\cdot m^{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $l$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.1592$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $m$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $r$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.5$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $m$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The CTS was initially stationary on the ground and commanded to track a
+ desired trajectory 
+\begin_inset Formula $x_{d}$
+\end_inset
+
+ represented in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3D-trajectory-for-multirotor-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and desired yaw direction 
+\begin_inset Formula $\vec{X}_{B_{d}}$
+\end_inset
+
+ designed as
+\begin_inset Formula 
+\begin{align*}
+\vec{X}_{B_{d}}= & \left[\begin{array}{c}
+1\\
+0\\
+0
+\end{array}\right],
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula $\vec{X}_{B_{d}}$
+\end_inset
+
+ is chosen to be the unit vector in the direction of the 
+\begin_inset Formula $x$
+\end_inset
+
+-axis in the inertial frame.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/3Dtrajectory_CTS.PNG
+	lyxscale 60
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3D-trajectory-for-multirotor-1"
+
+\end_inset
+
+3D trajectory for the CTS.
+ Noted that the yellow line is visualized trajectory, the transparent ball
+ is a visualized waypoint, the CTS is initially stationary on the ground
+ with H, the colorful concentric circles is the end waypoint projection
+ on the ground.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The initial states and estimates were 
+\begin_inset Formula 
+\begin{align*}
+x_{1}\left(0\right) & =\left[-2.5,-2,0.15\right],\\
+v_{1}\left(0\right) & =\left[0,0,0\right],\\
+R\left(0\right) & =\left[\begin{array}{ccc}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{array}\right],\\
+\Omega\left(0\right) & =\left[0,0,0\right],\\
+e_{1}^{1}(0) & =e_{1}^{2}(0)=e_{1}^{3}(0)=e_{1}^{4}(0)=1\\
+x_{2}\left(0\right) & =\left[-1.5,-2,0.15\right],\\
+v_{2}\left(0\right) & =\left[0,0,0\right],\\
+e_{2}^{1}(0) & =e_{2}^{2}(0)=e_{2}^{3}(0)=e_{2}^{4}(0)=1\\
+x_{p}\left(0\right) & =\left[-2,-2,0.15\right],\\
+v_{p}\left(0\right) & =\left[0,0,0\right]
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Result
+\end_layout
+
+\begin_layout Standard
+The tracking errors of the position, velocity, attitude, and angular velocity
+ were indeed bounded, as shown in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:CTS-position-error-simscape"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:angular-velocity-error-gazebo-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ These findings verify that the CTS with the developed controller is able
+ to track a desired trajectory with normal motors, and the UKF estimator
+ is able to estimate the motors efficiency.
+ The 
+\begin_inset Formula $\left(\cdot\right)_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $\left(\cdot\right)_{2}$
+\end_inset
+
+, and 
+\begin_inset Formula $\left(\cdot\right)_{3}$
+\end_inset
+
+ notations in the following figures represent the first, second, and third
+ elements of the corresponding vector, respectively.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/eps/CTS_position_error.eps
+	lyxscale 60
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:CTS-position-error-simscape"
+
+\end_inset
+
+The CTS position error
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../Figures/eps/CTS_velocity_error.eps
+	lyxscale 60
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:velocity-error-simscape-1"
+
+\end_inset
+
+Velocity error
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The attitude error and the angular velocity error defined in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:e_R"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:e_Omega"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) are shown in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:attitude-error-gazebo-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:angular-velocity-error-gazebo-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, respectively.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../Figures/eps/CTS_attitude_error.eps
+	lyxscale 60
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:attitude-error-gazebo-1"
+
+\end_inset
+
+Attitude error
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/eps/CTS_angular_velocity_error.eps
+	lyxscale 60
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:angular-velocity-error-gazebo-1"
+
+\end_inset
+
+Angular velocity
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:estimated-motors-efficiency-simscape-q1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:estimated-motors-efficiency-simscape-q2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ show the offline estimates of the motors efficiency.
+ The estimated values of the 
+\begin_inset Formula $q1,q2$
+\end_inset
+
+ motors efficiency are very close to the ground truth motors efficiency
+ listed in Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:CTS motors efficiency in simscape"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ after about 10
+\begin_inset space ~
+\end_inset
+
+sec.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/eps/CTS1-estimated_the_motors_efficiency.eps
+	lyxscale 60
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:estimated-motors-efficiency-simscape-q1"
+
+\end_inset
+
+Estimates of the q1 motors efficiency
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/eps/CTS2-estimated_the_motors_efficiency.eps
+	lyxscale 60
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:estimated-motors-efficiency-simscape-q2"
+
+\end_inset
+
+Estimates of the q2 motors efficiency
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:CTS_position_comparison"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ compares the position with normal motors or defective motors.
+ The position with the normal motors almost overlaps with the trajectory,
+ whereas the position with the defective motors has obvious error.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../Figures/eps/CTS_position_comparison.eps
+	lyxscale 60
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:CTS_position_comparison"
+
+\end_inset
+
+Comparison of the position with and without the Motors Efficiency Feedback.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newpage newpage
 \end_inset
 
 

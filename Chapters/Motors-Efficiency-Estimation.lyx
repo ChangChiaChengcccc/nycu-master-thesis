@@ -87,7 +87,7 @@ name "sec:Motors-Efficiency-Estimation"
 \end_layout
 
 \begin_layout Subsection
-Unscented Kalman Filter(UKF)
+Unscented Kalman Filte (UKF)
 \end_layout
 
 \begin_layout Standard
@@ -121,7 +121,7 @@ literal "false"
  observed over time, including noise and other disturbances, and produces
  estimates of unknown variables.
  Those filters are designed for different application scenarios.
- According to the assumption and algorithm of KF, a ordinary KF can only
+ According to the assumption and algorithm of KF, an ordinary KF can only
  be applied on linear system.
  In order to estimate state on nonlinear systems by using the KF, one of
  possible approaches is to linearize the nonlinear system, and this is the
@@ -136,14 +136,16 @@ literal "false"
  ensured the estimation effectiveness by numerous simulation and experiment.
  The UKF deals with the linearization problem by using a deterministic sample
  points method.
- The state distribution is again approximated by a GRV, but is now represented
- using a minimal set of carefully chosen sample points.
+ The state distribution is again approximated by a gaussian random variable
+ (GRV), but is now represented using a minimal set of carefully chosen sample
+ points.
  These sample points completely capture the true mean and covariance of
  the GRV, and when propagated through the true nonlinear system, captures
  the posterior mean and covariance accurately to the 3rd order (Taylor series
  expansion) for any nonlinearity.
- Known that the dynamics of multirotor is strongly nonlinear, choosing the
- UKF as the efficiency estimator on this research would be a better choice.
+ Known that the dynamics of a multirotor is strongly nonlinear, choosing
+ the UKF as the motors efficiency estimator on this research would be a
+ better choice.
  Therefore, the estimator of this reseach are selected to be UKF, and the
  design details of UKF model are represented later.
 \end_layout
@@ -191,21 +193,7 @@ where
 \begin_inset Formula $H(\cdot)$
 \end_inset
 
-(measurement model) are adjusted according different application scenarios.
- For more UKF theory details please check on UKF paper.
-\end_layout
-
-\begin_layout Subsection
-UKF model
-\end_layout
-
-\begin_layout Standard
-UKF model section is divided into two parts: The multirotor and the cooperative
- transportation system.
- Both UKF models are dedicated to estimate the motor efficiency.
- By discretizing the nonlinear dynamics of the multirotor and the cooperative
- transportation system, the predict model and measurement of both models
- are represented as follows.
+(measurement model) are adjusted according to different application scenarios.
  The subscript of 
 \begin_inset Formula $k$
 \end_inset
@@ -215,11 +203,21 @@ UKF model section is divided into two parts: The multirotor and the cooperative
 \end_inset
 
 .
+ For more UKF theory details please check on UKF paper.
 \end_layout
 
-\begin_layout Paragraph
-A.
- The multirotor 
+\begin_layout Standard
+UKF model section is divided into two parts: The multirotor and the cooperative
+ transportation system.
+ Both UKF models are dedicated to estimate the motors efficiency.
+ By discretizing the nonlinear dynamics of the multirotor and the cooperative
+ transportation system, the predict model and measurement of both models
+ are represented as follows.
+ 
+\end_layout
+
+\begin_layout Subsection
+The Multirotor UKF Model
 \end_layout
 
 \begin_layout Subsubsection
@@ -327,7 +325,7 @@ noprefix "false"
 
 \end_inset
 
- is revised the sequence of motors and the sequence of axis 
+ is revised the sequence of motors and axis 
 \begin_inset Formula $X,Y,Z$
 \end_inset
 
@@ -347,7 +345,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="17" columns="2">
+<lyxtabular version="3" rows="16" columns="2">
 <features tabularvalignment="middle">
 <column alignment="left" valignment="top">
 <column alignment="left" valignment="top">
@@ -573,7 +571,7 @@ total moment in the body-fixed frame
 \begin_inset Text
 
 \begin_layout Plain Layout
-the motors efficiency
+the motors efficiency vector
 \end_layout
 
 \end_inset
@@ -623,27 +621,7 @@ th motor
 \begin_inset Text
 
 \begin_layout Plain Layout
-mass of the multirotor
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-to be an unknown constant
+mass 
 \end_layout
 
 \end_inset
@@ -773,7 +751,7 @@ UKF symbol of the multirotor
 \end_layout
 
 \begin_layout Standard
-After discretizing the dynamics from 
+After discretizing the dynamics from (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:translational dynamics1"
@@ -783,7 +761,7 @@ noprefix "false"
 
 \end_inset
 
- and 
+) and (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:rotational dynamics1"
@@ -793,7 +771,7 @@ noprefix "false"
 
 \end_inset
 
-, the predict model is designed as 
+), the predict model is designed as 
 \end_layout
 
 \begin_layout Standard
@@ -908,16 +886,21 @@ noprefix "false"
 
 \begin_layout Standard
 The rotational control input 
+\begin_inset Formula $M(E):\mathbb{R}^{4}\rightarrow\mathbb{R}^{3}$
+\end_inset
+
+ is defined as 
 \begin_inset Formula $M(E)=\left[\begin{array}{ccc}
 M_{x}(E) & M_{y}(E) & M_{z}(E)\end{array}\right]^{T}$
 \end_inset
 
-, and both translational and rotational control input function 
-\begin_inset Formula $\{f(E)\in\mathbb{R}$
+.
+ The translational function 
+\begin_inset Formula $f(E):\mathbb{R}^{4}\rightarrow\mathbb{R}$
 \end_inset
 
-, 
-\begin_inset Formula $M(E)\}$
+ and 
+\begin_inset Formula $M(E)$
 \end_inset
 
  are further defined as
@@ -964,7 +947,7 @@ where
 \begin_inset Formula $E_{diag}\in\mathbb{R}^{4\times4}$
 \end_inset
 
- is a diagonal of the motors efficiency 
+ is a diagonal of the motors efficiency vector 
 \begin_inset Formula $E=\left[\begin{array}{cccc}
 e^{1} & e^{2} & e^{3} & e^{4}\end{array}\right]^{T}$
 \end_inset
@@ -973,11 +956,11 @@ e^{1} & e^{2} & e^{3} & e^{4}\end{array}\right]^{T}$
 \begin_inset Formula $e^{j}$
 \end_inset
 
- is a efficiency of the 
+ is a motor efficiency of the 
 \begin_inset Formula $j^{th}$
 \end_inset
 
- motor of the multirotor, 
+ motor, 
 \begin_inset Formula $F_{d}\in\mathbb{R}^{4}$
 \end_inset
 
@@ -1057,26 +1040,25 @@ x_{k}\\
 
 \end_layout
 
-\begin_layout Paragraph
-B.
- The cooperative transportation system
+\begin_layout Subsection
+The cooperative transportation system(CTS) UKF Model
 \end_layout
 
 \begin_layout Standard
-The CTS is rigidly conected by three objects, quadrotor1, quadrotor2 and
+The CTS is rigidly connected by three objects, quadrotor1, quadrotor2 and
  payload, and they can be abbreviated as q1, q2, p respectively as well
  as the CTS can be abbreviated as s.
- The mission of this section is estimating the motors efficiency of the
- both multirotors in the CTS while the CTS is following a trajectory and
- transporting a payload.
+ The objective of this section is to estimate the motors efficiency of both
+ multirotors in the CTS while the CTS is following a trajectory and transporting
+ a payload.
  In order to build the nonlinear dynamics model of the cooperative system,
  it's necessary to clearly define the measurement.
- Thinking of estimating motors efficiency of the both multirotors in CTS
- by UKF, it is intuitive to think that the mission needs some sensors on
- both multirotors and payload.
- By trying different combinations of dynamics, state variable and measurement
- variable, the mission only needs the position, angular velocity and torque
- sensors on payload.
+ At the thought of estimating motors efficiency of both multirotors in the
+ CTS by UKF, it is intuitive that some sensors might be equipped with multirotor
+s and payload.
+ By trying different combinations of dynamics, state and measurement, the
+ objective only needs the position, angular velocity and torque sensors
+ on payload to be achieved.
 \end_layout
 
 \begin_layout Standard
@@ -1132,25 +1114,25 @@ noprefix "false"
 
 \end_inset
 
-, q1, q2 and p represent the quadrotor1, quadrotor2 and payload and are
- rigidly connected, so the attitude related dynamics is the same.
- For simplicity, the position mark on the payload is assumed to be the position
- and the center of mass (COM) of the CTS system.
+, q1, q2 and p represent the quadrotor1, quadrotor2 and payload respecitvely,
+ and they are rigidly connected.
+ Therefore, their attitude related dynamics are the same.
+ For simplicity, the position of the position mark on the payload is assumed
+ to be the center of mass (COM) of the CTS system.
 \end_layout
 
 \begin_layout Standard
-For estimating each motor efficiency in the CTS, it's hard to achieve the
- objective without the force/torque sensor because with only position and
- angular velocity sensor on the payload, it's difficult to distinguish the
- thrust loss are caused by q1 or q2.
- However, we all know that the force/torque sensor is quite expensive and
- it's possible to break the force/torque sensor during the air crash.
- Therefore, for the further model analysis, in order to get rid of the force/tor
-que sensor, it's important to separate q1, q2, p from the CTS and analyze
- their independent dynamics.
+It's hard to estimate each motor efficiency in the CTS without the force/torque
+ sensor because it's difficult to distinguish the thrust loss are caused
+ by q1 or q2 with only position and angular velocity sensor on the payload.
+ However, the force/torque sensor is quite expensive and it's possible to
+ damage the force/torque sensor during the air crash.
+ Therefore, in order to get rid of the force/torque sensor, it's important
+ to separate q1, q2, p from the CTS and analyze their independent dynamics
+ for the further model analysis.
  After trying many different combinations of dynamics and UKF model to estimate
- the motors efficiency in the CTS, although the torque sensor is still needed,
- the translational force sensor can be removed.
+ the motors efficiency in the CTS, the torque sensor is still needed.
+ However, the translational force sensor can be removed.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1159,11 +1141,11 @@ The multirotors kinematics related to the CTS system
 
 \begin_layout Standard
 For the sake of reducing costs, although the CTS UKF measurement model needs
- the position and angular velocity information of the multirotors, those
- information could be replaced by the use of sensor information on the payload
- and Chasles' theorem.
- In kinematics, Chasles' theorem has dicovered that an ordinary rigid body
- displacement could be represented by a translation and a followed a rotation,
+ the position and angular velocity sensor information of the multirotors,
+ those information could be replaced by the use of sensor information on
+ the payload by using Chasles' theorem.
+ In kinematics, Chasles' theorem has discovered that an ordinary rigid body
+ displacement could be represented by a translation and a followed a rotation
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1210,7 +1192,7 @@ where
 \begin_inset Formula $a_{s}\in\mathbb{R}^{3}$
 \end_inset
 
- are defined as the acceleration of the multirotors and the CTS respectively,
+represent the acceleration of the multirotors and the CTS respectively,
  
 \begin_inset Formula $\alpha_{i}$
 \end_inset
@@ -1219,7 +1201,7 @@ where
 \begin_inset Formula $\alpha_{s}\in\mathbb{R}^{3}$
 \end_inset
 
- angular acceleration of the multirotor.
+ represent angular acceleration of the multirotor and the CTS respectively.
  
 \end_layout
 
@@ -1228,8 +1210,8 @@ The Physical Specifications of the CTS
 \end_layout
 
 \begin_layout Standard
-For simplicity, the position of the CTS center of mass (COM) is assumed
- to overlap with position mark on payload.
+For simplicity, the position of the CTS COM is assumed to be overlapped
+ with the position mark on payload.
  The COM of the CTS is described as
 \end_layout
 
@@ -1313,6 +1295,7 @@ The dynamics of the independent multirotor in CTS
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -1381,7 +1364,7 @@ where
 \end_inset
 
  represent the position and velocity in the inertial frame, respectively,
- and 
+ 
 \begin_inset Formula $f_{d,i}\in\mathbb{R}$
 \end_inset
 
@@ -1455,20 +1438,17 @@ The dynamics of the independent payload in CTS
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
-
-\begin_layout Plain Layout
-
-\end_layout
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/dependent_payload.png
 	lyxscale 50
-	width 10cm
+	width 100col%
 
 \end_inset
 
@@ -1639,6 +1619,7 @@ The predict model of the CTS
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -1738,7 +1719,7 @@ noprefix "false"
 
 \end_inset
 
- is revised the sequence of motors and the sequence of axis 
+ is revised the sequence of motors and axis 
 \begin_inset Formula $X,Y,Z$
 \end_inset
 
@@ -2055,7 +2036,7 @@ motors efficiency vector of
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $e_{j,i}\in\mathbb{R}$
+\begin_inset Formula $e_{i}^{j}\in\mathbb{R}$
 \end_inset
 
 
@@ -2255,6 +2236,13 @@ UKF symbol of the cooperative transportation system
 \end_layout
 
 \begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 After discretizing the dynamics from 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2324,13 +2312,13 @@ F_{2,k}
 \end{array}\right]= & \left[\begin{array}{c}
 x_{1,k-1}+v_{1,k-1}\Delta t+\frac{1}{2}\alpha_{1,k-1}\Delta t^{2}\\
 v_{1,k-1}+a_{1,k-1}\Delta t\\
-\frac{f_{1}(E_{1,k-1})R_{k-1}e_{3}}{m_{1}}-ge_{3}+F_{1,k-1}\\
+\frac{f_{1}(E_{1,k-1})R_{k-1}e_{3}}{m_{1}}-ge_{3}+\frac{F_{1,k-1}}{m_{1}}\\
 \Omega_{1,k-1}+\alpha_{1,k-1}\Delta t\\
 \alpha_{1,k-1}\\
 E_{1,k-1}\\
 x_{2,k-1}+v_{2,k-1}\Delta t+\frac{1}{2}\alpha_{2,k-1}\Delta t^{2}\\
 v_{2,k-1}+a_{2,k-1}\Delta t\\
-\frac{f_{2}(E_{2,k-1})R_{k-1}e_{3}}{m_{2}}-ge_{3}+F_{2,k-1}\\
+\frac{f_{2}(E_{2,k-1})R_{k-1}e_{3}}{m_{2}}-ge_{3}+\frac{F_{2,k-1}}{m_{2}}\\
 \Omega_{2,k-1}+\alpha_{2,k-1}\Delta t\\
 \alpha_{2,k-1}\\
 E_{2,k-1}\\
@@ -2449,9 +2437,7 @@ where
 \uwave off
 \noun off
 \color none
- is the rotation matrix from the body-fixed frame
- to the inertial frame
-,
+ is the rotation matrix from the body-fixed frame to the inertial frame,
  the function 
 \begin_inset Formula $f_{1}(E_{1})$
 \end_inset
@@ -2460,7 +2446,7 @@ where
 \begin_inset Formula $f_{2}(E_{2})$
 \end_inset
 
- can be obtained from 
+ can be obtained from (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:multirotor control input efficiency"
@@ -2470,7 +2456,14 @@ noprefix "false"
 
 \end_inset
 
-.
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -2537,7 +2530,7 @@ the function
 \begin_inset Formula $M_{2}(E_{2})$
 \end_inset
 
- can be obtained from 
+ can be obtained from (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:multirotor control input efficiency"
@@ -2547,7 +2540,7 @@ noprefix "false"
 
 \end_inset
 
-.
+).
 \end_layout
 
 \begin_layout Subsection
@@ -2570,7 +2563,27 @@ represents a state vector in this section and
 
 
 \series default
-is a measurement vector, 
+is a measurement vector in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:UKF-predict-model"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:UKF-measurement-model"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Hermann1977"
@@ -2605,10 +2618,15 @@ O\triangleq\frac{\partial\phi}{\partial x} & =\begin{bmatrix}\frac{\partial\math
 
 \begin_layout Standard
 where 
-\begin_inset Formula $O\in\mathbb{R^{\mathrm{n\times n}}}$
+\begin_inset Formula $O$
 \end_inset
 
- is an observability matrix, the elements of state 
+ is an observability matrix, and the dimension of 
+\begin_inset Formula $O$
+\end_inset
+
+ depends on the derivative times.
+ The elements of state 
 \begin_inset Formula $x$
 \end_inset
 
@@ -2690,11 +2708,13 @@ where
 \begin_layout Standard
 The observability matrix dimension of the multirotor and the CTS are too
  big to be analyzed by human.
- Therefore, the subsquent analysis is conducted by Matlab.
- Matlab offers symbolic math toolbox, the variables in matlab can be treated
+ Therefore, the subsequent analysis is conducted by Matlab.
+ The source code is put at the url https://github.com/ChangChiaChengcccc/UKF_Obse
+rvability-Analysis.
+ Matlab offers symbolic math toolbox, the variables in Matlab can be treated
  as symbols.
- The symbols can be manipulated as functions, and the functions can be furthermo
-re computed.
+ The symbols can be manipulated as functions, and the functions can be further
+ computed.
  The toolbox provides functions in common mathematical areas such as calculus,
  linear algebra, algebraic and differential equations, equation simplification,
  and equation manipulation.

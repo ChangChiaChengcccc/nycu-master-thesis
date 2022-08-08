@@ -359,14 +359,14 @@ Substitute
 
 \begin_layout Proof
 \begin_inset Formula 
-\begin{align*}
-\dot{V}_{2}= & e_{\Omega}\cdot J\dot{e}_{\Omega}+(k_{R}+k_{RD})\frac{d}{dt}\left(\Psi\left(R,R_{d}\right)\right)+c_{2}\dot{e}_{R}\cdot e_{\Omega}+c_{2}e_{R}\cdot\dot{e}_{\Omega}\\
-= & e_{\Omega}\cdot J\dot{e}_{\Omega}+(k_{R}+k_{RD})e_{R}\cdot e_{\Omega}+c_{2}\dot{e}_{R}\cdot e_{\Omega}+c_{2}e_{R}\cdot\dot{e}_{\Omega}\\
-= & e_{\Omega}\cdot(-(k_{R}+k_{RD})e_{R}-(k_{\Omega}+k_{\Omega D})e_{\Omega}-D_{M})+(k_{R}+k_{RD})e_{R}\cdot e_{\Omega}+c_{2}\dot{e}_{R}\cdot e_{\Omega}\\
- & +c_{2}e_{R}\cdot J^{-1}(-(k_{R}+k_{RD})e_{R}-(k_{\Omega}+k_{\Omega D})e_{\Omega}-D_{M})\\
-= & -k_{\Omega}\Vert e_{\Omega}\Vert^{2}-c_{2}k_{R}e_{R}\cdot J^{-1}e_{R}+c_{2}C(R_{d}^{T}R)e_{\Omega}\cdot e_{\Omega}-c_{2}(k_{\Omega}+k_{\Omega}d)e_{R}\cdot J^{-1}e_{\Omega}\\
- & -k_{\Omega D}\Vert e_{\Omega}\Vert^{2}-c_{2}k_{RD}e_{R}\cdot J^{-1}e_{R}-e_{\Omega}\cdot D_{M}-c_{2}e_{R}\cdot J^{-1}D_{M}
-\end{align*}
+\begin{align}
+\dot{V}_{2}= & e_{\Omega}\cdot J\dot{e}_{\Omega}+(k_{R}+k_{RD})\frac{d}{dt}\left(\Psi\left(R,R_{d}\right)\right)+c_{2}\dot{e}_{R}\cdot e_{\Omega}+c_{2}e_{R}\cdot\dot{e}_{\Omega}\nonumber \\
+= & e_{\Omega}\cdot J\dot{e}_{\Omega}+(k_{R}+k_{RD})e_{R}\cdot e_{\Omega}+c_{2}\dot{e}_{R}\cdot e_{\Omega}+c_{2}e_{R}\cdot\dot{e}_{\Omega}\nonumber \\
+= & e_{\Omega}\cdot(-(k_{R}+k_{RD})e_{R}-(k_{\Omega}+k_{\Omega D})e_{\Omega}-D_{M})+(k_{R}+k_{RD})e_{R}\cdot e_{\Omega}+c_{2}\dot{e}_{R}\cdot e_{\Omega}\nonumber \\
+ & +c_{2}e_{R}\cdot J^{-1}(-(k_{R}+k_{RD})e_{R}-(k_{\Omega}+k_{\Omega D})e_{\Omega}-D_{M})\nonumber \\
+= & -k_{\Omega}\Vert e_{\Omega}\Vert^{2}-c_{2}k_{R}e_{R}\cdot J^{-1}e_{R}+c_{2}C(R_{d}^{T}R)e_{\Omega}\cdot e_{\Omega}-c_{2}(k_{\Omega}+k_{\Omega D})e_{R}\cdot J^{-1}e_{\Omega}\nonumber \\
+ & -k_{\Omega D}\Vert e_{\Omega}\Vert^{2}-c_{2}k_{RD}e_{R}\cdot J^{-1}e_{R}-e_{\Omega}\cdot D_{M}-c_{2}e_{R}\cdot J^{-1}D_{M}\label{eq:V2_dot_1}
+\end{align}
 
 \end_inset
 
@@ -395,7 +395,7 @@ noprefix "false"
 , substituting into (
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:V2_dot_2"
+reference "eq:V2_dot_1"
 plural "false"
 caps "false"
 noprefix "false"
@@ -584,6 +584,10 @@ which implies that
 \begin_inset Formula $V_{2}\mid_{c_{2}=0}$
 \end_inset
 
+ with a suitable 
+\begin_inset Formula $k_{\Omega}$
+\end_inset
+
  is nonincreasing.
  Therefore, given the initial conditions (
 \begin_inset CommandInset ref
@@ -608,7 +612,7 @@ noprefix "false"
 ), the attitude error function can be bounded as 
 \begin_inset Formula 
 \begin{align}
-k_{R}\Psi\left(R\left(t\right),R_{d}\left(t\right)\right) & \leq V_{2}\mid_{c_{2}=0}\left(t\right)\leq V_{2}\mid_{c_{2}=0}\left(0\right)<2k_{R},\label{eq:attitude error bound}
+(k_{R}+k_{RD})\Psi\left(R\left(t\right),R_{d}\left(t\right)\right) & \leq V_{2}\mid_{c_{2}=0}\left(t\right)\leq V_{2}\mid_{c_{2}=0}\left(0\right)<2(k_{R}+k_{RD}),\label{eq:attitude error bound}
 \end{align}
 
 \end_inset
@@ -786,7 +790,7 @@ Stability Analysis of the Translational Dynamics
 \end_layout
 
 \begin_layout Standard
-To facilitate the subsequent analysis, the following proposition id developed.
+To facilitate the subsequent analysis, the following proposition is developed.
 \end_layout
 
 \begin_layout Proposition
@@ -841,7 +845,7 @@ where
  is defined as
 \begin_inset Formula 
 \begin{equation}
-\psi_{1}=\frac{1}{k_{R}+k_{RD}}\left[\frac{1}{2}e_{\Omega}\left(0\right)\cdot Je_{\Omega}\left(0\right)+k_{R}\Psi(R\left(0\right),R_{d}\left(0\right))\right].\label{eq:psi1}
+\psi_{1}=\frac{1}{k_{R}+k_{RD}}\left[\frac{1}{2}e_{\Omega}\left(0\right)\cdot Je_{\Omega}\left(0\right)+(k_{R}+k_{RD})\Psi(R\left(0\right),R_{d}\left(0\right))\right].\label{eq:psi1}
 \end{equation}
 
 \end_inset
@@ -883,7 +887,7 @@ noprefix "false"
 ) can be written as
 \begin_inset Formula 
 \begin{align*}
- & k_{R}\Psi\left(R\left(t\right),R_{d}\left(t\right)\right)\leq V_{2}\mid_{c_{2}=0}\left(t\right)\leq V_{2}\mid_{c_{2}=0}\left(0\right)<k_{R}\psi_{1},
+ & (k_{R}+k_{RD})\Psi\left(R\left(t\right),R_{d}\left(t\right)\right)\leq V_{2}\mid_{c_{2}=0}\left(t\right)\leq V_{2}\mid_{c_{2}=0}\left(0\right)<(k_{R}+k_{RD})\psi_{1},
 \end{align*}
 
 \end_inset
@@ -1696,7 +1700,7 @@ where
 \end_layout
 
 \begin_layout Proof
-The following condition must be satisified to make the terms of 
+The following condition must be satisfied to make the terms of 
 \begin_inset Formula $\dot{V}$
 \end_inset
 
@@ -1724,7 +1728,7 @@ The following condition must be satisified to make the terms of
 \end_layout
 
 \begin_layout Proof
-and multiplying 
+and multiplying (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:N.D1"
@@ -1734,7 +1738,7 @@ noprefix "false"
 
 \end_inset
 
- and 
+) and (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:N.D2"
@@ -1744,7 +1748,7 @@ noprefix "false"
 
 \end_inset
 
- yields
+) yields
 \end_layout
 
 \begin_layout Proof

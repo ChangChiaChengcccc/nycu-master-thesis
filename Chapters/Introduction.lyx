@@ -87,15 +87,125 @@ Background
 A multirotor has four rotors is a underactuated mechanical system (UMS).
  It has six degrees of freedom (DOF) to be controlled, but has only four
  motors to exert force and torque on itself.
- Contrast to a fixed-wing aircraft, a multirotor doesn't need a runway to
- take off.
+ Contrast to a fixed-wing aircraft 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Brelje2019"
+literal "false"
+
+\end_inset
+
+, a multirotor doesn't need a runway to take off.
  It's a vertical take-off-and-landing unmanned aerial vehicle which has
  several potential like portability, agility and mobility.
  The advantages of a multirotor have resulted in various applications including
- rescue, agriculture, military attack and cooperative transportation.
- Numerous control related reseaches have studied how to control a multirotor
- robustly, including adaptive control, sliding mode control (SMC), model
- predict control and geometric tracking control which developed on 
+ search and rescue 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cardona2021"
+literal "false"
+
+\end_inset
+
+, agriculture 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Elmokadem2019"
+literal "false"
+
+\end_inset
+
+, military attack 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Chamola2021"
+literal "false"
+
+\end_inset
+
+ and cooperative transportation 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Villa2020"
+literal "false"
+
+\end_inset
+
+.
+ Numerous control related researches have studied how to control a multirotor
+ robustly, including PID control and feedback linearization 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Wang2020"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Chehadeh2019"
+literal "false"
+
+\end_inset
+
+, adaptive control 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Diao2011a"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Parikh2019"
+literal "false"
+
+\end_inset
+
+, sliding mode control (SMC) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Xu2006"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Razmi2019"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Almakhles2019"
+literal "false"
+
+\end_inset
+
+, model predict control 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "He2019b"
+literal "false"
+
+\end_inset
+
+ and geometric tracking control 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lee2010a"
+literal "false"
+
+\end_inset
+
+ which developed on 
 \begin_inset Formula $SO(3)$
 \end_inset
 
@@ -119,15 +229,15 @@ One of seniors in the lab did the research about Parameter Estimation and
  feedbacks the estimation parameter for better flight control.
  The research experiment shows the validity of the theory when the battery
  is fully charged.
- However, when the battery power is geting lower, the estimated mass in
- the experiment is getting bigger .This is because the low power battery
- dosen't have enough power to actuate the motors and other elements on multiroto
-r.
- The situation is reasonable because my senior dosen't put the battery power
+ However, when the battery voltage is getting lower, the estimated mass
+ in the experiment is getting bigger .This is because the low voltage battery
+ doesn't have enough voltage to actuate the motors and other elements on
+ multirotor.
+ The situation is reasonable because my senior doesn't put the battery power
  model in his reseach.
- As mentioned above, the unmodel hardware does influence to the research,
- and I'm curious that if I could do qualitative and quantitative analysis
- to hardware.
+ As mentioned above, the unmodeled hardware effect does influence the research,
+ and I was curious that if I could do qualitative and quantitative analysis
+ to not ideal hardware effect.
  Eventually, I select motors on a multirotor as my research subject.
 \end_layout
 
@@ -136,24 +246,24 @@ Related Works
 \end_layout
 
 \begin_layout Subsubsection
-Estimate motors efficiency on the multirotor
+Estimate Motors Efficiency of the Multirotor
 \end_layout
 
 \begin_layout Standard
 The present work has developed the UKF model which is able to estimate the
  motors efficiency during multirotor flight, and the estimation method is
- classified into model predictive estimation.
+ classified into model predict estimation.
  There are two principal reasons to show this application is important.
- First, the estimation of motors efficiency on the multirotor gives the
- researchers more detailed motors fault information.
+ First, the motors efficiency estimation of the multirotor gives the researchers
+ more detail information of the fault motors.
  According to the information, the researchers could estimate the flight
- limit of the fault motors multirotor, and replan the flight misson to a
- simple one.
+ limit of the multirotor with fault motors, and replan the flight misson
+ to a simple one.
  Second, discovering the level of the motors damage prevents researchers
  from confusing some research problem is contributed by a new algorithm
  or new technique, because there is a chance that the problem is simply
  caused by the defective motors.
- Many researches have developed on the scenario like controlling or detecting
+ Many researches have developed on the scenarios like controlling or detecting
  a multirotor with a broken motor 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -189,12 +299,14 @@ literal "false"
 \end_inset
 
 , to estimate the efficiency of all motors on a quadrotor, the author first
- discretizes the linear control system.
- Then, the author designs the states and measurements of the motors efficiency
- observer and proves the stability of the observer.
+ builds the dynamics of multirotor with fault and discretizes the linear
+ control system.
+ Then, the author designs the states vector and measurements of the motors
+ efficiency estimator and proves the stability of the estimator with Lyapunov
+ analysis and theory.
  Although the estimation of the motors efficiency roughly matches the ground
  truth value, it still has about 15% estimation error.
- In addition, the oberver in 
+ In addition, the estimator in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Chung2020"
@@ -217,20 +329,64 @@ The prime objective of the FTC is to maintain the controller stability when
  the system undergoes failures such as hardware broken, wind disturbance
  and uncertainty.
  The studies of FTCs have developed for more than 30 years, and there were
- numerous reseachers put their effort into them.
- A FTC is often divided into two categories: passive and active FTCs.
+ numerous researchers put their effort into them.
+ A FTC is often divided into two categories: passive FTCs and active FTCs.
  The passive FTCs are featured in their robust control characteristic.
- A fault in passive FTCs is treated as disturbance or a model uncertainty.
- The stability in those FTCs is maintained by some robust control like sliding
- mode controll (SMC), H∞ control and adaptive control.
+ A fault in passive FTCs is usually treated as disturbance or a model uncertaint
+y.
+ The stability in those FTCs is mostly guaranteed by Lyapunov analysis and
+ theory.
+ There were many developed passive FTCs such as sliding mode control (SMC),
+ H∞ control 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ortiz2016"
+literal "false"
+
+\end_inset
+
+ and adaptive control.
  On the other hand, the active FTCs include a variety of methods in order
- to conquer the system failures, such as fault detection and diagnosis (FDD),
- control reconfiguration and tajectory replanning.
- With those positive methods, the active FTCs usually defeat the passive
- FTCs on most flight performance in a specific scenario.
+ to conquer the system failures, such as fault detection and diagnosis (FDD)
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Zhong2018"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Zhong2019"
+literal "false"
+
+\end_inset
+
+, control reconfiguration 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Wang2020a"
+literal "false"
+
+\end_inset
+
+ and trajectory replanning 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Chamseddine2015"
+literal "false"
+
+\end_inset
+
+.
+ With those positive aforementioned methods, the active FTCs usually defeat
+ the passive FTCs on most flight performance in the specific scenario.
  However, active FTCs can only deal with the certain problem, and have little
  tolerance on other failures.
- On this perspective, passive FTCs usually defeat active FTCs.
+ On this perspective, passive FTCs usually defeat active FTCs in extensive
+ fault tolerance.
  The principal control objectives in the present work mostly matches with
  
 \begin_inset CommandInset citation
@@ -250,9 +406,9 @@ literal "false"
 \end_inset
 
 , the author adopts a cascaded proportional-integral-derivative (PID) control,
- and define the motor fault variable in control input.
- After the observer detects the motor fault, the FTC provides control reconfigur
-ation, and sacrifices heading angle command.
+ and defines the motors fault variable in control input.
+ After the estimator detects the motors fault, the FTC provides control
+ reconfiguration, and sacrifices heading angle command.
  In contrast, the present work adopts nonlinear control method with stability
  analysis to deal with the highly nonlinear multirotor dynamics, and the
  yaw angle is controlled despite the motors fault.
@@ -273,8 +429,8 @@ literal "false"
 
 \end_inset
 
-, and they are developed to solve the uncertainties, unmodel variable and
- disturbances.
+, and they are developed to solve the uncertainties, unmodeled variables
+ and disturbances.
  The SMCs have high compatibility so that they are capable to be compatible
  with other techniques including adaptive control and backstepping control.
  The aforementioned SMC researches demonstrate the trajectory tracking performan
@@ -285,10 +441,10 @@ ess of resisting disturbances and the flight performance is great.
  However, they experience the unfavorable problem of oscillations with finite
  amplitude and frequency, that is 'chattering'.
  The chattering problem is caused by two primary reasons, fast dynamics
- and the use of digital controllers with finite sampling time.Chattering
- is a harmful phenomenon because it leads to low control accuracy, high
- wear of moving mechanical parts, and high heat losses in power circuits.
- Therefore, the cattering problem is an majoy obstacle for SMCs implementation.
+ and the use of digital controllers with finite sampling time.
+ Chattering is a harmful phenomenon because it leads to low control accuracy,
+ high wear of moving mechanical parts and high heat losses in power circuits.
+ Therefore, the chattering problem is an major obstacle for SMCs implementation.
  To deal with those negative effects on SMCs, the researchers of SMCs have
  developed some new techniques.
  Taking 
@@ -304,6 +460,22 @@ literal "false"
  disturbances.
  Furthermore, it has solved the chattering problem.
  Though the simulation has been conducted, the experiment haven't yet.
+ On the other hand, the present work doesn't have the chattering problem,
+ which can be confirmed by Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Thrust-Command"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and the effectiveness is proved in experiment.
 \end_layout
 
 \begin_layout Subsection
@@ -311,12 +483,11 @@ Contributions
 \end_layout
 
 \begin_layout Standard
-This research has developed the UKF model to estimate the motors efficicency
+This research has developed the UKF model to estimate the motors efficiency
  of a multirotor and the cooperative transportation system.
- The estimated motors efficiency feedbacks to the new designed controller
- based on geometric tracking controller.
- The controller can endure the disturbance caused by the defective motors
- and the feedback motors efficiency.
+ The new designed controller based on geometric tracking controller can
+ endure the disturbance caused by the defective motors and the error of
+ feedback motors efficiency.
  Though the defective motors lead to more translational and rotational error,
  the feedback estimated motors efficiency significantly reduce the error
  during flight.
@@ -332,22 +503,22 @@ The main contributions of this study are summarized as follows:
 \begin_layout Standard
 1.
  The UKF model to estimate the motors efficiency is designed for the multirotor
- and the CTS, and the observability is proved in UKF model chapter.
+ and the CTS, and the observability is proved.
  
 \end_layout
 
 \begin_layout Standard
 2.
  The developed high gain geometric tracking controller can endure the disturbanc
-e caused by defective motors and the feedback motors efficiency error,and
- the aforementioned description is proved in stability analysis chapter.
+e caused by defective motors and the feedback motors efficiency error, and
+ is proved in stability analysis.
  
 \end_layout
 
 \begin_layout Standard
 3.
- The flight performance is improved after the motors efficiency is feedbacked
- in simulation and experiment chapter.
+ The flight performance is improved after the feedback of the motors efficiency,
+ which is presented in simulation and experiment.
 \end_layout
 
 \end_body

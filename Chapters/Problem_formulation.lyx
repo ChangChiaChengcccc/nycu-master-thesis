@@ -92,7 +92,7 @@ name "sec:Problem-Formulation"
 \end_layout
 
 \begin_layout Subsection
-Dynamics of the Multirotor
+The Multirotor Dynamics with Fault
 \end_layout
 
 \begin_layout Standard
@@ -559,9 +559,10 @@ The dynamics of the multirotor can be divided into two parts: translational
  and rotational dynamics.
  The translational dynamics considers forces such as the effects of gravity,
  the thrust of the control input, and external forces which caused by defective
- motors on the multirotor, and the rotational dynamics considers the moment
- of the control input, rotational speed, and external moment which is caused
- by the defective motors.
+ motors on the multirotor and the feedback estimated motors efficiency error,
+ and the rotational dynamics considers the moment of the control input,
+ rotational speed, and external moment which is caused by the defective
+ motors and the feedback estimated motors efficiency error.
  The dynamics of the multirotor is formulated as 
 \begin_inset Formula 
 \begin{align}
@@ -648,8 +649,8 @@ noprefix "false"
 \end_inset
 
  is the disturbance of moment.
- Both disturbance is caused by defective motors and feedback efficiency
- introduced in 
+ Both disturbance is caused by defective motors and the feedback estimated
+ motors efficiency error introduced in 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:Reconfiguration with Feedback Motor Efficiency"
@@ -776,7 +777,7 @@ f_{4}
 \end_layout
 
 \begin_layout Remark
-Note that the dynamics defined by 
+Note that the dynamics defined by (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:translational dynamics1"
@@ -786,7 +787,7 @@ noprefix "false"
 
 \end_inset
 
-–
+)–(
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:rotational dynamics2"
@@ -796,12 +797,12 @@ noprefix "false"
 
 \end_inset
 
- can be extended to multirotors with different numbers of axes by replacing
+) can be extended to multirotors with different numbers of axes by replacing
  the allocation matrix.
 \end_layout
 
 \begin_layout Subsection
-Dynamics of the Cooperative Transporstation System (CTS)
+The Cooperative Transporstation System (CTS) Dynamics with Fault
 \end_layout
 
 \begin_layout Standard
@@ -816,7 +817,7 @@ status open
 \begin_inset Graphics
 	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/q1q2dynamics.png
 	lyxscale 60
-	scale 60
+	width 100col%
 
 \end_inset
 
@@ -1490,7 +1491,7 @@ From the flight application point of view,
 \begin_inset Formula $u_{c}$
 \end_inset
 
-of the multirotors in the CTS.
+ of the multirotors in the CTS.
  Afterwards, each multirotor control input (
 \begin_inset Formula $f_{i,s}$
 \end_inset
@@ -1499,7 +1500,7 @@ of the multirotors in the CTS.
 \begin_inset Formula $M_{i,s}$
 \end_inset
 
-) would be distributed via 
+) would be distributed via (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:allocation matrix"
@@ -1509,8 +1510,29 @@ noprefix "false"
 
 \end_inset
 
- again, and the motors receive command.
- Given that the CTS has more than one multirotor, the CTS is underdetermined.
+) again, and the motors receive command.
+ The CTS control input has only four variables (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:desired control input of the CTS"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), but it's distributed to the control input of the two multirotors, eight
+ variables (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:control input container"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), which causes underdetermined.
  Therefore, each multirotor control input (
 \begin_inset Formula $f_{i,s}$
 \end_inset
@@ -1519,7 +1541,7 @@ noprefix "false"
 \begin_inset Formula $M_{i,s}$
 \end_inset
 
-) has to be chosen to achieve forces and moments 
+) has to be carefully chosen to achieve forces and moments 
 \begin_inset Formula $u_{s}$
 \end_inset
 
@@ -1681,12 +1703,14 @@ When there is a trouble on motor thrust, takeoff is a difficult mission
  the trouble on motor thrust would seriously influence on them.
  When the above situation occurs, the estimation value and flight performance
  might be bad.
- Nevertheless, researchers probably put more effort on checking estimation
- and control algorithm than checking the defective hardware.
- It's hard to discover that the problem is actually on the hardware, not
- to mention do quantitative analysis on the defective hardware.
- Therefore, I did the reseach, and try to figure out motor thrust efficiency
- problem.
+ Furthermore, if researchers do the experiment with defective motor to develop
+ new control and estimation technique, it's hard to discover that the problem
+ is actually on the hardware.
+ The situation might wastes the effort put by the researchers who don't
+ know the multirotor is equipped with defective motors, not to mention doing
+ quantitative analysis on the defective hardware.
+ Therefore, this research was conducted, and tried to deal with motor thrust
+ efficiency problem.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1694,61 +1718,30 @@ A Motor efficiency definition
 \end_layout
 
 \begin_layout Standard
-If I offer motor
-\begin_inset Formula $1$
-\end_inset
-
- the appropriate voltage and current according to motor characteristic curves,
- and expect the motor
-\begin_inset Formula $1$
-\end_inset
-
- provides me with 
+If a motor is offered the appropriate voltage and current according to motor
+ characteristic curves, and the motor is expected to provide with 
 \begin_inset Formula $10N$
 \end_inset
 
  thrust.
- However, motor
-\begin_inset Formula $1$
-\end_inset
-
- provides me with only 
+ However, the motor provides only 
 \begin_inset Formula $7N$
 \end_inset
 
- thrust due to the deficiency of motor
-\begin_inset Formula $1$
-\end_inset
-
-.
- I would define the efficiency of motor
-\begin_inset Formula $1$
-\end_inset
-
- 
+ thrust due to the damage of the motor.
+ The efficiency of the motor is defined as 
 \begin_inset Formula $e^{1}=70\%$
 \end_inset
 
 .
- Similarly, if I offer motor
-\begin_inset Formula $1$
-\end_inset
-
- the appropriate voltage and current according to motor characteristic curves,
- and expect the motor
-\begin_inset Formula $1$
-\end_inset
-
- provides me with 
+ Similarly, if the motor is offered the appropriate voltage and current
+ according to motor characteristic curves, and the motor is expected to
+ provide 
 \begin_inset Formula $20N$
 \end_inset
 
  thrust.
- Motor
-\begin_inset Formula $1$
-\end_inset
-
- would provide me with only 
+ The motor would provide only 
 \begin_inset Formula $14N$
 \end_inset
 
@@ -1762,7 +1755,7 @@ Assumption
 \begin_layout Standard
 Assume that the hardware components in multirotor system is excellent without
  damage except for the element related to motor thrust.
- The following conditions that this research dosen't fix: 
+ The following conditions that this research doesn't fix: 
 \end_layout
 
 \begin_layout Paragraph
@@ -1773,7 +1766,8 @@ Condition 1.
 \begin_layout Standard
 One of motors of multirotor is totally broken.
  This condition is easily to be detected by human vision.
- By replacing the broken motor with new one, this condition might be resolved.
+ By replacing the broken motor with new one, this condition can be easily
+ resolved.
  
 \end_layout
 
@@ -1783,10 +1777,10 @@ Condition 2.
 \end_layout
 
 \begin_layout Standard
-The multirotor system which can't take off.
- The motors efficiency on multirotor system is detected by UKF.
- The UKF only models the dynamics of the multirotor system flighting in
- the air.
+The multirotor system can't take off.
+ The motors efficiency on multirotor system is estimated by UKF.
+ The UKF only models the dynamics of the multirotor system flying in the
+ air.
 \end_layout
 
 \begin_layout Subsection
@@ -1879,7 +1873,7 @@ Take the multirotor for example.
 \begin_inset Formula $\vec{X}_{B_{d}}$
 \end_inset
 
-, and endure the thrust and the moment loss (
+, and endure the thrust and moment loss (
 \begin_inset Formula $D_{T}$
 \end_inset
 

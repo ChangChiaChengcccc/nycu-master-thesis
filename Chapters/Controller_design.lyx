@@ -170,7 +170,8 @@ noprefix "false"
 
 \end_inset
 
- and 
+ and Sec.
+ 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:Reconfiguration with Feedback Motor Efficiency"
@@ -264,7 +265,7 @@ The subsequent analysis is facilitated by making the following assumption:
 \begin_layout Standard
 \begin_inset Formula 
 \begin{align}
-\Vert-((k_{x}+k_{xD})e_{x}+(k_{v}+k_{vD})e_{v}+mge_{3}-m\ddot{x}_{d})\Vert & \neq0,\label{eq:f_vec not equal zero}
+\Vert(k_{x}+k_{xD})e_{x}+(k_{v}+k_{vD})e_{v}+mge_{3}-m\ddot{x}_{d}\Vert & \neq0,\label{eq:f_vec not equal zero}
 \end{align}
 
 \end_inset
@@ -476,7 +477,7 @@ noprefix "false"
 f_{1} & f_{2} & f_{3} & f_{4}\end{array}\right]^{T}$
 \end_inset
 
- by mutiply the inverse allocation matrix as
+ by multiplying the inverse allocation matrix as
 \end_layout
 
 \begin_layout Standard
@@ -688,7 +689,7 @@ Afterwards, substituting with
 \begin_inset Formula $f$
 \end_inset
 
- with 
+ with (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:force control input"
@@ -698,7 +699,7 @@ noprefix "false"
 
 \end_inset
 
- yields
+) yields
 \end_layout
 
 \begin_layout Standard

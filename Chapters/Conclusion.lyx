@@ -94,17 +94,17 @@ name "sec:Conclusion"
 \begin_layout Standard
 This research has developed the high gain geometric tracking controller
  with the feedback of the motors efficiency to controll a multirotor and
- the CTS under the influence of defective motors and UKF model for estimating
- the motors efficicency of a multirotor and the CTS.
- The controller can endure the disturbance caused by the defective motors
- and the error of the feedback motors efficiency.
+ the CTS under the influence of defective motors and the error of feedback
+ motors efficiency estimated by UKF model ,and the developed controller
+ can endure the disturbance caused by the defective motors and the error
+ of the feedback motors efficiency.
  Though the defective motors lead to more translational and rotational error,
  the feedback estimated motors efficiency significantly reduce the error
  during flight.
  That is to say the performance of the flight is improved when the motors
  of the multirotor is defective and is proved in experiment.
  In addition, the controller stability analysis and the observability of
- new designed UKF model observability is proved.
+ the new designed UKF model observability is proved.
 \end_layout
 
 \begin_layout Standard
