@@ -256,7 +256,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float table
-placement h
+placement H
 wide false
 sideways false
 status open
@@ -473,6 +473,7 @@ Unit
 
 \begin_layout Standard
 \begin_inset Float table
+placement H
 wide false
 sideways false
 status open
@@ -778,7 +779,7 @@ noprefix "false"
 
 \end_inset
 
- with 
+ which had 
 \begin_inset Formula $\pm10\%$
 \end_inset
 
@@ -803,6 +804,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -810,7 +812,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/fault_condition.PNG
+	filename ../Figures/png/fault_condition.PNG
 	lyxscale 50
 	width 70col%
 
@@ -856,7 +858,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/eps/estimated_the_motors_efficiency-exp.eps
+	filename ../Figures/eps/estimated_the_motors_efficiency-exp.eps
 	lyxscale 50
 	width 100col%
 
@@ -995,6 +997,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -1002,7 +1005,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/eps/2D_position_comparison.eps
+	filename ../Figures/eps/2D_position_comparison.eps
 	lyxscale 50
 	width 100col%
 
@@ -1083,7 +1086,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/eps/X_position_comparison.eps
+	filename ../Figures/eps/X_position_comparison.eps
 	lyxscale 50
 	width 98col%
 
@@ -1129,7 +1132,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/eps/Z_position_comparison.eps
+	filename ../Figures/eps/Z_position_comparison.eps
 	lyxscale 50
 	width 98col%
 
@@ -1192,6 +1195,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -1199,7 +1203,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/eps/thrust_command.eps
+	filename ../Figures/eps/thrust_command.eps
 	lyxscale 50
 	width 100col%
 

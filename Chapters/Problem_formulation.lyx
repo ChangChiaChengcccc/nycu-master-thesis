@@ -105,9 +105,9 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/dynamics.png
+	filename ../Figures/png/dynamics.png
 	lyxscale 60
-	width 60col%
+	width 50col%
 
 \end_inset
 
@@ -815,9 +815,9 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/q1q2dynamics.png
+	filename ../Figures/png/q1q2dynamics.png
 	lyxscale 60
-	width 100col%
+	width 80col%
 
 \end_inset
 

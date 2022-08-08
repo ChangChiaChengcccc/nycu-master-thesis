@@ -250,7 +250,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/simulation_multirotor1.PNG
+	filename ../Figures/png/simulation_multirotor1.PNG
 	lyxscale 65
 	scale 70
 
@@ -1308,7 +1308,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/3Dtrajectory.PNG
+	filename ../Figures/png/3Dtrajectory.PNG
 	lyxscale 60
 	width 100col%
 
@@ -1432,7 +1432,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/eps/position_error.eps
+	filename ../Figures/eps/position_error.eps
 	lyxscale 60
 	width 100col%
 
@@ -1786,7 +1786,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/eps/thrust_cmd.eps
+	filename ../Figures/eps/thrust_cmd.eps
 	lyxscale 60
 	width 100col%
 
@@ -2029,7 +2029,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/simulation_CTS.PNG
+	filename ../Figures/png/simulation_CTS.PNG
 	lyxscale 65
 	scale 50
 
@@ -3700,7 +3700,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/3Dtrajectory_CTS.PNG
+	filename ../Figures/png/3Dtrajectory_CTS.PNG
 	lyxscale 60
 	width 100col%
 
@@ -3825,7 +3825,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/eps/CTS_position_error.eps
+	filename ../Figures/eps/CTS_position_error.eps
 	lyxscale 60
 	width 100col%
 
@@ -4010,7 +4010,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/eps/CTS_angular_velocity_error.eps
+	filename ../Figures/eps/CTS_angular_velocity_error.eps
 	lyxscale 60
 	width 100col%
 
@@ -4116,7 +4116,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/eps/CTS1-estimated_the_motors_efficiency.eps
+	filename ../Figures/eps/CTS1-estimated_the_motors_efficiency.eps
 	lyxscale 60
 	width 100col%
 

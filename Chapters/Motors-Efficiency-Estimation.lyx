@@ -226,6 +226,7 @@ The predict model of the multirotor
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -233,7 +234,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/UKF_multrotor_coodinate.png
+	filename ../Figures/png/UKF_multrotor_coodinate.png
 	lyxscale 50
 	width 50col%
 
@@ -338,6 +339,7 @@ noprefix "false"
 \begin_layout Standard
 \align center
 \begin_inset Float table
+placement H
 wide false
 sideways false
 status open
@@ -1063,6 +1065,7 @@ s and payload.
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -1070,7 +1073,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/UKF_CTS_sensors.png
+	filename ../Figures/png/UKF_CTS_sensors.png
 	lyxscale 50
 	width 100col%
 
@@ -1303,9 +1306,9 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/single_quadrotor.png
+	filename ../Figures/png/single_quadrotor.png
 	lyxscale 70
-	width 70col%
+	width 50col%
 
 \end_inset
 
@@ -1446,9 +1449,9 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/dependent_payload.png
+	filename ../Figures/png/dependent_payload.png
 	lyxscale 50
-	width 100col%
+	width 70col%
 
 \end_inset
 
@@ -1627,7 +1630,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/johnsongash/Desktop/nycu-master-thesis/Figures/png/UKF_CTS_coodinate.png
+	filename ../Figures/png/UKF_CTS_coodinate.png
 	lyxscale 50
 	width 70col%
 
@@ -1728,7 +1731,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float table
-placement h
+placement H
 wide false
 sideways false
 status open
