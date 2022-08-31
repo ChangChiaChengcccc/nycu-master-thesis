@@ -91,6 +91,10 @@ name "sec:Experiments"
 
 \end_layout
 
+\begin_layout Subsection
+The Multirotor
+\end_layout
+
 \begin_layout Standard
 In this section, the experimental results using developed controller are
  presented.
@@ -125,7 +129,7 @@ in the flight experiments.
  without the motors efficiency feedback is presented.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Hardware Architecture
 \end_layout
 
@@ -185,7 +189,7 @@ name "fig:Hardware Architecture"
 
 \end_inset
 
-Hardware architecture.
+The Multirotor Hardware architecture.
 \end_layout
 
 \end_inset
@@ -228,7 +232,7 @@ noprefix "false"
  The ground truth of moment of inertia was obtained by establishing the
  physical model of the multirotor in the Simscape environment and the ground
  truth of mass was measured on the scales.
- The ground truth of moment of inertia 
+ The value of moment of inertia 
 \begin_inset Formula $J$
 \end_inset
 
@@ -236,7 +240,7 @@ noprefix "false"
 \begin_inset Formula $m$
 \end_inset
 
- in Table
+ are represented in Table
 \begin_inset space ~
 \end_inset
 
@@ -250,8 +254,7 @@ noprefix "false"
 
 \end_inset
 
- were unknown parameters to be estimated in the experiments, and were used
- for evaluating the estimate error but not for implementing the controller.
+.
 \end_layout
 
 \begin_layout Standard
@@ -663,7 +666,7 @@ Value
 
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Trajectory Generation
 \begin_inset CommandInset label
 LatexCommand label
@@ -736,7 +739,7 @@ where
 
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Estimate of the Motors Efficiency
 \end_layout
 
@@ -891,7 +894,7 @@ Estimates of the motors efficiency of the multirotor in the experiments.
 
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Tracking Performance
 \end_layout
 
@@ -1230,13 +1233,678 @@ Thrust Command
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+The CTS
+\end_layout
+
+\begin_layout Standard
+In this section, the CTS experimental control performance using developed
+ controller are presented.
+ The UKF estimator hasn't be verified through experiment because the force
+ and torque sensors haven't arrived yet.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Hardware Architecture
+\end_layout
+
+\begin_layout Standard
+Two DJI F450 frame of multirotors are deployed as the hardware architecture
+ to implement the developed controller in the experiments.
+ XBee modules are equipped to both of multirotors to communicate between
+ the multirotors and the ground station.
+ Both of multirotors don't communicate with each other.
+ Angular velocity and acceleration for obtaining the attitude of the multirotors
+ are measured from inertial measurement unit (IMU) respectively, and the
+ position of the CTS is measured from motion capture system (Optitrack)
+ with 12 cameras.
+ Noted that the position mark is placed on the payload, and both of multirotors
+ receive only the CTS position instead of their own position respectively.
+ The configuration of the CTS is shown in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Hardware Architecture CTS"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
 \begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../Figures/jpg/CTS.jpg
+	lyxscale 20
+	width 100col%
+	rotateAngle 90
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Hardware Architecture CTS"
+
+\end_inset
+
+The CTS Hardware architecture.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+The ground truth parameters, control gains, and parameters used in the developed
+ controller are listed in Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Parameters-in-Experiments-CTS"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Control-gains-in-Experiments-CTS"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, respectively.
+ The ground truth of moment of inertia was obtained by establishing the
+ physical model of the multirotor in the Simscape environment and the ground
+ truth of mass was measured on the scales.
+ The value of moment of inertia 
+\begin_inset Formula $J_{s}$
+\end_inset
+
+, mass 
+\begin_inset Formula $m_{s}$
+\end_inset
+
+ and the distance between the multirotor and COM of the CTS 
+\begin_inset Formula $r$
+\end_inset
+
+ are represented in Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Parameters-in-Experiments-CTS"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Parameters-in-Experiments-CTS"
+
+\end_inset
+
+Parameters used in the experiments
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Parameter
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Unit
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $m_{s}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $2.36$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{kg}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $J_{s}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathrm{diag(}\left[0.395,0.023,0.410\right])$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{kg}\cdot\text{m}^{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $r$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.403$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\text{m}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
 
 \end_layout
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Control-gains-in-Experiments-CTS"
+
+\end_inset
+
+Control gains used in the experiments
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Parameter
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $k_{x}+k_{xD}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $diag([8,12,30])$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $k_{v}+k_{vD}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $diag([2,4.4,12])$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $k_{R}+k_{RD}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $diag([15,5,42.6])$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $k_{\Omega}+k_{\Omega D}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $diag([1.4,0.5,2.94])$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Tracking Performance
+\end_layout
+
+\begin_layout Standard
+After a minimum-snap trajectory being generated in Section.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Trajectory-Generation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we test our developed controller with two runs of the trajectory.
+ The two dimensions heart trajectory tracking performance are presented
+ in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Tracking-performance-of-the-2D-position-CTS"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ In Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Tracking-performance-of-the-2D-position-CTS"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the Desired Position line represents the position trajectory of the CTS
+ and the Real Position line represents the experimental position trajectory
+ of the CTS.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../Figures/png/CTS_pos.png
+	lyxscale 50
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Tracking-performance-of-the-2D-position-CTS"
+
+\end_inset
+
+Tracking performance of the 2D position
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Tracking-performance-of-the-2D-position-CTS"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ verifies that the CTS is be able to track a heart trajectory with the developed
+ controller.
 \end_layout
 
 \end_body

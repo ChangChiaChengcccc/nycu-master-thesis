@@ -823,7 +823,7 @@ Afterwards, substituting with
 \begin_inset Formula $M$
 \end_inset
 
- with 
+ with (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:moment control input"
@@ -833,7 +833,7 @@ noprefix "false"
 
 \end_inset
 
- yields
+) yields
 \end_layout
 
 \begin_layout Standard

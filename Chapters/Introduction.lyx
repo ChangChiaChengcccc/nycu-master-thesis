@@ -236,9 +236,9 @@ One of seniors in the lab did the research about Parameter Estimation and
  The situation is reasonable because my senior doesn't put the battery power
  model in his reseach.
  As mentioned above, the unmodeled hardware effect does influence the research,
- and I was curious that if I could do qualitative and quantitative analysis
- to not ideal hardware effect.
- Eventually, I select motors on a multirotor as my research subject.
+ but there was no qualitative and quantitative analysis to not ideal hardware
+ effect in that research.
+ Eventually, motors on a multirotor were selected as this research subject.
 \end_layout
 
 \begin_layout Subsection
@@ -289,6 +289,14 @@ literal "false"
 
 \end_inset
 
+ and 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Izadi2011"
+literal "false"
+
+\end_inset
+
 .
  In 
 \begin_inset CommandInset citation
@@ -299,13 +307,13 @@ literal "false"
 \end_inset
 
 , to estimate the efficiency of all motors on a quadrotor, the author first
- builds the dynamics of multirotor with fault and discretizes the linear
+ builded the dynamics of multirotor with fault and discretized the linear
  control system.
- Then, the author designs the states vector and measurements of the motors
- efficiency estimator and proves the stability of the estimator with Lyapunov
+ Then, the author designed the states vector and measurements of the motors
+ efficiency estimator and proved the stability of the estimator with Lyapunov
  analysis and theory.
- Although the estimation of the motors efficiency roughly matches the ground
- truth value, it still has about 15% estimation error.
+ Although the estimation of the motors efficiency roughly matched the ground
+ truth value, it still had about 15% estimation error.
  In addition, the estimator in 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -314,10 +322,24 @@ literal "false"
 
 \end_inset
 
- is linear, which means the research has linearized the highly nonlinear
+ was linear, which meant the research had linearized the highly nonlinear
  system.
  On the other hand, the present work designs the UKF model which is suitable
  for nonlinear system to estimate the motors efficiency.
+ In 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Izadi2011"
+literal "false"
+
+\end_inset
+
+, the author succeeded to estimate the motors efficiency of a quadrotor
+ by UKF and Moving Horizon Estimation (MHE) methods, and both estimators
+ effectiveness were validified through simulation.
+ However, the dynamics of a quadrotor was simplified to hovering maneuver,
+ which might lead to estimate error when the quadrotor moved too fast, and
+ the detail UKF model was omitted in the research.
 \end_layout
 
 \begin_layout Subsubsection
@@ -405,13 +427,27 @@ literal "false"
 
 \end_inset
 
-, the author adopts a cascaded proportional-integral-derivative (PID) control,
- and defines the motors fault variable in control input.
- After the estimator detects the motors fault, the FTC provides control
- reconfiguration, and sacrifices heading angle command.
- In contrast, the present work adopts nonlinear control method with stability
+, the author adopted a cascaded proportional-integral-derivative (PID) control,
+ and defined the motors fault variable in control input.
+ After the estimator detected the motors fault, the FTC provided control
+ reconfiguration, and sacrificed heading angle command.
+ In contrast, the present work adopted nonlinear control method with stability
  analysis to deal with the highly nonlinear multirotor dynamics, and the
- yaw angle is controlled despite the motors fault.
+ yaw angle was controlled despite the motors fault.
+ In 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Izadi2011"
+literal "false"
+
+\end_inset
+
+, the author adopted Model Predictive Control (MPC).
+ MPC minimized a objective cost function subject to dynamical constraints
+ to obtain a stabilizing control signal at each time step.
+ Further, MPC was one of the few methodologies that can be used to design
+ feedback control for nonlinear dynamical systems taking into consideration
+ of actuator saturation.
  In addition to the active FTCs, there are numerous intelligent passive
  FTCs are based on sliding mode control (SMC) 
 \begin_inset CommandInset citation
@@ -429,7 +465,7 @@ literal "false"
 
 \end_inset
 
-, and they are developed to solve the uncertainties, unmodeled variables
+, and they were developed to solve the uncertainties, unmodeled variables
  and disturbances.
  The SMCs have high compatibility so that they are capable to be compatible
  with other techniques including adaptive control and backstepping control.
@@ -439,7 +475,7 @@ ess of resisting disturbances and the flight performance is great.
  Besides, the stability analysis of the SMCs are rigorously proved according
  to the Lyapunov analysis and theory.
  However, they experience the unfavorable problem of oscillations with finite
- amplitude and frequency, that is 'chattering'.
+ amplitude and frequency, that is chattering problem.
  The chattering problem is caused by two primary reasons, fast dynamics
  and the use of digital controllers with finite sampling time.
  Chattering is a harmful phenomenon because it leads to low control accuracy,
