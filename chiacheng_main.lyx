@@ -16,8 +16,10 @@
 \def\masterThesisEn{Master Thesis}
 \def\masterThesisCh{碩士論文}
 \def\degree{Master in Science}
-\def\titleCh{基於無損卡爾曼濾波與非線性控制器之無人機馬達效率估測與控制}
-\def\titleEn{Motor Efficiency Estimation and Control of Multirotors Based On Unscented Kalman Filter and Geometic Tracking Controller}
+\def\titleCh{基於無損卡爾曼濾波與非線性控制器之無人機和協同搬運系統馬達效率估測與控制}
+\def\titleEn{Motors Efficiency Estimation and Control of a Multirotor and Cooperative Transportation System Based On 
+Unscented Kalman Filter and Geometic Tracking Controller
+}
 \def\studentEn{Chia-Cheng Chang}
 \def\studentCh{張家誠}
 \def\advisorEn{Teng-Hu Cheng}
